@@ -6,80 +6,88 @@ let socket = io();
 let s;
 let foodCounter;
 let foods;
+let players =[];
+let ctx;
+let windowX = 900;
+let windowY = 700;
 
+function updateDisplay(pack){
+    ctx.clearRect(0, 0 , 900, 700);
+    console.log(pack);
+    for (let i in pack){
 
-
-
-function setup() {
-    frameRate(60);
-    createCanvas(900, 700);
-    emitNewCanvas();
-    foodCounter = 0;
-    foods = [];
-    emitNewPlayer();
+        ctx.fillRect(pack[i].x, pack[i].y, 10, 10)
+    }
 
 }
 
-// this needs to be handled inside of sketch.js because of how
-// p5.js works
-function keyPressed(keyCode){
-    let dirPackage= {};
-    console.log(keyCode);
-    dirPackage['keyCode'] = keyCode['key'];
-    dirPackage['xSpeedDelta'] = s.xSpeedDelta;
-    dirPackage['ySpeedDelta'] = s.ySpeedDelta;
-    emitDirection(dirPackage);
+$(function(){
+
+    ctx = document.getElementById('ctx').getContext('2d');
+    ctx.font = '30 px Arial';
+    ctx.clearRect(0, 0 , 900, 700);
+    ctx.fillText('P', 400, 500);
+
+});
+
+$(document).keydown((event)=>{
+   keyDownHandler(event);
+});
+/*
+$(document).keyup((event)=>{
+   keyUpHandler(event);
+});
+*/
+
+function keyDownHandler(event){
+    let pack = {};
+    pack.id = socket.id;
+    pack.state = true;
+    console.log(event);
+    if (event.keyCode === (68 || 39)){   //d or right
+        pack.key = 'right';
+    }
+    else if (event.keyCode === (83 || 40)) {  //s or down
+        pack.key = 'down';
+    }
+    else if (event.keyCode === (87 || 38)){ // w or up
+        pack.key = 'up';
+    }
+    else if (event.keyCode === (65 || 37)){ // a or left
+        pack.key = 'left';
+    }
+    else {
+        return;
+    }
+    events.emitKeyPress(pack);
+
 }
 
-function generateRandom(){
-    let x = random(width);
-    let y = random(height);
+function keyUpHandler(event){
+    let pack = {};
+
+    pack.state = false;
+    if (event.keyCode === 68 || 39){   //d or right
+        pack.key = 'right';
+    }
+    else if (event.keyCode === 83 || 40) {  //s or down
+        pack.key = 'down';
+    }
+    else if (event.keyCode === 87 || 38){ // w or up
+        pack.key = 'up';
+    }
+    else if (event.keyCode === 65 || 37){ // a or left
+        pack.key = 'left';
+    }
+    else {
+        return;
+    }
+    events.emitKeyPress(pack);
+}
+
+function randomPositionOnCanvas(){
+    let x = Math.floor(Math.random() * windowX);
+    let y = Math.floor(Math.random() * windowY);
     return [x, y]
 }
 
-function createFood(){
-    //console.log("Generated new food");
-    // Food takes (x, y) as parameters
-    foods.push(new Food(generateRandom()))
-}
-
-
-
-function draw() {
-    background(51);
-
-    emitPlayerPackage();
-
-    if (foods.length < 50){
-        createFood();
-        //console.log(foods.length);
-    }
-
-    text(`Score: ${foodCounter}`, 10, 10);
-
-    //logic for food collision
-    for (let i=0; i < foods.length; i++){
-        foods[i].show();
-        if ((Math.abs(s.x - foods[i].x) < s.xsize) &&
-            (Math.abs(s.y - foods[i].y) < s.ysize)){
-            s.xSpeedDelta++;
-            s.ySpeedDelta++;
-            foods.splice(i, 1);
-            foodCounter++;
-        }
-    }
-
-
-}
-
-function loseGame(){
-    textAlign(CENTER);
-    text("You lost", width/2, height/2);
-}
-
-function showAllPlayers(players){
-    for (let i of players){
-        fill(255);
-        rect(i.x, i.y, i.xsize, i.ysize)
-    }
-}

@@ -6,8 +6,8 @@ const io = require('socket.io')(serv, {});
 const port = 1337;
 
 //import {changeDirection} from 'Player'
-const handler = require('./handler');
-const Snake = require ('./Player').Snake;
+const handler = require('./handler') ;
+const Player = require ('./Player');
 
 class Server {
     constructor(){
@@ -40,69 +40,44 @@ serv.listen(port, () => {
 
 
 SOCKET_LIST = {};
-players = [];
+players = {};
 
 // Game Data
 
 
 io.sockets.on('connection', (socket)=> {
-    console.log(players.length);
-
-    console.log(`Socket connection from ${socket.handshake.address}`);
+    let ip = socket.handshake.address;
+    console.log(`New connection from ${ip}`);
 
     SOCKET_LIST[socket.id] = socket;
+    players[socket.id] = new Player(450, 350, 10, 10);
+    players[socket.id]['id'] = socket.id;
 
-    socket.on('newPlayer', ()=> {
-        socket.emit('newPlayer', new Snake());
-    });
+    console.log(players);
 
-    socket.on('directionChange', (keyCode)=>{
-        let responsePacket = handler.changeDirection(keyCode);
-        socket.emit('directionChange', responsePacket);
-    });
-
-    socket.on('update', (player)=> {
-        let index = null;
-        for (let i in players){
-            if (players[i].id === player.id){
-                index = i;
-            }
-        }
-        if (index === null){
-            players.push(player)
-        }
-        else{
-            players[index] = player
-        }
-        //console.log(player);
-        //console.log(players.length);
-    });
-
-    socket.on('updatePlayer', (player)=>{
-        player.update();
+    socket.on('keyPress', (pack)=>{
+        handler.keyPressHandler(pack);
     });
 
     socket.on('disconnect', () => {
-        let player = players.indexOf(socket.playerid);
-        console.log('someone disconnected');
-        for (let i in SOCKET_LIST){
-            if (SOCKET_LIST[i]['id'] = socket.id){
-                delete SOCKET_LIST[i];
-            }
-        }
-        console.log(players);
+        console.log(`${ip} has disconnected.`);
+        delete players[socket.id];
         delete SOCKET_LIST[socket.id];
     })
-
-
 });
 
+module.exports.config = config = {};
+config.windowX = 900;
+config.windowY = 700;
 
 
-setInterval(()=> {
+setInterval( () => {
+    for (let i in players){
+        players[i].update();
+    }
     for (let i in SOCKET_LIST){
         let socket = SOCKET_LIST[i];
-        socket.emit('positions', players);
+        socket.emit('update', players)
     }
 }, 1000/60);
 

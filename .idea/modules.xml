@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Untangle.iml" filepath="$PROJECT_DIR$/.idea/Untangle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Multiplayer-Snake.iml" filepath="$PROJECT_DIR$/.idea/Multiplayer-Snake.iml" />
     </modules>
   </component>
 </project>

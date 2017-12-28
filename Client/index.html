@@ -2,10 +2,10 @@
 <html>
   <head>
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-    <style> body {padding: 0; margin: 0;} </style>
+    <style> body {padding: 10px; margin: 10px;} </style>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="../SharedVariables.js"></script>
     <script src="./js/p5.min.js"></script>
     <script src="./js/addons/p5.dom.min.js"></script>
     <script src="./js/addons/p5.sound.min.js"></script>
@@ -19,7 +19,8 @@
 
   </head>
   <body>
-  <label>Speed</label>
-  <input title="speedInput" id="speed" style="">
+    <canvas width="900" height="700" id="ctx" style="border:1px solid #000000;"></canvas>
+    <label>Speed</label>
+    <input title="speedInput" id="speed" style="">
   </body>
 </html>

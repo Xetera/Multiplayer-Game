@@ -1,49 +1,55 @@
-exports.Snake = class Snake{
-    constructor(){
+const config = require('../SharedVariables').config;function Player(x, y, xSize, ySize) {
+    this.x = x;
+    this.y = y;
+    this.xSpeed = 10;
+    this.ySpeed = 10;
+    this.xSpeedDelta = 10;
+    this.ySpeedDelta = 10;
+    this.xSize = xSize;
+    this.ySize = ySize;
+}
 
-        this.playerid = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
-        this.x = 900/2;
-        this.y = 700/2;
+
+Player.prototype.update = function(){
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+
+    if (this.x > 900 - this.xSize){
+        this.x = 900 - this.xSize;
+    }
+    else if (this.x < 0){
+        this.x = 0;
+    }
+    if (this.y > 700 - this.ySize){
+        this.y = 700 - this.ySize;
+    }
+    else if (this.y < 0){
+        this.y = 0;
+    }
+};
+
+
+Player.prototype.movementUpdate = function(info){
+    if (info.state === false){
+        return this.xSpeed = this.ySpeed = 0
+    }
+    if (info.key === 'left'){
+        this.xSpeed = -this.xSpeedDelta;
+        this.ySpeed = 0;
+    }
+    else if (info.key === 'right'){
+        this.xSpeed = this.xSpeedDelta;
+        this.ySpeed = 0;
+    }
+    else if (info.key === 'up'){
         this.xSpeed = 0;
-        this.ySpeed = 2;
-        this.xSpeedDelta = 2;
-        this.ySpeedDelta = 2;
-        this.xsize = 10;
-        this.ysize = 10;
-
+        this.ySpeed = -this.ySpeedDelta;
     }
-
-    update(){
-        this.x += this.xSpeed;
-        this.y += this.ySpeed;
-
-        if (this.x > width - this.xsize){
-            this.x = width - this.xsize;
-            loseGame();
-
-        }
-        else if (this.x < 0){
-            loseGame();
-            this.x = 0;
-        }
-        else if (this.y < 0){
-            loseGame();
-            this.y = 0;
-
-        }
-        else if (this.y > height - this.ysize){
-            loseGame();
-            this.y = height - this.ysize;
-
-        }
-    }
-    show(){
-        fill(255);
-        rect(this.x, this.y, this.xsize, this.ysize)
-    }
-    dir(x, y){
-        this.xSpeed = x;
-        this.ySpeed = y;
+    else if (info.key === 'down'){
+        this.xSpeed = 0;
+        this.ySpeed = this.ySpeedDelta;
     }
 
 };
+module.exports = Player;
+
