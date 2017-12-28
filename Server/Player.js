@@ -1,8 +1,9 @@
-const config = require('../SharedVariables').config;function Player(x, y, xSize, ySize) {
+const config = require('../SharedVariables').config;
+function Player(x, y, xSize, ySize) {
     this.x = x;
     this.y = y;
-    this.xSpeed = 10;
-    this.ySpeed = 10;
+    this.xSpeed = 0;
+    this.ySpeed = 0;
     this.xSpeedDelta = 10;
     this.ySpeedDelta = 10;
     this.xSize = xSize;
