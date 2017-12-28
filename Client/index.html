@@ -8,8 +8,6 @@
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
     <script src="./js/sketch.js"></script>
-    <script src="./js/Snake.js"></script>
-    <script src="./js/Food.js"></script>
     <script src="./js/Events.js"></script>
 
     <script>
@@ -20,7 +18,10 @@
     <canvas width="900" height="700" id="ctx" style="border:1px solid #000000;"></canvas>
     <form id="stats-form" onsubmit="getInfo()">
       <label>Speed</label>
-      <input title="speed-input" id="speed" style="" >
+      <input title="speed-input" id="speed" style="">
+      <br/>
+      <label>Nick:</label>
+      <input title="nick" id="nick-input" tabindex="1">
     </form>
   </body>
 </html>

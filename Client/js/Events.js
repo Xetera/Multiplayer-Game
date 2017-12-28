@@ -6,9 +6,15 @@ events.emitKeyPress = function(pack){
 };
 
 
+events.emitNewNick = function(pack){
+    socket.emit('newNick', pack)
+};
+
 
 socket.on('players', (pack)=> {
     players = pack;
+    if (!self){
+    }
 });
 
 socket.on('food', (pack) => {

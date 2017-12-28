@@ -3,22 +3,47 @@
 
 
 let socket = io();
-let s;
+let self;
 let foodCounter;
 let foods = [];
 let players = [];
 let potions = [];
 let ctx;
+
+let init_nick = false;
 let windowX = 900;
 let windowY = 700;
 
+for (let i in players){
+    console.log(players[i].id);
+    console.log(socket.id);
+    if (players[i].id === socket.id){
+        self = players[i];
+    }
+}
+
 function updateDisplay(){
-    ctx.fillStyle = "#c8cdc8";
+
+    ctx.fillStyle = "#b4b9b4";
     ctx.clearRect(0, 0 , 900, 700);
 
 
     // refreshing players
     for (let i in players){
+
+        for (let i in players){
+            if (players[i].id === socket.id){
+                self = players[i];
+                // we only want to update player nick once
+                // but we can't do it in another loop because
+                // it's not guaranteed that players will exist
+                if (!init_nick){
+                    $('#nick-input').val(players[i]['nick']);
+                }
+                init_nick = true;
+            }
+        }
+
         ctx.fillStyle = '#93d7ff';
         ctx.fillRect(players[i].x, players[i].y, 10, 10);
 
@@ -30,7 +55,8 @@ function updateDisplay(){
         else {
             nickY = players[i].y - 20;
         }
-        ctx.fillText(players[i]['nick'], players[i].x - 20, nickY);
+        ctx.textAlign = 'center';
+        ctx.fillText(players[i]['nick'], players[i].x, nickY);
     }
     // refreshing food display
     for (let i in foods){
@@ -44,18 +70,28 @@ function updateDisplay(){
         ctx.fillRect(potions[i].x, potions[i].y, 10, 10)
     }
 
+    if (!init_nick){
+    }
 
+    ctx.fillStyle = '#73b979';
+    ctx.font = '30px Arial';
+    ctx.fillText("Score: "+  self.score.toString(), 80, 50);
+    ctx.font = '10px sans-serif';
 }
 
 $(function(){
+
     ctx = document.getElementById('ctx').getContext('2d');
     ctx.font = '30 px Arial';
     ctx.clearRect(0, 0 , 900, 700);
 
+
+
     $('#stats-form').onsubmit = function(e){
         e.preventDefault();
         console.log($('#speed').val());
-    }
+    };
+
 
 
 
@@ -67,20 +103,19 @@ function getInfo(e){
     console.log(e.value);
 }
 
+$('#nick-input').submit(event => {
+    console.log(event);
+   events.emitNewNick('s');
+});
+
 $(document).keydown((event)=>{
    keyDownHandler(event);
 });
-/*
-$(document).keyup((event)=>{
-   keyUpHandler(event);
-});
-*/
 
 function keyDownHandler(event){
     let pack = {};
     pack.id = socket.id;
     pack.state = true;
-    console.log(event);
     if (event.keyCode === 68 || event.keyCode === 39){   //d or right
         pack.key = 'right';
     }
@@ -102,7 +137,7 @@ function keyDownHandler(event){
     events.emitKeyPress(pack);
 
 }
-
+/*
 function keyUpHandler(event){
     let pack = {};
 
@@ -124,10 +159,5 @@ function keyUpHandler(event){
     }
     events.emitKeyPress(pack);
 }
-
-function randomPositionOnCanvas(){
-    let x = Math.floor(Math.random() * windowX);
-    let y = Math.floor(Math.random() * windowY);
-    return [x, y]
-}
+*/
 
