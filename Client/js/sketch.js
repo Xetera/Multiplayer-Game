@@ -6,7 +6,8 @@ let socket = io();
 let s;
 let foodCounter;
 let foods = [];
-let players =[];
+let players = [];
+let potions = [];
 let ctx;
 let windowX = 900;
 let windowY = 700;
@@ -26,6 +27,11 @@ function updateDisplay(){
         ctx.fillStyle = '#f18282';
         ctx.fillRect(foods[i].x, foods[i].y, 10, 10);
 
+    }
+    // refreshing potions
+    for (let i in potions){
+        ctx.fillStyle = "#ffd376";
+        ctx.fillRect(potions[i].x, potions[i].y, 10, 10)
     }
 
 

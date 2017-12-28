@@ -40,10 +40,10 @@ serv.listen(port, () => {
 });
 
 
-SOCKET_LIST = {};
-players = {};
-foods = [];
-potions = [];
+global.SOCKET_LIST = {};
+global.players = {};
+global.foods = [];
+global.potions = [];
 
 // Game Data
 
@@ -76,6 +76,8 @@ config.windowY = 700;
 
 setInterval( () => {
     dispatch.summonFood();
+    dispatch.summonPotions();
+
     for (let i in players){
         players[i].update();
     }
@@ -83,8 +85,9 @@ setInterval( () => {
         let socket = SOCKET_LIST[i];
         socket.emit('players', players);
         socket.emit('food', foods);
+        socket.emit('potions', potions);
         socket.emit('draw');
     }
-}, 1000/60);
+}, 1000/120);
 
 

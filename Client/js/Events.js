@@ -15,6 +15,10 @@ socket.on('food', (pack) => {
     foods = pack;
 });
 
+socket.on('potions', (pack)=>{
+    potions = pack;
+});
+
 socket.on('draw', ()=>{
     updateDisplay();
 });

@@ -3,3 +3,8 @@ exports.randomCanvasPositions = function(){
     let y = Math.floor(Math.random() * config.windowY);
     return [x, y]
 };
+
+exports.checkCollision = function(a, b){
+    return (Math.abs(a.x - b.x) * 2 < (a.xSize + b.xSize)) &&
+        (Math.abs(a.y - b.y) * 2 < (a.ySize + b.ySize))
+};

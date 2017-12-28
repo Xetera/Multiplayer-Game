@@ -1,4 +1,6 @@
 const config = require('../SharedVariables').config;
+const util = require('./Utility');
+
 function Player(x, y, xSize, ySize) {
     this.x = x;
     this.y = y;
@@ -31,8 +33,7 @@ Player.prototype.update = function(){
     }
     for (let i in foods){
 
-        if ((Math.abs(this.x - foods[i].x) * 2 < (this.xSize + foods[i].xSize)) &&
-        (Math.abs(this.y - foods[i].y) * 2 < (this.ySize + foods[i].ySize))){
+        if (util.checkCollision(this, foods[i])){
             this.xSpeedDelta += foods[i].boost;
             this.ySpeedDelta += foods[i].boost;
             foods.splice(i, 1);
@@ -41,7 +42,13 @@ Player.prototype.update = function(){
             //delete foods[i];
             this.score++;
         }
-
+    }
+    for (let i in potions){
+        if (util.checkCollision(this, potions[i])){
+            this.xSpeedDelta *= potions[i].amount;
+            this.ySpeedDelta *= potions[i].amount;
+            potions.splice(i, 1);
+        }
     }
 
 };

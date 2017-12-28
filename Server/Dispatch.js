@@ -1,5 +1,5 @@
 const util = require('./Utility');
-const Food = require('./Consumables');
+const Consumable = require('./Consumables');
 
 exports.summonFood = function(){
     for (let i=0; i < 50; i++){
@@ -7,7 +7,9 @@ exports.summonFood = function(){
             return;
         }
         let [foodX, foodY] = util.randomCanvasPositions();
-        foods.push(new Food(foodX, foodY, 1));
+        let food = new Consumable.Food(foodX, foodY, 1);
+        console.log(food);
+        foods.push(food);
     }
 };
 
@@ -17,6 +19,8 @@ exports.summonPotions = function(){
           return;
       }
       let [potX, potY] = util.randomCanvasPositions();
-      potions.push(new SlowPotion(potX, potY))
+      let pot = new Consumable.SlowPotion(potX, potY, 0.9);
+      potions.push(pot);
+      console.log(pot);
   }
 };
