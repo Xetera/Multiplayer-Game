@@ -45,15 +45,17 @@ function updateDisplay(){
         }
 
         ctx.fillStyle = '#93d7ff';
-        ctx.fillRect(players[i].x, players[i].y, 10, 10);
+        ctx.fillRect(players[i].x,
+            players[i].y, players[i].xSize, players[i].ySize);
 
         let nickX;
         let nickY;
-        if (players[i].y - 10 < 0){
-            nickY = players[i].y + 25;
+        // name redrawing
+        if (players[i].y - 20 < 0){
+            nickY = players[i].y + 26;
         }
         else {
-            nickY = players[i].y - 20;
+            nickY = players[i].y - 26 ;
         }
         ctx.textAlign = 'center';
         ctx.fillText(players[i]['nick'], players[i].x, nickY);
@@ -92,7 +94,10 @@ $(function(){
         console.log($('#speed').val());
     };
 
-
+    $('#chat-input').onsubmit = (e)=> {
+        e.preventDefault();
+        console.log($('#chat-input').val());
+    };
 
 
 });
