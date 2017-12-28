@@ -3,7 +3,7 @@ class Food {
         //console.log(typeof xpos);
 
 
-        if (typeof xpos == "object"){
+        if (typeof xpos === "object"){
             this.x = xpos[0];
             this.y = xpos[1];
             return

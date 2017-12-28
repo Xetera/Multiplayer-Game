@@ -16,4 +16,17 @@ exports.changeDirection = function changeDirection(dirPackage){
     return direction;
 };
 
+exports.checkFoodCollosion = function(foodArray, player){
+    for (let i=0; i < foodArray.length; i++){
+        foodArray[i].show();
+        if ((Math.abs(player.x - foodArray[i].x) < player.xsize) &&
+            (Math.abs(player.y - foodArray[i].y) < player.ysize)){
+            player.xSpeedDelta++;
+            player.ySpeedDelta++;
+            foodArray.splice(i, 1);
+            foodCounter++;
+        }
+    }
+};
+
 //module.export = changeDirection;

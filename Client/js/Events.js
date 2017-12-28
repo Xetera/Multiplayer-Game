@@ -32,3 +32,7 @@ const emitPlayerPackage = function(){
 const emitNewPlayer = function() {
     socket.emit('newPlayer', null);
 };
+
+const emitNewCanvas = function(x, y){
+
+}

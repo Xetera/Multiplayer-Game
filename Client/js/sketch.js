@@ -1,11 +1,11 @@
 "use strict";
 
-//let socket = io.connect('http://6.68.235.189:1337');
+
 
 let socket = io();
 let s;
-let foodCounter = 0;
-let foods = [];
+let foodCounter;
+let foods;
 
 
 
@@ -13,8 +13,11 @@ let foods = [];
 function setup() {
     frameRate(60);
     createCanvas(900, 700);
-    let s;
+    emitNewCanvas();
+    foodCounter = 0;
+    foods = [];
     emitNewPlayer();
+
 }
 
 // this needs to be handled inside of sketch.js because of how
@@ -47,13 +50,9 @@ function draw() {
 
     emitPlayerPackage();
 
-    s.update();
-    s.show();
-
     if (foods.length < 50){
         createFood();
         //console.log(foods.length);
-
     }
 
     text(`Score: ${foodCounter}`, 10, 10);
@@ -80,10 +79,7 @@ function loseGame(){
 
 function showAllPlayers(players){
     for (let i of players){
-        if (i.id !== s.playerid){
-            fill(255);
-            rect(i.x, i.y, i.xsize, i.ysize)
-
-        }
+        fill(255);
+        rect(i.x, i.y, i.xsize, i.ysize)
     }
 }

@@ -7,7 +7,8 @@ const port = 1337;
 
 //import {changeDirection} from 'Player'
 const handler = require('./handler');
-const Snake = require ('./Player');
+const Snake = require ('./Player').Snake;
+
 class Server {
     constructor(){
         app.set('trust proxy', true);
@@ -17,12 +18,6 @@ class Server {
 
     }
 }
-class Connection {
-    constructor(req){
-
-    }
-}
-
 
 server = new Server();
 app.get('/', (req, res, next) => {
@@ -101,6 +96,8 @@ io.sockets.on('connection', (socket)=> {
 
 
 });
+
+
 
 setInterval(()=> {
     for (let i in SOCKET_LIST){

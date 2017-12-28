@@ -1,9 +1,9 @@
 exports.Snake = class Snake{
     constructor(){
 
-        this.playerid = random(100000, 99999);
-        this.x = width/2;
-        this.y = height/2;
+        this.playerid = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+        this.x = 900/2;
+        this.y = 700/2;
         this.xSpeed = 0;
         this.ySpeed = 2;
         this.xSpeedDelta = 2;
