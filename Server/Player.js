@@ -4,10 +4,12 @@ function Player(x, y, xSize, ySize) {
     this.y = y;
     this.xSpeed = 0;
     this.ySpeed = 0;
-    this.xSpeedDelta = 10;
-    this.ySpeedDelta = 10;
+    this.xSpeedDelta = 5;
+    this.ySpeedDelta = 5;
     this.xSize = xSize;
     this.ySize = ySize;
+
+    this.score = 0;
 }
 
 
@@ -27,6 +29,21 @@ Player.prototype.update = function(){
     else if (this.y < 0){
         this.y = 0;
     }
+    for (let i in foods){
+
+        if ((Math.abs(this.x - foods[i].x) * 2 < (this.xSize + foods[i].xSize)) &&
+        (Math.abs(this.y - foods[i].y) * 2 < (this.ySize + foods[i].ySize))){
+            this.xSpeedDelta += foods[i].boost;
+            this.ySpeedDelta += foods[i].boost;
+            foods.splice(i, 1);
+            // we don't want to use delete because it replaces i
+            // with null
+            //delete foods[i];
+            this.score++;
+        }
+
+    }
+
 };
 
 

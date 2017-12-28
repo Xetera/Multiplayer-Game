@@ -1,4 +1,4 @@
-exports.keyPressHandler =  function keyPressHandler(pack){
+exports.keyPressHandler =  function(pack){
     for (let i in players){
         if (players.hasOwnProperty(i)){
             // iterate guard
@@ -9,5 +9,6 @@ exports.keyPressHandler =  function keyPressHandler(pack){
         }
     }
 };
+
 
 //module.exports = keyPressHandler;

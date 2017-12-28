@@ -6,8 +6,9 @@ const io = require('socket.io')(serv, {});
 const port = 1337;
 
 //import {changeDirection} from 'Player'
-const handler = require('./handler') ;
+const handler = require('./handler');
 const Player = require ('./Player');
+const dispatch = require('./Dispatch');
 
 class Server {
     constructor(){
@@ -41,6 +42,8 @@ serv.listen(port, () => {
 
 SOCKET_LIST = {};
 players = {};
+foods = [];
+potions = [];
 
 // Game Data
 
@@ -72,12 +75,15 @@ config.windowY = 700;
 
 
 setInterval( () => {
+    dispatch.summonFood();
     for (let i in players){
         players[i].update();
     }
     for (let i in SOCKET_LIST){
         let socket = SOCKET_LIST[i];
-        socket.emit('update', players)
+        socket.emit('players', players);
+        socket.emit('food', foods);
+        socket.emit('draw');
     }
 }, 1000/60);
 

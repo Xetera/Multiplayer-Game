@@ -7,6 +7,14 @@ events.emitKeyPress = function(pack){
 
 
 
-socket.on('update', (pack)=> {
-    updateDisplay(pack);
+socket.on('players', (pack)=> {
+    players = pack;
+});
+
+socket.on('food', (pack) => {
+    foods = pack;
+});
+
+socket.on('draw', ()=>{
+    updateDisplay();
 });
