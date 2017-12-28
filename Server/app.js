@@ -88,6 +88,6 @@ setInterval( () => {
         socket.emit('potions', potions);
         socket.emit('draw');
     }
-}, 1000/120);
+}, 1000/60);
 
 

@@ -11,6 +11,7 @@ function Player(x, y, xSize, ySize) {
     this.xSize = xSize;
     this.ySize = ySize;
 
+    this.nick = util.generateNick();
     this.score = 0;
 }
 
@@ -73,6 +74,10 @@ Player.prototype.movementUpdate = function(info){
     else if (info.key === 'down'){
         this.xSpeed = 0;
         this.ySpeed = this.ySpeedDelta;
+    }
+    else if (info.key === 'space'){
+        this.xSpeed = 0;
+        this.ySpeed = 0;
     }
 
 };

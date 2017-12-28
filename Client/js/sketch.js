@@ -16,11 +16,21 @@ function updateDisplay(){
     ctx.fillStyle = "#c8cdc8";
     ctx.clearRect(0, 0 , 900, 700);
 
-    //console.log(pack);
+
     // refreshing players
     for (let i in players){
         ctx.fillStyle = '#93d7ff';
         ctx.fillRect(players[i].x, players[i].y, 10, 10);
+
+        let nickX;
+        let nickY;
+        if (players[i].y - 10 < 0){
+            nickY = players[i].y + 25;
+        }
+        else {
+            nickY = players[i].y - 20;
+        }
+        ctx.fillText(players[i]['nick'], players[i].x - 20, nickY);
     }
     // refreshing food display
     for (let i in foods){
@@ -82,6 +92,9 @@ function keyDownHandler(event){
     }
     else if (event.keyCode === 65 || event.keyCode === 37){ // a or left
         pack.key = 'left';
+    }
+    else if (event.keyCode === 32){
+        pack.key = 'space';
     }
     else {
         return;

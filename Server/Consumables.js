@@ -3,7 +3,6 @@ function Pickup(x, y){
     this.y = y;
     this.xSize = this.ySize= 10;
 
-
 }
 
 function Food(x, y, boost){
