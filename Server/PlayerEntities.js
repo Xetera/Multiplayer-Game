@@ -17,8 +17,8 @@ function Player(x, y, xSize, ySize) {
     this.xSpeedDelta = 5;
     this.ySpeedDelta = 5;
 
-    // the nick
-    this.nick = util.generateNick();
+    // the defaultNick
+    this.defaultNick = util.generateNick();
     this.score = 0;
 
     // this is going to be a growing limit but we need to hard cap it at some point
@@ -68,9 +68,9 @@ Player.prototype.awesome = function(){
 };
 
 /**
- * Updates player speed / direction according to the information keyPressHandler.
+ * Updates player speed / direction according to the information keyPress.
  *
- * @param   {Object}  info - Object returned from keyPressHandler.
+ * @param   {Object}  info - Object returned from keyPress.
  * @param   {string}  info.key - Name of key.
  * @param   {Boolean} info.state - whether the key is pressed or not.
  * @returns {void}

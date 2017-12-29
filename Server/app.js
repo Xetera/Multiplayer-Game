@@ -53,8 +53,7 @@ global.players = {};
 global.foods = [];
 global.potions = [];
 global.enemies = [];
-
-SOCKET_LIST = {};
+global.SOCKET_LIST = {};
 
 
 
@@ -74,21 +73,15 @@ io.sockets.on('connection', (socket)=> {
 
 
     socket.on('keyPress', (pack)=>{
-        handler.keyPressHandler(pack);
+        handler.keyPress(pack);
     });
 
 
 
     socket.on('disconnect', () => {
         console.log(`${ip} has disconnected.`);
-        // we want to make sure that people who disconnect give
-        // their default name back to the name pool so we don't run out of names
-        config.nicks.push(players[socket.id]['nick']);
-
-
-        delete players[socket.id];
-        delete SOCKET_LIST[socket.id];
-    })
+        handler.disconnectPlayer(socket, SOCKET_LIST);
+    });
 });
 
 setInterval( () => {

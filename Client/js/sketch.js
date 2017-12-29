@@ -34,11 +34,11 @@ function updateDisplay(){
         for (let i in players){
             if (players[i].id === socket.id){
                 self = players[i];
-                // we only want to update player nick once
+                // we only want to update player defaultNick once
                 // but we can't do it in another loop because
                 // it's not guaranteed that players will exist
                 if (!init_nick){
-                    $('#nick-input').val(players[i]['nick']);
+                    $('#defaultNick-input').val(players[i]['defaultNick']);
                 }
                 init_nick = true;
             }
@@ -58,7 +58,7 @@ function updateDisplay(){
             nickY = players[i].y - 26 ;
         }
         ctx.textAlign = 'center';
-        ctx.fillText(players[i]['nick'], players[i].x + (players[i].xSize/2), nickY);
+        ctx.fillText(players[i]['defaultNick'], players[i].x + (players[i].xSize/2), nickY);
     }
     // refreshing food display
     for (let i in foods){
@@ -108,7 +108,7 @@ function getInfo(e){
     console.log(e.value);
 }
 
-$('#nick-input').submit(event => {
+$('#defaultNick-input').submit(event => {
     console.log(event);
    events.emitNewNick('s');
 });

@@ -50,3 +50,9 @@ exports.generateNick = function(){
     let index = Math.floor(Math.random() * config.nicks.length);
     return config.nicks.splice(index, 1)[0];
 };
+
+exports.returnNick = function(socket){
+    // we want to make sure that people who disconnect give
+    // their default name back to the name pool so we don't run out of names
+    config.nicks.push(players[socket.id]['defaultNick']);
+};
