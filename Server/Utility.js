@@ -1,5 +1,5 @@
 const config = require('../SharedVariables');
-
+const color = require('colors');
 
 /**
  * @summary Returns a random tuple (array) of x and y
@@ -51,8 +51,34 @@ exports.generateNick = function(){
     return config.nicks.splice(index, 1)[0];
 };
 
+const Severity = Object.freeze({
+    INFO    : Symbol('symbol'),
+    WARNING : Symbol('warning'),
+    ERROR   : Symbol('error')
+});
+
+/**
+ * Better logging for the problems
+ *
+ * @param {Severity} severity
+ * @param {*} message
+ */
+exports.log = function(severity, message){
+    if (severity === Severity.INFO){
+        console.log(`[INFO]: ${message}`.green)
+    }
+    else if (severity === Severity.WARNING){
+        console.log(`[WARNING]: ${message}`.yellow)
+    }
+    else if (severity === Severity.ERROR){
+        console.log(`[ERROR]: ${message}`.red)
+    }
+
+};
 exports.returnNick = function(socket){
     // we want to make sure that people who disconnect give
     // their default name back to the name pool so we don't run out of names
     config.nicks.push(players[socket.id]['defaultNick']);
 };
+
+exports.Severity = Severity;

@@ -9,7 +9,7 @@ exports.summonFood = function(){
         }
         let [foodX, foodY] = util.randomCanvasPositions();
         let food = new Consumable.Food(foodX, foodY, 1);
-        console.log(`New Food spawned `);
+        util.log(util.Severity.INFO, `New Food Spawned x:${foodX} y:${foodY}`);
         foods.push(food);
     }
 };
