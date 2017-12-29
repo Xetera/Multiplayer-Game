@@ -6,6 +6,7 @@
  * @param  {Boolean} pack.state
  * @param  {string}  pack.id - Socket id assigned to the player
  */
+
 exports.keyPressHandler = function(pack){
     for (let i in players){
         if (players.hasOwnProperty(i)){
@@ -13,6 +14,7 @@ exports.keyPressHandler = function(pack){
 
             //
             if (players[i]['id'] === pack.id){
+                console.log(players);
                 players[i].movementUpdate(pack)
             }
         }

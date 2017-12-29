@@ -6,8 +6,8 @@ const io = require('socket.io')(serv, {});
 const port = 1337;
 
 //import {changeDirection} from 'Player'
-const handler = require('./handler');
-const Player = require ('./Entities');
+const handler = require('./Handler');
+const Player = require ('./PlayerEntities');
 const dispatch = require('./Dispatch');
 
 
@@ -62,10 +62,15 @@ io.sockets.on('connection', (socket)=> {
     console.log(`New connection from ${ip}`);
 
     SOCKET_LIST[socket.id] = socket;
-    players[socket.id] = new Player(450, 350, 10, 10);
+    // it is acceptable to do this on connection as players only get one Entity to control
+    players[socket.id] = new Player.Player(450, 350, 10, 10);
+
+    // saving socket id as our identifier, we might need a game ID later on
+    // but this is necessary to help the client identify itself easily
     players[socket.id]['id'] = socket.id;
 
     console.log(players);
+
 
     socket.on('keyPress', (pack)=>{
         handler.keyPressHandler(pack);
@@ -75,7 +80,9 @@ io.sockets.on('connection', (socket)=> {
 
     socket.on('disconnect', () => {
         console.log(`${ip} has disconnected.`);
-        delete players[socket.id];
+        // delete for Objects, splice for arrays
+
+        players.splice(players.indexOf(socket.id), 1);
         delete SOCKET_LIST[socket.id];
     })
 });
@@ -88,9 +95,13 @@ config.windowY = 700;
 setInterval( () => {
     dispatch.summonFood();
     dispatch.summonPotions();
+    dispatch.summonEnemies();
 
     for (let i in players){
         players[i].update();
+    }
+    for (let i in enemies){
+        enemies[i].update();
     }
     for (let i in SOCKET_LIST){
         let socket = SOCKET_LIST[i];
@@ -99,6 +110,7 @@ setInterval( () => {
         socket.emit('potions', potions);
         socket.emit('draw');
     }
-}, 1000/60);
+}, 1000/config.FPS);
+// 60 for now
 
 

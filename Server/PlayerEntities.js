@@ -1,46 +1,5 @@
-const config = require('../SharedVariables');
+const Entity = require('./Entity');
 const util = require('./Utility');
-
-/**
- * Base object for interactive things on the canvas. Has basic update functions
- *
- * @param {int} x - Initial X position on the canvas
- * @param {int} y - Initial Y position on the canvas
- * @param {int} xSize - Width
- * @param {int} ySize - Height
- * @constructor
- */
-
-function Entity(x, y, xSize, ySize){
-    this.x = x;
-    this.y = y;
-    this.xSize = xSize;
-    this.ySize = ySize;
-}
-
-/**
- * Base update prototype for moving the object on the canvas and limiting it
- * to the size of the canvas
- */
-
-Entity.prototype.update = function(){
-    this.x += this.xSpeed;
-    this.y += this.ySpeed;
-
-    if (this.x > config.windowX - this.xSize){
-        this.x = config.windowX - this.xSize;
-    }
-    else if (this.x < 0){
-        this.x = 0;
-    }
-    if (this.y > config.windowY - this.ySize){
-        this.y = config.windowY - this.ySize;
-    }
-    else if (this.y < 0){
-        this.y = 0;
-    }
-};
-
 
 /**
  * User controlled entity
@@ -69,9 +28,9 @@ function Player(x, y, xSize, ySize) {
  * The inherited update method is called to calculate movement automatically.
  */
 
-Player.update = function(){
+Player.prototype.update = function(){
     // calling the update method from inherited property
-    Entity.update.call(this);
+    Entity.prototype.update.call(this);
     for (let i in foods){
 
         if (util.checkCollision(this, foods[i])){
@@ -105,8 +64,8 @@ Player.update = function(){
 /**
  * Updates player movement according to the information keyPressHandler.
  *
- * @param   {Object} info - Object returned from keyPressHandler.
- * @param   {string} info.key - Name of key.
+ * @param   {Object}  info - Object returned from keyPressHandler.
+ * @param   {string}  info.key - Name of key.
  * @param   {Boolean} info.state - whether the key is pressed or not.
  * @returns {void}
  */
@@ -143,9 +102,7 @@ Player.prototype.movementUpdate = function(info){
 Player.prototype = Object.create(Entity.prototype);
 Player.constructor = Player;
 
-
 module.exports = {
-    Entity: Entity,
     Player: Player
 };
 

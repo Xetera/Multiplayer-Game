@@ -1,5 +1,6 @@
 const util = require('./Utility');
 const Consumable = require('./Consumables');
+const Enemies = require('./ComputerEntities');
 
 exports.summonFood = function(){
     for (let i=0; i < 50; i++){
@@ -27,6 +28,10 @@ exports.summonPotions = function(){
 
 exports.summonEnemies = function(){
   for (let i=0; i < 2; i++){
-
+      if(enemies.length >= 2){
+          return;
+      }
+      let [enemyX, enemyY] = util.randomCanvasPositions();
+      let enemy = new Enemies.Enemy(enemyX, enemyY, 10, 10);
   }
 };

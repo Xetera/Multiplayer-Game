@@ -117,7 +117,7 @@ $(document).keydown((event)=>{
    keyDownHandler(event);
 });
 
-//TODO: Change to enumeration from string names
+//TODO: Change pack.key identifier to enumeration from string names
 function keyDownHandler(event){
     let pack = {};
     pack.id = socket.id;

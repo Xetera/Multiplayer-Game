@@ -1,4 +1,4 @@
-const Entities = require('./Entities');
+const Entity = require('./Entity');
 const util = require('./Utility');
 
 
@@ -8,17 +8,19 @@ const util = require('./Utility');
  */
 
 function Enemy(x, y, speed, xSize, ySize){
-    Entities.Entity.call(this, x, y , xSize, ySize);
+    Entity.call(this, x, y , xSize, ySize);
     this.xSpeedDelta = this.ySpeedDelta = speed;
 
 }
 
 /**
- * Random movement from the enemy, might later be overridden by a smarter ai
+ * Random movement from the enemy, might later be overridden by a smarter ai.
  */
 
 Enemy.prototype.update = function(){
-
+    this.xSpeed = util.randRange(this.xSpeedDelta);
+    this.ySpeed = util.randRange(this.ySpeedDelta);
+    Entity.prototype.update.call(this);
 };
 
 
@@ -33,7 +35,7 @@ Enemy.prototype.grow = function(amount){
 };
 
 
-Enemy.prototype = Object.create(Entities.Entity.prototype);
+Enemy.prototype = Object.create(Entity.prototype);
 Enemy.constructor = Enemy;
 
 module.exports = {
