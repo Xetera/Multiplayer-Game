@@ -1,4 +1,4 @@
-const config = require('../SharedVariables').config;
+const config = require('../SharedVariables');
 const util = require('./Utility');
 
 function Player(x, y, xSize, ySize) {
@@ -35,8 +35,11 @@ Player.prototype.update = function(){
     for (let i in foods){
 
         if (util.checkCollision(this, foods[i])){
-            this.xSpeedDelta += foods[i].boost;
-            this.ySpeedDelta += foods[i].boost;
+            //this.xSpeedDelta += foods[i].boost;
+            //this.ySpeedDelta += foods[i].boost;
+
+            this.xSize += foods[i].boost;
+            this.ySize += foods[i].boost;
             foods.splice(i, 1);
             // we don't want to use delete because it replaces i
             // with null
@@ -81,5 +84,6 @@ Player.prototype.movementUpdate = function(info){
     }
 
 };
+
 module.exports = Player;
 

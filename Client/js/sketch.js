@@ -58,7 +58,7 @@ function updateDisplay(){
             nickY = players[i].y - 26 ;
         }
         ctx.textAlign = 'center';
-        ctx.fillText(players[i]['nick'], players[i].x, nickY);
+        ctx.fillText(players[i]['nick'], players[i].x + (players[i].xSize/2), nickY);
     }
     // refreshing food display
     for (let i in foods){

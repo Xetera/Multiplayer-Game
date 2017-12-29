@@ -1,11 +1,18 @@
 exports.randomCanvasPositions = function(){
+    // lets add a functionality to make sure that these don't spawn
+    // midway outside the canvas
     let x = Math.floor(Math.random() * config.windowX);
     let y = Math.floor(Math.random() * config.windowY);
     return [x, y]
 };
 
-exports.random = function(range){
+exports.randRange = function(range){
     return Math.floor(Math.random() * range);
+};
+
+
+exports.randBool = function(){
+  return Math.random () >= 0.5;
 };
 
 exports.checkCollision = function(a, b){
