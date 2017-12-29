@@ -57,7 +57,6 @@ Player.prototype.update = function(){
             potions.splice(i, 1);
         }
     }
-
 };
 
 

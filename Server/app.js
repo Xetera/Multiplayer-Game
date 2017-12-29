@@ -82,7 +82,8 @@ io.sockets.on('connection', (socket)=> {
         console.log(`${ip} has disconnected.`);
         // delete for Objects, splice for arrays
 
-        players.splice(players.indexOf(socket.id), 1);
+        //players.splice(players.indexOf(socket.id), 1);
+        delete players[socket.id];
         delete SOCKET_LIST[socket.id];
     })
 });
