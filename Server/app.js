@@ -59,7 +59,7 @@ global.foods = [];
 global.potions = [];
 global.enemies = [];
 global.SOCKET_LIST = {};
-
+global.debug = true;
 
 // New connection received
 io.sockets.on('connection', (socket)=> {
@@ -81,7 +81,8 @@ io.sockets.on('connection', (socket)=> {
     });
 
     socket.on('newMessage', (message)=>{
-       handler.newMessage(message);
+       let response = handler.newMessage(message);
+       util.emitAll('newMessage', response);
     });
 
     socket.on('disconnect', () => {
@@ -110,13 +111,14 @@ setInterval( () => {
     }
 
     //emitting new information to all players connected to the server
-    for (let i in SOCKET_LIST){
-        let socket = SOCKET_LIST[i];
-        socket.emit('players', players);
-        socket.emit('food', foods);
-        socket.emit('potions', potions);
-        socket.emit('draw');
-    }
+
+    util.emitAll('players', players);
+    util.emitAll('food', foods);
+    util.emitAll('potions', potions);
+    util.emitAll('food', foods);
+
+    util.emitAll('draw');
+
 }, 1000/config.FPS);
 // 60 for now
 

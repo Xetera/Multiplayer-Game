@@ -17,6 +17,11 @@ body {
     display:block;
 }
 
+.user-message {
+    font-size: 20px;
+    color: blue;
+}
+
 .white-container {
     background-color: white;
     border:1px solid #000000;
@@ -76,14 +81,6 @@ body {
     border-top-right-radius: 10px;
 }
 
-#footer {
-    width: 900px;
-    height: 30px;
-    margin-top: 10px;
-
-    border-bottom: 2px White solid;
-
-}
 
 #chat-input {
     height: 10%;
@@ -100,6 +97,31 @@ body {
 
 #chatbox {
     height: 90%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.chat-text {
+    width: 97%;
+    height: 60px;
+    margin: 5px;
+    display: flex;
+}
+.icon-container {
+    font-size: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+    display:inline;
+    padding-top: 4px;
+
+}
+.chat-icon {
+    width: 35px;
+    max-height: 35px;
 }
 
 #right-container {
@@ -117,4 +139,12 @@ body {
     width: 900px;
     height: 100px;
     margin-bottom: 10px;
+}
+#footer {
+    width: 900px;
+    height: 30px;
+    margin-top: 10px;
+    text-align: center;
+    border-bottom: 2px White solid;
+    user-select: none;
 }

@@ -9,17 +9,19 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="./js/sketch.js"></script>
     <script src="./js/Events.js"></script>
-
-    <script>
-    </script>
+    <script src="./js/Elements.js"></script>
 
   </head>
   <body>
   <div id="main">
 
   <div id="left-container" class="soft-container" >
-    <span id="chat-input" contenteditable="true" class="white-container" spellcheck="false"></span>
-    <div id="chatbox"  class="white-container"></div>
+    <span id="chat-input" contenteditable="true"
+          class="white-container" spellcheck="false"
+          onfocus="inputFocus(this)" onblur="inputBlur(this)"></span>
+    <div id="chatbox" class="white-container">
+
+    </div>
   </div>
 
 
@@ -34,7 +36,7 @@
 
       </div>
       <canvas width="900" height="700" id="ctx" class="white-container" style="border:1px solid #000000;"></canvas>
-      <div id="footer"></div>
+      <div id="footer">Add me on Discord! Xetera#9596</div>
     </div>
 
   <div id="right-container" class="soft-container" >

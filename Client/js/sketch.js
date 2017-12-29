@@ -14,6 +14,9 @@ let init_nick = false;
 let windowX = 900;
 let windowY = 700;
 
+let chatBox;
+let chatInput;
+
 for (let i in players){
     console.log(players[i].id);
     console.log(socket.id);
@@ -90,7 +93,9 @@ $(function(){
     ctx.font = '30 px Arial';
     ctx.clearRect(0, 0 , 900, 700);
 
-    let chatInput = $('#chat-input');
+    chatBox = $('#chatbox');
+    chatInput = $('#chat-input');
+
 
     $('#stats-form').onsubmit = function(e){
         e.preventDefault();
@@ -100,7 +105,27 @@ $(function(){
 
     chatInput.keypress(function(e){
         if (e.keyCode === 13) {
-            chatInput.empty();
+            if (chatInput.text() === ""){
+                console.log('returning focus');
+
+                chatInput.blur();
+                return;
+            }
+            let message = chatInput.text();
+            console.log(message);
+            chatInput.html("");
+
+            // TODO: handle cases where user has custom name
+            let pack = {
+                msg: message,
+                player : self.id,
+                nick: self.defaultNick,
+                user: true
+            };
+
+
+            // we do handling server side
+            events.emitNewMessage(pack);
         }
     });
 
@@ -128,9 +153,8 @@ $(document).keydown((event)=>{
 
 //TODO: Change pack.key identifier to enumeration from string names
 function keyDownHandler(event){
-    console.log(document.activeElement);
-    console.log($('#chat-input'))
-    if (document.activeElement === $('#chat-input')[0]){
+    // for some reason chat input selector needs an index for this
+    if (document.activeElement === chatInput[0]){
         return
     }
     console.log('moving');

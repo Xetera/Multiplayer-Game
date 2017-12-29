@@ -37,7 +37,7 @@ exports.disconnectPlayer = function(socket){
             util.returnNick(socket);
         }
 
-        // delete on Objects works properly unlike arrays
+        // delete on objects works properly unlike arrays
         delete players[socket.id];
         delete SOCKET_LIST[socket.id];
     }
@@ -48,9 +48,28 @@ exports.disconnectPlayer = function(socket){
     return true;
 };
 
-exports.newMessage = function(message){
-    message.trim();
-    if (message[0] === '/'){
-        eval(message);
+exports.newMessage = function(pack){
+    let message;
+    message = pack.msg.trim();
+    let response;
+
+    if (pack.msg[0] === '/'){
+        message = pack.slice(1, pack.msg.length);
+        console.log(message);
+        try{
+            message = eval(message);
+        }
+
+        catch (error) {
+            message = error;
+        }
+
+        finally {
+            pack.user = false;
+        }
     }
+
+    pack.msg = message;
+    console.log(pack);
+    return pack;
 };
