@@ -33,7 +33,7 @@ body {
 }
 
 .pale-container {
-    background-color: cadetblue;
+    background-color: #75d5cf;
     border:1px solid #939793;
 }
 .stats {
@@ -53,6 +53,8 @@ body {
     padding:10px;
     margin-right: 20px;
     border-radius: 10px;
+    max-width: 450px;
+
 }
 #head-container {
     display:flex;
@@ -97,7 +99,6 @@ body {
     overflow-y: hidden;
     white-space: pre;
     display:inline;
-
 }
 
 #chatbox {

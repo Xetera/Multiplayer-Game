@@ -103,7 +103,8 @@ $(function(){
     };
 
 
-    chatInput.keypress(function(e){
+    chatInput.keydown(function(e){
+        console.log(e.keyCode);
         if (e.keyCode === 13) {
             if (chatInput.text() === ""){
                 console.log('returning focus');
@@ -127,6 +128,13 @@ $(function(){
             // we do handling server side
             events.emitNewMessage(pack);
         }
+        else if (e.keyCode === 27){
+
+            chatInput.html("");
+            chatInput.blur();
+
+        }
+
     });
 
     $('#title').click(function(){
@@ -157,7 +165,6 @@ function keyDownHandler(event){
     if (document.activeElement === chatInput[0]){
         return
     }
-    console.log('moving');
     let pack = {};
     pack.id = socket.id;
     pack.state = true;
