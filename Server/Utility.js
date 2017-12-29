@@ -40,10 +40,10 @@ exports.checkCollision = function(a, b){
 /**
  * @summary Removes a random name from the nicks array and returns it. Always unique.
  *
- * @returns {string[]}
+ * @returns {string}
  */
 exports.generateNick = function(){
     console.log(nicks.length);
     let index = Math.floor(Math.random() * nicks.length);
-    return nicks.splice(index, 1);
+    return nicks.splice(index, 1)[0];
 };

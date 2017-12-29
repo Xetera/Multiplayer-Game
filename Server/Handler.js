@@ -12,9 +12,8 @@ exports.keyPressHandler = function(pack){
         if (players.hasOwnProperty(i)){
             // iterate guard
 
-            //
             if (players[i]['id'] === pack.id){
-                console.log(players);
+                console.log(Object.getOwnPropertyNames(players[i]));
                 players[i].movementUpdate(pack)
             }
         }

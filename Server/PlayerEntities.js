@@ -7,6 +7,8 @@ const util = require('./Utility');
  * @inheritDoc
  *
  */
+
+
 function Player(x, y, xSize, ySize) {
     Entity.call(this, x, y, xSize, ySize);
 
@@ -27,6 +29,8 @@ function Player(x, y, xSize, ySize) {
  * Updating the player based on its interaction with objects in the canvas.
  * The inherited update method is called to calculate movement automatically.
  */
+Player.prototype = Object.create(Entity.prototype);
+Player.prototype.constructor = Player;
 
 Player.prototype.update = function(){
     // calling the update method from inherited property
@@ -59,9 +63,12 @@ Player.prototype.update = function(){
     }
 };
 
+Player.prototype.awesome = function(){
+    console.log("Hello I am awesome");
+};
 
 /**
- * Updates player movement according to the information keyPressHandler.
+ * Updates player speed / direction according to the information keyPressHandler.
  *
  * @param   {Object}  info - Object returned from keyPressHandler.
  * @param   {string}  info.key - Name of key.
@@ -69,8 +76,10 @@ Player.prototype.update = function(){
  * @returns {void}
  */
 
+
 // TODO: create enumeration for key names instead of strings
 Player.prototype.movementUpdate = function(info){
+
     if (info.state === false){
         this.xSpeed = this.ySpeed = 0;
         return
@@ -95,11 +104,9 @@ Player.prototype.movementUpdate = function(info){
         this.xSpeed = 0;
         this.ySpeed = 0;
     }
-
 };
 
-Player.prototype = Object.create(Entity.prototype);
-Player.constructor = Player;
+
 
 module.exports = {
     Player: Player

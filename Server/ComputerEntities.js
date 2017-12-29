@@ -36,7 +36,7 @@ Enemy.prototype.grow = function(amount){
 
 
 Enemy.prototype = Object.create(Entity.prototype);
-Enemy.constructor = Enemy;
+Enemy.prototype.constructor = Enemy;
 
 module.exports = {
   Enemy: Enemy
