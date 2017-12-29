@@ -77,7 +77,7 @@ exports.checkCollision = function(a, b){
 
 
 /**
- * @summary Removes a random name from the nicks array and returns it. Always unique.
+ * Removes a random name from the nicks array and returns it. Always unique.
  *
  * @returns {string}
  */
@@ -95,7 +95,7 @@ const Severity = Object.freeze({
 });
 
 /**
- * Better logging for the problems
+ * Better logging for server side information
  *
  * @param {Severity} severity
  * @param {*} message

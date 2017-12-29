@@ -23,7 +23,6 @@ Enemy.prototype.constructor = Enemy;
 /**
  * Random movement from the enemy, might later be overridden by a smarter ai.
  */
-
 Enemy.prototype.update = function(){
     // as base enemy we want basic random movement.
     let xMovement = [-this.xSpeedDelta, 0, this.xSpeedDelta].randChoice();
