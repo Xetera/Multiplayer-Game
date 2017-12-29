@@ -1,3 +1,6 @@
+const config = require('../SharedVariables');
+
+
 /**
  * @summary Returns a random tuple (array) of x and y
  * @summary coordinates based on the canvas size.
@@ -43,7 +46,7 @@ exports.checkCollision = function(a, b){
  * @returns {string}
  */
 exports.generateNick = function(){
-    console.log(nicks.length);
-    let index = Math.floor(Math.random() * nicks.length);
-    return nicks.splice(index, 1)[0];
+    console.log(config.nicks.length);
+    let index = Math.floor(Math.random() * config.nicks.length);
+    return config.nicks.splice(index, 1)[0];
 };

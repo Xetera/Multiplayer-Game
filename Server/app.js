@@ -9,6 +9,7 @@ const port = 1337;
 const handler = require('./Handler');
 const Player = require ('./PlayerEntities');
 const dispatch = require('./Dispatch');
+const config = require('../SharedVariables');
 
 
 class Server {
@@ -80,18 +81,15 @@ io.sockets.on('connection', (socket)=> {
 
     socket.on('disconnect', () => {
         console.log(`${ip} has disconnected.`);
-        // delete for Objects, splice for arrays
+        // we want to make sure that people who disconnect give
+        // their default name back to the name pool so we don't run out of names
+        config.nicks.push(players[socket.id]['nick']);
 
-        //players.splice(players.indexOf(socket.id), 1);
+
         delete players[socket.id];
         delete SOCKET_LIST[socket.id];
     })
 });
-
-module.exports.config = config = {};
-config.windowX = 900;
-config.windowY = 700;
-
 
 setInterval( () => {
     dispatch.summonFood();
