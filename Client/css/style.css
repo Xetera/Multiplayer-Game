@@ -4,3 +4,14 @@
     border-radius: 30px;
     background-color: red;
 }
+
+#ctx {
+    left: 50%;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}

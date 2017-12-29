@@ -7,8 +7,6 @@ const util = require('./Utility');
  * @inheritDoc
  *
  */
-
-
 function Player(x, y, xSize, ySize) {
     Entity.call(this, x, y, xSize, ySize);
 
@@ -25,15 +23,19 @@ function Player(x, y, xSize, ySize) {
     this.maxSize = 50;
 }
 
-/**
- * Updating the player based on its interaction with objects in the canvas.
- * The inherited update method is called to calculate movement automatically.
+/*
+ * We have to inherit the prototypes right after we declare the constructor
+ * in order to avoid overwriting new prototypes
  */
 Player.prototype = Object.create(Entity.prototype);
 Player.prototype.constructor = Player;
 
+/**
+ * Updating the player based on its interaction with objects in the canvas.
+ * The inherited update method is called to calculate movement automatically.
+ */
 Player.prototype.update = function(){
-    // calling the update method from inherited property
+    // calling the update method from inherited prototype
     Entity.prototype.update.call(this);
     for (let i in foods){
 
@@ -50,21 +52,18 @@ Player.prototype.update = function(){
                 this.score++;
             }
 
-
+            // removing the food from the foods array after collision
             foods.splice(i, 1);
         }
     }
     for (let i in potions){
         if (util.checkCollision(this, potions[i])){
+            // SpeedPotions are multipliers
             this.xSpeedDelta *= potions[i].amount;
             this.ySpeedDelta *= potions[i].amount;
             potions.splice(i, 1);
         }
     }
-};
-
-Player.prototype.awesome = function(){
-    console.log("Hello I am awesome");
 };
 
 /**
@@ -75,8 +74,6 @@ Player.prototype.awesome = function(){
  * @param   {Boolean} info.state - whether the key is pressed or not.
  * @returns {void}
  */
-
-
 // TODO: create enumeration for key names instead of strings
 Player.prototype.movementUpdate = function(info){
 

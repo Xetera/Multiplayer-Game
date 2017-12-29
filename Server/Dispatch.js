@@ -9,7 +9,9 @@ exports.summonFood = function(){
         }
         let [foodX, foodY] = util.randomCanvasPositions();
         let food = new Consumable.Food(foodX, foodY, 1);
-        util.log(util.Severity.INFO, `New Food Spawned x:${foodX} y:${foodY}`);
+
+        // too spammy, maybe we can find a way to condense consecutive messages
+        //util.log(util.Severity.INFO, `New Food Spawned x:${foodX} y:${foodY}`);
         foods.push(food);
     }
 };
@@ -32,6 +34,7 @@ exports.summonEnemies = function(){
           return;
       }
       let [enemyX, enemyY] = util.randomCanvasPositions();
-      let enemy = new Enemies.Enemy(enemyX, enemyY, 10, 10);
+      let enemy = new Enemies.Enemy(enemyX, enemyY, 10, 10, 3);
+      enemies.push(enemy);
   }
 };

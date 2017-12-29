@@ -75,9 +75,12 @@ function updateDisplay(){
     if (!init_nick){
     }
 
+    // score display
     ctx.fillStyle = '#73b979';
     ctx.font = '30px Arial';
     ctx.fillText("Score: "+  self.score.toString(), 80, 50);
+
+    // reverting font back to default
     ctx.font = '10px sans-serif';
 }
 
@@ -87,17 +90,21 @@ $(function(){
     ctx.font = '30 px Arial';
     ctx.clearRect(0, 0 , 900, 700);
 
-
+    let chatInput = $('#chat-input');
 
     $('#stats-form').onsubmit = function(e){
         e.preventDefault();
         console.log($('#speed').val());
     };
 
-    $('#chat-input').onsubmit = (e)=> {
+    chatInput.onsubmit = (e)=> {
         e.preventDefault();
         console.log($('#chat-input').val());
     };
+
+    chatInput.click(function(){
+        this.focus();
+    });
 
 
 });

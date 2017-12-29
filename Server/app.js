@@ -80,7 +80,7 @@ io.sockets.on('connection', (socket)=> {
 
     socket.on('disconnect', () => {
         console.log(`${ip} has disconnected.`);
-        handler.disconnectPlayer(socket, SOCKET_LIST);
+        handler.disconnectPlayer(socket);
     });
 });
 
@@ -93,6 +93,7 @@ setInterval( () => {
         players[i].update();
     }
     for (let i in enemies){
+        console.log(enemies);
         enemies[i].update();
     }
     for (let i in SOCKET_LIST){
