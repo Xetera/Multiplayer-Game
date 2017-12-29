@@ -21,6 +21,7 @@ function Player(x, y, xSize, ySize) {
     this.xSize = xSize;
     this.ySize = ySize;
 
+    // the nick 
     this.nick = util.generateNick();
     this.score = 0;
     this.maxSize = 50;
@@ -49,12 +50,16 @@ Player.prototype.update = function(){
             //this.xSpeedDelta += foods[i].boost;
             //this.ySpeedDelta += foods[i].boost;
 
-            this.xSize += foods[i].boost;
-            this.ySize += foods[i].boost;
+            // in order to prevent infinite growth
+            if (this.xSize <= this.maxSize || this.ySize <= this.maxSize){
+                this.xSize += foods[i].boost;
+                this.ySize += foods[i].boost;
+            }
+
+
             foods.splice(i, 1);
-            // we don't want to use delete because it replaces i
-            // with null
-            //delete foods[i];
+            // we don't want to use delete foods[i] because it replaces i with null
+
             this.score++;
         }
     }
