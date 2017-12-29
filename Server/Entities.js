@@ -2,48 +2,70 @@ const config = require('../SharedVariables');
 const util = require('./Utility');
 
 /**
- * Base player object for interactive things on the canvas. Also used as the base for Enemy type.
+ * Base object for interactive things on the canvas. Has basic update functions
  *
  * @param {int} x - Initial X position on the canvas
  * @param {int} y - Initial Y position on the canvas
  * @param {int} xSize - Width
  * @param {int} ySize - Height
  * @constructor
+ */
+
+function Entity(x, y, xSize, ySize){
+    this.x = x;
+    this.y = y;
+    this.xSize = xSize;
+    this.ySize = ySize;
+}
+
+/**
+ * Base update prototype for moving the object on the canvas and limiting it
+ */
+
+Entity.prototype.update = function(){
+    this.x += this.xSpeed;
+    this.y += this.ySpeed;
+
+    if (this.x > config.windowX - this.xSize){
+        this.x = config.windowX - this.xSize;
+    }
+    else if (this.x < 0){
+        this.x = 0;
+    }
+    if (this.y > config.windowY - this.ySize){
+        this.y = config.windowY - this.ySize;
+    }
+    else if (this.y < 0){
+        this.y = 0;
+    }
+};
+
+
+/**
+ * User controlled entity
+ *
+ * @inheritDoc
  *
  */
 function Player(x, y, xSize, ySize) {
-    this.x = x;
-    this.y = y;
+    Entity.call(this, x, y, xSize, ySize);
+
     this.xSpeed = 0;
     this.ySpeed = 0;
     this.xSpeedDelta = 5;
     this.ySpeedDelta = 5;
-    this.xSize = xSize;
-    this.ySize = ySize;
 
-    // the nick 
+    // the nick
     this.nick = util.generateNick();
     this.score = 0;
+
+    // this is going to be a growing limit but we need to hard cap it at some point
     this.maxSize = 50;
 }
 
 
 Player.prototype.update = function(){
-    this.x += this.xSpeed;
-    this.y += this.ySpeed;
 
-    if (this.x > 900 - this.xSize){
-        this.x = 900 - this.xSize;
-    }
-    else if (this.x < 0){
-        this.x = 0;
-    }
-    if (this.y > 700 - this.ySize){
-        this.y = 700 - this.ySize;
-    }
-    else if (this.y < 0){
-        this.y = 0;
-    }
     for (let i in foods){
 
         if (util.checkCollision(this, foods[i])){
@@ -54,13 +76,15 @@ Player.prototype.update = function(){
             if (this.xSize <= this.maxSize || this.ySize <= this.maxSize){
                 this.xSize += foods[i].boost;
                 this.ySize += foods[i].boost;
+
+                // not sure if we want to restrict the player from gaining more score if they're max size
+                this.score++;
             }
 
 
             foods.splice(i, 1);
             // we don't want to use delete foods[i] because it replaces i with null
 
-            this.score++;
         }
     }
     for (let i in potions){
@@ -111,6 +135,13 @@ Player.prototype.movementUpdate = function(info){
     }
 
 };
-console.log
-module.exports = Player;
+Player.prototype = Object.create(Entity.prototype);
+Player.constructor = Player;
+
+
+module.exports = {
+    Entity: Entity,
+    Player: Player
+};
+
 

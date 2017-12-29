@@ -7,7 +7,7 @@ const port = 1337;
 
 //import {changeDirection} from 'Player'
 const handler = require('./handler');
-const Player = require ('./Player');
+const Player = require ('./Entities');
 const dispatch = require('./Dispatch');
 
 
