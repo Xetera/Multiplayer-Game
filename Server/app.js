@@ -41,12 +41,20 @@ serv.listen(port, () => {
 });
 
 
-global.SOCKET_LIST = {};
+/*
+=====================================================
+=================== Game Setup ======================
+=====================================================
+*/
+
+// Global variables
 global.players = {};
 global.foods = [];
 global.potions = [];
+global.enemies = [];
 
-// Game Data
+SOCKET_LIST = {};
+
 
 
 io.sockets.on('connection', (socket)=> {

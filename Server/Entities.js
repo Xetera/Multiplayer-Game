@@ -20,6 +20,7 @@ function Entity(x, y, xSize, ySize){
 
 /**
  * Base update prototype for moving the object on the canvas and limiting it
+ * to the size of the canvas
  */
 
 Entity.prototype.update = function(){
@@ -63,9 +64,14 @@ function Player(x, y, xSize, ySize) {
     this.maxSize = 50;
 }
 
+/**
+ * Updating the player based on its interaction with objects in the canvas.
+ * The inherited update method is called to calculate movement automatically.
+ */
 
-Player.prototype.update = function(){
-
+Player.update = function(){
+    // calling the update method from inherited property
+    Entity.update.call(this);
     for (let i in foods){
 
         if (util.checkCollision(this, foods[i])){
@@ -83,8 +89,6 @@ Player.prototype.update = function(){
 
 
             foods.splice(i, 1);
-            // we don't want to use delete foods[i] because it replaces i with null
-
         }
     }
     for (let i in potions){
@@ -99,11 +103,11 @@ Player.prototype.update = function(){
 
 
 /**
- * @summary Updates player movement according to the information
+ * Updates player movement according to the information keyPressHandler.
  *
- * @param   {Object} info - Object returned from handler.keyPressHandler
- * @param   {string} info.key - Name of key
- * @param   {Boolean} info.state - whether the key is pressed or not
+ * @param   {Object} info - Object returned from keyPressHandler.
+ * @param   {string} info.key - Name of key.
+ * @param   {Boolean} info.state - whether the key is pressed or not.
  * @returns {void}
  */
 
@@ -135,6 +139,7 @@ Player.prototype.movementUpdate = function(info){
     }
 
 };
+
 Player.prototype = Object.create(Entity.prototype);
 Player.constructor = Player;
 

@@ -1,9 +1,23 @@
 const Entities = require('./Entities');
 const util = require('./Utility');
 
-Enemy = function(x, y, speed, xSize, ySize){
+
+/** AI controlled Enemy object
+ *
+ * @inheritDoc
+ */
+
+function Enemy(x, y, speed, xSize, ySize){
     Entities.Entity.call(this, x, y , xSize, ySize);
     this.xSpeedDelta = this.ySpeedDelta = speed;
+
+}
+
+/**
+ * Random movement from the enemy, might later be overridden by a smarter ai
+ */
+
+Enemy.prototype.update = function(){
 
 };
 
@@ -18,14 +32,8 @@ Enemy.prototype.grow = function(amount){
 
 };
 
-Enemy.prototype.update = function(){
 
-};
-
-
-
-
-Enemy.prototype = Object.create(Player.prototype);
+Enemy.prototype = Object.create(Entities.Entity.prototype);
 Enemy.constructor = Enemy;
 
 module.exports = {

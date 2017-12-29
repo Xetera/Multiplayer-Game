@@ -24,3 +24,9 @@ exports.summonPotions = function(){
       console.log(pot);
   }
 };
+
+exports.summonEnemies = function(){
+  for (let i=0; i < 2; i++){
+
+  }
+};
