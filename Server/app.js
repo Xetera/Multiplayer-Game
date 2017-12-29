@@ -10,6 +10,7 @@ const handler = require('./handler');
 const Player = require ('./Player');
 const dispatch = require('./Dispatch');
 
+
 class Server {
     constructor(){
         app.set('trust proxy', true);
@@ -61,6 +62,8 @@ io.sockets.on('connection', (socket)=> {
     socket.on('keyPress', (pack)=>{
         handler.keyPressHandler(pack);
     });
+
+
 
     socket.on('disconnect', () => {
         console.log(`${ip} has disconnected.`);

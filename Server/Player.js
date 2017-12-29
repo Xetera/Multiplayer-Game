@@ -1,6 +1,16 @@
 const config = require('../SharedVariables');
 const util = require('./Utility');
 
+/**
+ * Base player object for interactive things on the canvas. Also used as the base for Enemy type.
+ *
+ * @param {int} x - Initial X position on the canvas
+ * @param {int} y - Initial Y position on the canvas
+ * @param {int} xSize - Width
+ * @param {int} ySize - Height
+ * @constructor
+ *
+ */
 function Player(x, y, xSize, ySize) {
     this.x = x;
     this.y = y;
@@ -13,6 +23,7 @@ function Player(x, y, xSize, ySize) {
 
     this.nick = util.generateNick();
     this.score = 0;
+    this.maxSize = 50;
 }
 
 
@@ -58,9 +69,20 @@ Player.prototype.update = function(){
 };
 
 
+/**
+ * @summary Updates player movement according to the information
+ *
+ * @param   {Object} info - Object returned from handler.keyPressHandler
+ * @param   {string} info.key - Name of key
+ * @param   {Boolean} info.state - whether the key is pressed or not
+ * @returns {void}
+ */
+
+// TODO: create enumeration for key names instead of strings
 Player.prototype.movementUpdate = function(info){
     if (info.state === false){
-        return this.xSpeed = this.ySpeed = 0
+        this.xSpeed = this.ySpeed = 0;
+        return
     }
     if (info.key === 'left'){
         this.xSpeed = -this.xSpeedDelta;
@@ -84,6 +106,6 @@ Player.prototype.movementUpdate = function(info){
     }
 
 };
-
+console.log
 module.exports = Player;
 

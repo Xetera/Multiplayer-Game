@@ -1,6 +1,16 @@
+/**
+ * @summary Returns a random tuple (array) of x and y
+ * @summary coordinates based on the canvas size.
+ *
+ * @returns {int[]}
+ */
 exports.randomCanvasPositions = function(){
-    // lets add a functionality to make sure that these don't spawn
-    // midway outside the canvas
+    /*
+    lets add a functionality to make sure that these don't spawn midway outside
+    the canvas (and maybe on top of other items?) NOTE: this doesn't actually
+    break the collision algorithm it would just look better
+    */
+
     let x = Math.floor(Math.random() * config.windowX);
     let y = Math.floor(Math.random() * config.windowY);
     return [x, y]
@@ -17,12 +27,22 @@ exports.randBool = function(){
 
 exports.checkCollision = function(a, b){
     // yes, this is actually magic
-    return (Math.abs(a.x - b.x) * 2 < (a.xSize + b.xSize)) &&
-        (Math.abs(a.y - b.y) * 2 < (a.ySize + b.ySize))
+    // stolen from .NET rect collision detection
+    if (b.x < a.x + a.xSize && a.x < b.x + b.xSize && b.y < a.y + a.ySize){
+        return a.y < b.y + b.ySize;
+    }
+    else{
+        return false;
+    }
+
 };
 
+/**
+ * @summary Removes a random name from the nicks array and returns it. Always unique.
+ *
+ * @returns {string[]}
+ */
 exports.generateNick = function(){
-    // this function removes name from the array so we don't get duplicates
     console.log(nicks.length);
     let index = Math.floor(Math.random() * nicks.length);
     return nicks.splice(index, 1);

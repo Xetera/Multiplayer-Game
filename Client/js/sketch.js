@@ -52,7 +52,7 @@ function updateDisplay(){
         let nickY;
         // name redrawing
         if (players[i].y - 20 < 0){
-            nickY = players[i].y + 26;
+            nickY = players[i].y + 26 + players[i].ySize;
         }
         else {
             nickY = players[i].y - 26 ;
@@ -117,6 +117,7 @@ $(document).keydown((event)=>{
    keyDownHandler(event);
 });
 
+//TODO: Change to enumeration from string names
 function keyDownHandler(event){
     let pack = {};
     pack.id = socket.id;
