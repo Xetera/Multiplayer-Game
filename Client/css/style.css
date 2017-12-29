@@ -1,17 +1,63 @@
+html{
+    height:100%;
+}
+body {
+    overflow:hidden;
+    background-color: #ffc194;
+    padding-top: 20px;
+    min-height:100%;
+}
+
 .node {
     height: 20px;
     width: 20px;
     border-radius: 30px;
     background-color: red;
 }
-
-#ctx {
-    left: 50%;
+.white-container {
+    background-color: white;
+    border:1px solid #000000;
 }
 
-.center {
-    margin: auto;
-    width: 50%;
-    border: 3px solid green;
-    padding: 10px;
+.soft-container {
+    background-color: #ffdede;
+    border:1px solid #939793;
+}
+
+#main {
+    display:flex;
+    height: 100%;
+}
+
+#left-container {
+    display: flex;
+    flex-direction: column-reverse;
+    width:25%;
+    padding:10px;
+    margin-right: 20px;
+}
+
+#chat-input {
+    height: 10%;
+    margin-top: 10px;
+}
+
+#chatbox {
+    height: 90%
+}
+
+#right-container {
+    width:25%;
+    margin-left: 20px;
+}
+
+#mid-container {
+
+}
+
+#stats-container {
+    border:1px solid #000000;
+    width: 900px;
+    height: 100px;
+    margin-bottom: 10px;
 }
