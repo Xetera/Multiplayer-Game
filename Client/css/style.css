@@ -31,6 +31,11 @@ body {
     background-color: #ffdede;
     border:1px solid #939793;
 }
+
+.pale-container {
+    background-color: cadetblue;
+    border:1px solid #939793;
+}
 .stats {
     margin: 5px;
     border-bottom: 1px solid #EFF2F6;
@@ -106,10 +111,13 @@ body {
 
 .chat-text {
     width: 97%;
-    height: 60px;
+    min-height: 60px;
+    height: auto;
     margin: 5px;
     display: flex;
+    overflow:hidden;
 }
+
 .icon-container {
     font-size: 10px;
     margin-left: 10px;
@@ -119,6 +127,8 @@ body {
     padding-top: 4px;
 
 }
+
+
 .chat-icon {
     width: 35px;
     max-height: 35px;

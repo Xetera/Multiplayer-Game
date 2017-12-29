@@ -54,22 +54,26 @@ exports.newMessage = function(pack){
     let response;
 
     if (pack.msg[0] === '/'){
-        message = pack.slice(1, pack.msg.length);
-        console.log(message);
+        response = pack.msg.slice(1, pack.msg.length);
+        console.log(response);
+
         try{
-            message = eval(message);
+            response = eval(response);
         }
 
         catch (error) {
-            message = error;
+            response = error;
         }
 
         finally {
             pack.user = false;
+            pack.msg = `${message} => ${response}`
         }
     }
+    else{
+        pack.msg = message;
 
-    pack.msg = message;
-    console.log(pack);
+    }
+
     return pack;
 };

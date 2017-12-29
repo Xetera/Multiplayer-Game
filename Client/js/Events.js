@@ -26,7 +26,7 @@ socket.on('newMessage', (pack)=>{
         nick = "SERVER"
     }
     let element =
-        `<div class="chat-text soft-container">
+        `<div class="chat-text pale-container">
             <div class="icon-container">
                 <img src="${userImage}"  class="chat-icon">
                 <br/>
