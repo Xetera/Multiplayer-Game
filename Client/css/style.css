@@ -1,19 +1,22 @@
-html{
-    height:100%;
+@font-face {
+    font-family: Ubuntu;
+    src: url('Ubuntu-B.ttf');
+
+}
+html, body{
+    margin:0;
+    padding:0;
+    height:99%;
+    font-family: Ubuntu;
+    -webkit-font-smoothing: antialiased;
 }
 body {
     overflow:hidden;
     background-color: #ffc194;
-    padding-top: 20px;
-    min-height:100%;
+    padding: 10px;
+    display:block;
 }
 
-.node {
-    height: 20px;
-    width: 20px;
-    border-radius: 30px;
-    background-color: red;
-}
 .white-container {
     background-color: white;
     border:1px solid #000000;
@@ -23,7 +26,11 @@ body {
     background-color: #ffdede;
     border:1px solid #939793;
 }
-
+.stats {
+    margin: 5px;
+    border-bottom: 1px solid #EFF2F6;
+    box-shadow: inset 0 3px 0 0 #AFBCC6
+}
 #main {
     display:flex;
     height: 100%;
@@ -35,15 +42,64 @@ body {
     width:25%;
     padding:10px;
     margin-right: 20px;
+    border-radius: 10px;
+}
+#head-container {
+    display:flex;
+    height: 170px;
+    margin-bottom: 10px;
+    width: 900px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+#left-stats-container {
+    width:35%;
+    border-top-left-radius: 10px;
+}
+
+#title {
+    width: 30%;
+    margin: 5px;
+    font-size: 60px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 140px;
+
+    border:2px outset #999;
+
+    cursor: pointer;
+}
+
+#right-stats-container{
+    width: 35%;
+    border-top-right-radius: 10px;
+}
+
+#footer {
+    width: 900px;
+    height: 30px;
+    margin-top: 10px;
+
+    border-bottom: 2px White solid;
+
 }
 
 #chat-input {
     height: 10%;
     margin-top: 10px;
+    padding-top: 5px;
+    padding-left: 15px;
+    font-size: 50px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: pre;
+    display:inline;
+
 }
 
 #chatbox {
-    height: 90%
+    height: 90%;
 }
 
 #right-container {
@@ -52,6 +108,7 @@ body {
 }
 
 #mid-container {
+    width: 50%;
 
 }
 

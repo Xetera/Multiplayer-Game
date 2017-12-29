@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-    <style> body {padding: 10px; margin: 10px;} </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
@@ -19,18 +18,23 @@
   <div id="main">
 
   <div id="left-container" class="soft-container" >
-    <div id="chat-input" class="white-container"></div>
-    <div id="chatbox" class="white-container"></div>
+    <span id="chat-input" contenteditable="true" class="white-container" spellcheck="false"></span>
+    <div id="chatbox"  class="white-container"></div>
   </div>
-    <!--
-  <div id="title"></div> -->
+
+
 
     <div id="mid-container">
-      <div id="stats-container" class="white-container">
+      <div id="head-container" class="soft-container">
+        <div id="left-stats-container" class="soft-container stats"></div>
+        <div id="title" class="">Blocks</div>
+        <div id="right-stats-container" class="soft-container stats">
+      </div>
+
 
       </div>
       <canvas width="900" height="700" id="ctx" class="white-container" style="border:1px solid #000000;"></canvas>
-
+      <div id="footer"></div>
     </div>
 
   <div id="right-container" class="soft-container" >

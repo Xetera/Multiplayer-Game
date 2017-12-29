@@ -80,6 +80,10 @@ io.sockets.on('connection', (socket)=> {
         handler.keyPress(pack);
     });
 
+    socket.on('newMessage', (message)=>{
+       handler.newMessage(message);
+    });
+
     socket.on('disconnect', () => {
         console.log(`${ip} has disconnected.`);
         handler.disconnectPlayer(socket);

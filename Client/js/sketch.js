@@ -97,14 +97,16 @@ $(function(){
         console.log($('#speed').val());
     };
 
-    chatInput.onsubmit = (e)=> {
-        e.preventDefault();
-        console.log($('#chat-input').val());
-    };
 
-    chatInput.click(function(){
-        this.focus();
+    chatInput.keypress(function(e){
+        if (e.keyCode === 13) {
+            chatInput.empty();
+        }
     });
+
+    $('#title').click(function(){
+        alert('This will do something one day.');
+    })
 
 
 });
@@ -126,6 +128,12 @@ $(document).keydown((event)=>{
 
 //TODO: Change pack.key identifier to enumeration from string names
 function keyDownHandler(event){
+    console.log(document.activeElement);
+    console.log($('#chat-input'))
+    if (document.activeElement === $('#chat-input')[0]){
+        return
+    }
+    console.log('moving');
     let pack = {};
     pack.id = socket.id;
     pack.state = true;
@@ -143,6 +151,10 @@ function keyDownHandler(event){
     }
     else if (event.keyCode === 32){
         pack.key = 'space';
+    }
+    else if (event.keyCode === 13){
+        $('#chat-input').focus();
+        return;
     }
     else {
         return;

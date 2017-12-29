@@ -48,3 +48,9 @@ exports.disconnectPlayer = function(socket){
     return true;
 };
 
+exports.newMessage = function(message){
+    message.trim();
+    if (message[0] === '/'){
+        eval(message);
+    }
+};

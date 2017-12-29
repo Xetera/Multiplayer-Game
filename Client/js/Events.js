@@ -10,6 +10,10 @@ events.emitNewNick = function(pack){
     socket.emit('newNick', pack)
 };
 
+events.emitNewMessage = function(message){
+    socket.emit('newMessage', message);
+};
+
 
 socket.on('players', (pack)=> {
     players = pack;
