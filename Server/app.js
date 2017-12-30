@@ -29,15 +29,32 @@ class Server {
 }
 
 server = new Server();
+
 app.get('/', (req, res) => {
     console.log(`Received connection from ${req.ip}`);
     res.sendFile(server.dir + '/index.html', (err) => {
-        if (err){
-            console.log(err);
-        }
+        if (err) console.log(err);
     });
-
 });
+
+app.get('/js/:module', (req, res)=>{
+    res.sendFile(server.dir + req.params.module, (err)=>{
+        if (err) console.log(err);
+    })
+});
+
+app.get('/css/:module', (req, res)=>{
+   res.sendFile(server.dir + req.params.module, (err)=>{
+      if (err) console.log(err);
+   });
+});
+
+app.get('/Media/:img', (req,res)=>{
+   res.sendFile(server.dir + req.params.img, (err)=>{
+       if (err) console.log(err);
+   })
+});
+
 
 serv.listen(port, () => {
     console.log(`Server now listening on port ${port}`)
