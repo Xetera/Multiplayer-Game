@@ -108,7 +108,6 @@ io.sockets.on('connection', (socket)=> {
         let response = handler.newMessage(message);
 
         // escape gracefully if we returned prematurely from handler
-
         if (!response){
            return;
         }

@@ -52,7 +52,7 @@ exports.newMessage = function(pack){
     let message;
     message = pack.msg.trim();
     let response;
-    if (typeof pack.ping !== 'undefined'|| pack.ping !== false){
+    if (typeof pack.ping !== 'undefined' && pack.ping !== false){
         // for catching ping response and assigning it a server status
         // since the first time a ping message comes we assign it a ping status
         // later on, it's ok to check for it here since it would only trigger this
@@ -74,14 +74,11 @@ exports.newMessage = function(pack){
             console.log("Got ping request");
             return pack;
         }
+
+        // debug cheating
         else if (toEval.trim().toLowerCase() === 'max'){
-            for (let i in players){
-                if (players[i].id === pack.id) {
-                    players[i].xSize = players[i].maxSize;
-                    players[i].ySize = players[i].maxSize;
-                    return;
-                }
-            }
+            console.log()
+
         }
 
         try{
