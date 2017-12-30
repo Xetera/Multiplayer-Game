@@ -97,10 +97,12 @@ io.sockets.on('connection', (socket)=> {
 
     socket.on('newMessage', (message)=>{
        let response = handler.newMessage(message);
+
        // checking if the message is a ping message
        if (!response.ping){
            util.emitAll('newMessage', response);
        }
+       // could be a good idea to move these special server commands
        else {
            util.emitAll('ping', response);
        }
@@ -112,6 +114,8 @@ io.sockets.on('connection', (socket)=> {
     });
 });
 
+
+// our main game loop
 setInterval( () => {
     dispatch.summonFood();
     dispatch.summonPotions();
@@ -133,11 +137,13 @@ setInterval( () => {
 
     //emitting new information to all players connected to the server
 
-    util.emitAll('players', players);
-    util.emitAll('food', foods);
-    util.emitAll('potions', potions);
-    util.emitAll('food', foods);
+    util.emitAll('playerInfo', players);
+    util.emitAll('foodInfo', foods);
+    util.emitAll('potionInfo', potions);
 
+    //util.emitAll('food', foods);
+
+    //sending empty packet to let client know it's the end of the frame
     util.emitAll('draw');
 
 }, 1000/config.FPS);

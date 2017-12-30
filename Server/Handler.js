@@ -58,10 +58,15 @@ exports.newMessage = function(pack){
 
         let toEval = pack.msg.slice(1, pack.msg.length);
 
-        if (toEval === 'ping'.trim().toLowerCase()){
+        if (toEval.trim().toLowerCase() === 'ping'){
             pack.ping = true;
-
+            console.log("Got ping request");
             return pack;
+        }
+        if (toEval.trim().toLowerCase() === 'max'){
+            for (let i in players){
+                if (players[i] === )
+            }
         }
 
         try{

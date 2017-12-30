@@ -44,7 +44,7 @@ Player.prototype.update = function(){
             //this.ySpeedDelta += foods[i].boost;
 
             // in order to prevent infinite growth
-            if (this.xSize <= this.maxSize || this.ySize <= this.maxSize){
+            if (this.xSize < this.maxSize || this.ySize < this.maxSize){
                 this.xSize += foods[i].boost;
                 this.ySize += foods[i].boost;
 

@@ -20,6 +20,7 @@ events.ping = function() {
 };
 
 socket.on('ping', (pack)=>{
+    console.log(pack);
     let currentPing = Date.now() - ping;
     let message = `[${pack.nick}] has ${currentPing} ms ping.`;
     handler.appendMessage('SERVER', 'server-message', message);
@@ -50,17 +51,17 @@ socket.on('newMessage', (pack)=>{
 
 });
 
-socket.on('players', (pack)=> {
+socket.on('playerInfo', (pack)=> {
     players = pack;
     if (!self){
     }
 });
 
-socket.on('food', (pack) => {
+socket.on('foodInfo', (pack) => {
     foods = pack;
 });
 
-socket.on('potions', (pack)=>{
+socket.on('potionInfo', (pack)=>{
     potions = pack;
 });
 
