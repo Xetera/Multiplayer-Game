@@ -1,9 +1,10 @@
 const handler = {};
 /**
+ * Appends a new chat message on the chatbox
  *
- * @param nick
- * @param hasClass
- * @param hasClass
+ * @param {string} nick
+ * @param {string} hasClass
+ * @param {string} msg
  */
 handler.appendMessage = function(nick, hasClass, msg){
 

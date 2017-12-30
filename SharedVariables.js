@@ -7,7 +7,7 @@ config.nicks =
     [
         'Don Diddly', 'Don Hancho', 'Don Quixote',
         'Don Corleone', 'Don ut', 'Don ot Disturb', 'Don Sanchez',
-        'Don Mary', 'Don Ahmed'
+        'Don Mary', 'Don Ahmed', 'Don Dale'
     ];
 
 
