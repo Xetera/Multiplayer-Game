@@ -10,7 +10,7 @@ const io = require('socket.io')(serv, {
     pingTimeout: 5000,
     cookie: false
 });
-const port = 1337;
+const port = process.env.PORT || 1337;
 
 
 const handler = require('./Handler');
