@@ -24,7 +24,7 @@ class Server {
     constructor(){
         app.set('trust proxy', true);
         app.use(express.static('../Client'));
-        this.dir = path.join(__dirname, '../Client/');
+        this.dir = path.join(process.env.PWD, '../Client/');
     }
 }
 
