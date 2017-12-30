@@ -2,36 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8c2fe415-e7b9-4df7-bf72-6bf75daa8014" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Client/Media/blue-cube.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/Media/blue-cube.png" afterPath="$PROJECT_DIR$/public/Media/blue-cube.png" />
-      <change beforePath="$PROJECT_DIR$/Client/Media/speed-icon.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/Media/speed-icon.png" afterPath="$PROJECT_DIR$/public/Media/speed-icon.png" />
-      <change beforePath="$PROJECT_DIR$/Client/css/Ubuntu-B.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/css/Ubuntu-B.ttf" afterPath="$PROJECT_DIR$/public/css/Ubuntu-B.ttf" />
-      <change beforePath="$PROJECT_DIR$/Client/css/Ubuntu-L.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/css/Ubuntu-L.ttf" afterPath="$PROJECT_DIR$/public/css/Ubuntu-L.ttf" />
-      <change beforePath="$PROJECT_DIR$/Client/css/Ubuntu-M.ttf" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/css/Ubuntu-M.ttf" afterPath="$PROJECT_DIR$/public/css/Ubuntu-M.ttf" />
-      <change beforePath="$PROJECT_DIR$/Client/css/style.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/css/style.css" afterPath="$PROJECT_DIR$/public/css/style.css" />
-      <change beforePath="$PROJECT_DIR$/Client/index.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change beforePath="$PROJECT_DIR$/Client/js/Elements.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/js/Elements.js" afterPath="$PROJECT_DIR$/public/js/Elements.js" />
-      <change beforePath="$PROJECT_DIR$/Client/js/Events.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/js/Events.js" afterPath="$PROJECT_DIR$/public/js/Events.js" />
-      <change beforePath="$PROJECT_DIR$/Client/js/Handler.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/js/Handler.js" afterPath="$PROJECT_DIR$/public/js/Handler.js" />
-      <change beforePath="$PROJECT_DIR$/Client/js/addons/p5.dom.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/js/addons/p5.dom.js" afterPath="$PROJECT_DIR$/public/js/addons/p5.dom.js" />
-      <change beforePath="$PROJECT_DIR$/Client/js/addons/p5.dom.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/js/addons/p5.dom.min.js" afterPath="$PROJECT_DIR$/public/js/addons/p5.dom.min.js" />
-      <change beforePath="$PROJECT_DIR$/Client/js/addons/p5.sound.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/js/addons/p5.sound.js" afterPath="$PROJECT_DIR$/public/js/addons/p5.sound.js" />
-      <change beforePath="$PROJECT_DIR$/Client/js/addons/p5.sound.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/js/addons/p5.sound.min.js" afterPath="$PROJECT_DIR$/public/js/addons/p5.sound.min.js" />
-      <change beforePath="$PROJECT_DIR$/Client/js/sketch.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Client/js/sketch.js" afterPath="$PROJECT_DIR$/public/js/sketch.js" />
+      <change beforePath="$PROJECT_DIR$/Server/app.js" afterPath="$PROJECT_DIR$/Server/app.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -136,8 +107,8 @@
           <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Server/app.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="299">
-                  <caret line="28" column="1" lean-forward="false" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+                <state relative-caret-position="368">
+                  <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
                   <folding />
                 </state>
               </provider>
@@ -399,17 +370,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1514438725666</updated>
-      <workItem from="1514438726929" duration="102354000" />
+      <workItem from="1514438726929" duration="102449000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102354000" />
+    <option name="totallyTimeSpent" value="102449000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17803837" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17803837" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08478261" sideWeight="0.5021322" order="0" side_tool="true" content_ui="tabs" />
@@ -672,8 +644,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="28" column="1" lean-forward="false" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+        <state relative-caret-position="368">
+          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
           <folding />
         </state>
       </provider>

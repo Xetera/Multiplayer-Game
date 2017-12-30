@@ -23,8 +23,8 @@ class Server {
     // useless object
     constructor(){
         app.set('trust proxy', true);
-        app.use(express.static('../Client'));
-        this.dir = path.join(process.env.PWD, '../Client/');
+        app.use(express.static('../public'));
+        this.dir = path.join(process.env.PWD, '../public/');
     }
 }
 
