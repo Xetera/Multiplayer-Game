@@ -1,3 +1,4 @@
+
 function inputFocus(){
         chatInput.html("");
         chatInput.css("color", "#000");
@@ -8,3 +9,4 @@ function inputBlur(i){
         chatInput.css("color", "#888");
     }
 }
+

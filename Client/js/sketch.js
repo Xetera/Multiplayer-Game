@@ -17,6 +17,8 @@ let windowY = 700;
 let chatBox;
 let chatInput;
 
+let ping;
+
 for (let i in players){
     console.log(players[i].id);
     console.log(socket.id);
@@ -47,7 +49,7 @@ function updateDisplay(){
             }
         }
 
-        ctx.fillStyle = '#93d7ff';
+        ctx.fillStyle = '#86BA90';
         ctx.fillRect(players[i].x,
             players[i].y, players[i].xSize, players[i].ySize);
 
@@ -108,7 +110,7 @@ $(function(){
         if (e.keyCode === 13) {
             if (chatInput.text() === ""){
                 console.log('returning focus');
-
+                chatInput.html("");
                 chatInput.blur();
                 return;
             }
@@ -124,9 +126,12 @@ $(function(){
                 user: true
             };
 
-
             // we do handling server side
+
+            ping = Date.now();
+
             events.emitNewMessage(pack);
+
         }
         else if (e.keyCode === 27){
 

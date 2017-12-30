@@ -3,7 +3,13 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const serv = require('http').Server(app);
-const io = require('socket.io')(serv, {});
+const io = require('socket.io')(serv, {
+    serveClient: false,
+    // below are engine.IO options
+    pingInterval: 10000,
+    pingTimeout: 5000,
+    cookie: false
+});
 const port = 1337;
 
 
@@ -64,11 +70,11 @@ global.debug = true;
 // New connection received
 io.sockets.on('connection', (socket)=> {
     let ip = socket.handshake.address;
-    console.log(`New connection from ${ip}`);
 
     SOCKET_LIST[socket.id] = socket;
     // it is acceptable to do this on connection as players only get one Entity to control
     players[socket.id] = new Player.Player(450, 350, 10, 10);
+    console.log(`New player ${ip} connected as ${players[socket.id]['defaultNick']}`);
 
     // saving socket id as our identifier, we might need a game ID later on
     // but this is necessary to help the client identify itself easily
@@ -76,13 +82,20 @@ io.sockets.on('connection', (socket)=> {
 
     console.log(players);
 
+
     socket.on('keyPress', (pack)=>{
         handler.keyPress(pack);
     });
 
     socket.on('newMessage', (message)=>{
        let response = handler.newMessage(message);
-       util.emitAll('newMessage', response);
+       // checking if the message is a ping message
+       if (!response.ping){
+           util.emitAll('newMessage', response);
+       }
+       else {
+           util.emitAll('ping', response);
+       }
     });
 
     socket.on('disconnect', () => {

@@ -52,13 +52,20 @@ exports.newMessage = function(pack){
     let message;
     message = pack.msg.trim();
     let response;
+    pack.ping = false;
 
     if (pack.msg[0] === '/'){
-        response = pack.msg.slice(1, pack.msg.length);
-        console.log(response);
+
+        let toEval = pack.msg.slice(1, pack.msg.length);
+
+        if (toEval === 'ping'.trim().toLowerCase()){
+            pack.ping = true;
+
+            return pack;
+        }
 
         try{
-            response = eval(response);
+            response = eval(toEval);
         }
 
         catch (error) {
@@ -72,7 +79,6 @@ exports.newMessage = function(pack){
     }
     else{
         pack.msg = message;
-
     }
 
     return pack;

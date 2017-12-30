@@ -15,26 +15,39 @@ events.emitNewMessage = function(pack){
     socket.emit('newMessage', pack);
 };
 
+events.ping = function() {
+    socket.emit('ping')
+};
+
+socket.on('ping', (pack)=>{
+    let currentPing = Date.now() - ping;
+    let message = `[${pack.nick}] has ${currentPing} ms ping.`;
+    handler.appendMessage('SERVER', 'server-message', message);
+    ping = 0;
+});
+
 socket.on('newMessage', (pack)=>{
     console.log(pack);
     let nick;
+    //TODO: Icons should be enums
     let userImage = './Media/blue-cube.png';
+    let hasClass;
     if (pack.user){
         nick = pack.nick
     }
     else {
         nick = "SERVER"
     }
-    let element =
-        `<div class="chat-text pale-container">
-            <div class="icon-container">
-                <img src="${userImage}"  class="chat-icon">
-                <br/>
-                <div>[${nick}]</div>
-            </div>
-            <p class="user-message">${pack.msg}</p>
-        </div>`;
-    chatBox.append(element);
+    if (pack.user){
+        hasClass = 'user-message'
+    }
+    else {
+        hasClass = 'server-message'
+    }
+
+    handler.appendMessage(nick, hasClass, pack.msg)
+
+
 });
 
 socket.on('players', (pack)=> {

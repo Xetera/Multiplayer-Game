@@ -12,28 +12,36 @@ html, body{
 }
 body {
     overflow:hidden;
-    background-color: #ffc194;
+    background-color: #DFA06E;
     padding: 10px;
     display:block;
 }
 
+.chat-body {
+    background-color: #A7CECB;
+}
 .user-message {
     font-size: 20px;
-    color: blue;
+    color: #003049;
+}
+
+.server-message {
+    font-size: 20px;
+    color: red;
 }
 
 .white-container {
-    background-color: white;
+    background-color: #EAE2B7;
     border:1px solid #000000;
 }
 
 .soft-container {
-    background-color: #ffdede;
+    background-color: #86BA90;
     border:1px solid #939793;
 }
 
 .pale-container {
-    background-color: #75d5cf;
+    background-color: #DF2935;
     border:1px solid #939793;
 }
 .stats {
@@ -77,6 +85,7 @@ body {
     text-align: center;
     vertical-align: middle;
     line-height: 140px;
+    background-color: #A7CECB;
 
     border:2px outset #999;
 
@@ -99,13 +108,17 @@ body {
     overflow-y: hidden;
     white-space: pre;
     display:inline;
+
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
 }
 
 #chatbox {
     height: 90%;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow: hidden;
     justify-content: flex-end;
     flex-shrink: 0;
 }
@@ -126,7 +139,6 @@ body {
     text-align: center;
     display:inline;
     padding-top: 4px;
-
 }
 
 
@@ -158,4 +170,15 @@ body {
     text-align: center;
     border-bottom: 2px White solid;
     user-select: none;
+}
+
+#chatbox {
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+}
+#chatbox:hover {
+    overflow-y: scroll;
+}
+#chatbox::-webkit-scrollbar {
+    display: none;
 }
