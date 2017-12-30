@@ -58,6 +58,8 @@ exports.newMessage = function(pack){
         // later on, it's ok to check for it here since it would only trigger this
         // if it was a reply
         pack.user = false;
+        // we have to unAssign ping from it so it doesn't loop
+        pack.ping = false;
     }
     else{
         pack.ping = false;
