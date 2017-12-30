@@ -65,7 +65,6 @@ exports.newMessage = function(pack){
         }
         if (toEval.trim().toLowerCase() === 'max'){
             for (let i in players){
-                if (players[i] === )
             }
         }
 
