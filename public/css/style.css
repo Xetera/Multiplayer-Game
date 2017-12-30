@@ -19,6 +19,7 @@ body {
 
 .chat-body {
     background-color: #A7CECB;
+    flex-basis: auto;
 }
 .user-message {
     font-size: 20px;
