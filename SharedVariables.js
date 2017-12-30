@@ -3,6 +3,7 @@ config.windowX = 900;
 config.windowY = 700;
 config.FPS = 60;
 
+// unique userNames
 config.nicks =
     [
         'Don Diddly', 'Don Hancho', 'Don Quixote',

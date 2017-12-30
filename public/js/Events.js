@@ -22,8 +22,9 @@ events.ping = function() {
 socket.on('ping', (pack)=>{
     console.log(pack);
     let currentPing = Date.now() - ping;
-    let message = `[${pack.nick}] has ${currentPing} ms ping.`;
-    handler.appendMessage('SERVER', 'server-message', message);
+
+    pack.msg= `[${pack.nick}] has ${currentPing} ms ping.`;
+    socket.emit('newMessage', pack);
     ping = 0;
 });
 

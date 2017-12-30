@@ -52,8 +52,17 @@ exports.newMessage = function(pack){
     let message;
     message = pack.msg.trim();
     let response;
-    pack.ping = false;
-
+    if (typeof pack.ping !== 'undefined'|| pack.ping !== false){
+        // for catching ping response and assigning it a server status
+        // since the first time a ping message comes we assign it a ping status
+        // later on, it's ok to check for it here since it would only trigger this
+        // if it was a reply
+        pack.user = false;
+    }
+    else{
+        pack.ping = false;
+    }
+    console.log(pack);
     if (pack.msg[0] === '/'){
 
         let toEval = pack.msg.slice(1, pack.msg.length);
@@ -63,8 +72,13 @@ exports.newMessage = function(pack){
             console.log("Got ping request");
             return pack;
         }
-        if (toEval.trim().toLowerCase() === 'max'){
+        else if (toEval.trim().toLowerCase() === 'max'){
             for (let i in players){
+                if (players[i].id === pack.id) {
+                    players[i].xSize = players[i].maxSize;
+                    players[i].ySize = players[i].maxSize;
+                    return;
+                }
             }
         }
 
@@ -86,4 +100,13 @@ exports.newMessage = function(pack){
     }
 
     return pack;
+};
+
+
+
+exports.emitAll = function(emitStr, packet){
+    for (let i in SOCKET_LIST){
+        let socket = SOCKET_LIST[i];
+        socket.emit(emitStr, packet)
+    }
 };

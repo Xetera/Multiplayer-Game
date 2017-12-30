@@ -77,6 +77,7 @@ Player.prototype.update = function(){
 // TODO: create enumeration for key names instead of strings
 Player.prototype.movementUpdate = function(info){
 
+    // we could at some point think about having 8 cardinal directions
     if (info.state === false){
         this.xSpeed = this.ySpeed = 0;
         return
@@ -97,6 +98,8 @@ Player.prototype.movementUpdate = function(info){
         this.xSpeed = 0;
         this.ySpeed = this.ySpeedDelta;
     }
+
+    // stopping with space
     else if (info.key === 'space'){
         this.xSpeed = 0;
         this.ySpeed = 0;

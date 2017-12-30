@@ -1,21 +1,26 @@
-// External Libraries
+// External Libraries, literally copy pasted
 const express = require('express');
 const path = require('path');
 const app = express();
 const serv = require('http').Server(app);
 const io = require('socket.io')(serv, {
     serveClient: false,
-    // below are engine.IO options
+
+    // sometimes we get double connections for some reason so
+    // this is a shitty but efficient way to deal with it
     pingInterval: 10000,
     pingTimeout: 5000,
     cookie: false
 });
+
+// Heroku does not allow hardcoded ports but we want
+// our development env to be at 1337 because we're edgy
 const port = process.env.PORT || 1337;
 
-
+// assets
 const handler = require('./Handler');
 const Player = require ('./PlayerEntities');
-const dispatch = require('./Dispatch');
+const populate = require('./Populate');
 const config = require('../SharedVariables');
 const util = require('./Utility');
 
@@ -73,14 +78,18 @@ global.foods = [];
 global.potions = [];
 global.enemies = [];
 global.SOCKET_LIST = {};
+
+// used to disable the eval function later so we don't get le epic hacked
 global.debug = true;
 
 // New connection received
 io.sockets.on('connection', (socket)=> {
+    // edgily logging connection IP like the script kiddies we are
     let ip = socket.handshake.address;
 
     SOCKET_LIST[socket.id] = socket;
     // it is acceptable to do this on connection as players only get one Entity to control
+    // but ideally we should be handling this somewhere
     players[socket.id] = new Player.Player(450, 350, 10, 10);
     console.log(`New player ${ip} connected as ${players[socket.id]['defaultNick']}`);
 
@@ -96,16 +105,23 @@ io.sockets.on('connection', (socket)=> {
     });
 
     socket.on('newMessage', (message)=>{
-       let response = handler.newMessage(message);
+        let response = handler.newMessage(message);
 
-       // checking if the message is a ping message
-       if (!response.ping){
-           util.emitAll('newMessage', response);
-       }
-       // could be a good idea to move these special server commands
-       else {
-           util.emitAll('ping', response);
-       }
+        // escape gracefully if we returned prematurely from handler
+
+        if (!response){
+           return;
+        }
+        // checking if the message is a ping message
+        if (!response.ping){
+            handler.emitAll('newMessage', response);
+        }
+
+        // could be a good idea to move these special server commands
+        else {
+            // TODO: hide ping message from the rest of the server later
+            handler.emitAll('ping', response);
+        }
     });
 
     socket.on('disconnect', () => {
@@ -117,9 +133,9 @@ io.sockets.on('connection', (socket)=> {
 
 // our main game loop
 setInterval( () => {
-    dispatch.summonFood();
-    dispatch.summonPotions();
-    dispatch.summonEnemies();
+    populate.summonFood();
+    populate.summonPotions();
+    populate.summonEnemies();
 
     for (let i in players){
         if (players.hasOwnProperty(i)){
@@ -137,16 +153,17 @@ setInterval( () => {
 
     //emitting new information to all players connected to the server
 
-    util.emitAll('playerInfo', players);
-    util.emitAll('foodInfo', foods);
-    util.emitAll('potionInfo', potions);
+    handler.emitAll('playerInfo', players);
+    handler.emitAll('foodInfo', foods);
+    handler.emitAll('potionInfo', potions);
 
-    //util.emitAll('food', foods);
 
-    //sending empty packet to let client know it's the end of the frame
-    util.emitAll('draw');
+    // sending empty packet to let client know it's the end of the frame
+    // nothing is shown on the client side until this is emitted
+    handler.emitAll('draw');
 
+
+// FPS is 60 for now but we can lower it later if it's necessary
 }, 1000/config.FPS);
-// 60 for now
 
 
