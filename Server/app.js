@@ -23,15 +23,15 @@ class Server {
     // useless object
     constructor(){
         app.set('trust proxy', true);
-        app.use(express.static('../public'));
-        this.dir = path.join(process.env.PWD, '../public/');
+        app.use(express.static(__dirname + '../public'));
+        this.dir = path.join(__dirname, '../public');
     }
 }
 
 server = new Server();
-app.get('/', (req, res, next) => {
+app.get('/', (req, res) => {
     console.log(`Received connection from ${req.ip}`);
-    res.sendFile(server.dir + 'index.html', (err) => {
+    res.sendFile('index.html', (err) => {
         if (err){
             console.log(err);
         }
