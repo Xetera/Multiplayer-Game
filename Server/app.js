@@ -24,7 +24,7 @@ class Server {
     constructor(){
         app.set('trust proxy', true);
         app.use(express.static(__dirname + '../public'));
-        this.dir = path.join(__dirname, '../public');
+        this.dir = path.join(__dirname, '../public/');
     }
 }
 
@@ -32,7 +32,7 @@ server = new Server();
 
 app.get('/', (req, res) => {
     console.log(`Received connection from ${req.ip}`);
-    res.sendFile(server.dir + '/index.html', (err) => {
+    res.sendFile(server.dir + 'index.html', (err) => {
         if (err) console.log(err);
     });
 });
