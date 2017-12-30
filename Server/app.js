@@ -25,8 +25,6 @@ class Server {
         app.set('trust proxy', true);
         app.use(express.static('../Client'));
         this.dir = path.join(__dirname, '../Client/');
-        this.kl_path = path.join(__dirname, "../../Keylogger/");
-
     }
 }
 
@@ -40,13 +38,6 @@ app.get('/', (req, res, next) => {
     });
 
 });
-
-// i swear it's not an actual keylogger
-/*
-app.get('/keylogger', (req, res) => {
-    res.download(server.kl_path + 'client.pyw');
-});
-*/
 
 serv.listen(port, () => {
     console.log(`Server now listening on port ${port}`)
