@@ -31,7 +31,7 @@ class Server {
 server = new Server();
 app.get('/', (req, res) => {
     console.log(`Received connection from ${req.ip}`);
-    res.sendFile('index.html', (err) => {
+    res.sendFile(server.dir + '/index.html', (err) => {
         if (err){
             console.log(err);
         }
