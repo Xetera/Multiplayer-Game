@@ -22,3 +22,7 @@ handler.appendMessage = function(nick, hasClass, msg){
     chatBox.append(element);
 
 };
+
+handler.buyUpgrade = function(upgrade, player){
+
+};

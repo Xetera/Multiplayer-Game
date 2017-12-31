@@ -42,6 +42,21 @@ Entity.prototype.update = function(){
 };
 
 
+Entity.prototype.die = function(array){
+    array.splice(array.indexOf(this), 1);
+};
+
+Entity.prototype.updateSize = (amount) => {
+    this.xSpeedDelta += amount;
+    this.ySpeedDelta += amount;
+};
+
+Entity.prototype.updateSpeed = (amount) => {
+    this.xSize += amount;
+    this.ySize += amount;
+};
+
+
 
 module.exports = Entity;
 

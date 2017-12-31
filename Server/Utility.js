@@ -8,15 +8,17 @@ const color = require('colors');
  *
  * @returns {number[]}
  */
-exports.randomCanvasPositions = function(){
+exports.randomCanvasPositions = function(objectSize){
+
     /*
     lets add a functionality to make sure that these don't spawn midway outside
     the canvas (and maybe on top of other items?) NOTE: this doesn't actually
     break the collision algorithm it would just look better
     */
+    // @* done!
 
-    let x = Math.floor(Math.random() * config.windowX);
-    let y = Math.floor(Math.random() * config.windowY);
+    let x = Math.floor(Math.random() * (config.windowX - objectSize));
+    let y = Math.floor(Math.random() * (config.windowY - objectSize));
     return [x, y]
 };
 

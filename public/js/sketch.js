@@ -8,11 +8,17 @@ let foodCounter;
 let foods = [];
 let players = [];
 let potions = [];
+
+let upgrades = {};
+
 let ctx;
+
 
 let init_nick = false;
 let windowX = 900;
 let windowY = 700;
+
+let speedUpgrade;
 
 let chatBox;
 let chatInput;
@@ -36,7 +42,7 @@ $(function(){
 
     chatBox = $('#chatbox');
     chatInput = $('#chat-input');
-
+    speedUpgrade = $('#speed-upgrade');
 
     $('#stats-form').onsubmit = function(e){
         e.preventDefault();
@@ -76,15 +82,22 @@ $(function(){
 
             chatInput.html("");
             chatInput.blur();
-
         }
-
     });
 
-    $('#title').click(function(){
-        alert('This will do something one day.');
-    })
 
+
+    $('#title').click( () => {
+       $('#title').flip({
+           axis: "x",
+           reverse: true
+       });
+    });
+
+    $('#speed-upgrade').click(() =>{
+       let pack = {
+       }
+    });
 
 });
 

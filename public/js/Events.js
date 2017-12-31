@@ -19,6 +19,10 @@ events.ping = function() {
     socket.emit('ping')
 };
 
+events.speedUpgrade = function(pack){
+    socket.emit('speedUpgrade', pack)
+};
+
 socket.on('ping', (pack)=>{
     console.log(pack);
     let currentPing = Date.now() - ping;
@@ -49,7 +53,10 @@ socket.on('newMessage', (pack)=>{
 
     handler.appendMessage(nick, hasClass, pack.msg)
 
+});
 
+socket.on('upgradesInfo', (pack)=>{
+    upgrades= pack;
 });
 
 socket.on('playerInfo', (pack)=> {

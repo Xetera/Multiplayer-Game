@@ -74,10 +74,16 @@ serv.listen(port, () => {
 
 // Global variables to avoid having to constantly pass around a bunch of arguments
 global.players = {};
+global.SOCKET_LIST = {};
+
 global.foods = [];
 global.potions = [];
 global.enemies = [];
-global.SOCKET_LIST = {};
+global.timers = [];
+
+global.upgrades = {
+    speedUpgrades: []
+};
 
 // used to disable the eval function later so we don't get le epic hacked
 global.debug = true;
@@ -91,14 +97,18 @@ io.sockets.on('connection', (socket)=> {
     // it is acceptable to do this on connection as players only get one Entity to control
     // but ideally we should be handling this somewhere
     players[socket.id] = new Player.Player(450, 350, 10, 10);
-    console.log(`New player ${ip} connected as ${players[socket.id]['defaultNick']}`);
+    util.log(util.Severity.INFO, `New player ${ip} connected as ${players[socket.id]['defaultNick']}`);
 
     // saving socket id as our identifier, we might need a game ID later on
     // but this is necessary to help the client identify itself easily
     players[socket.id]['id'] = socket.id;
 
-    console.log(players);
+    console.log(players[socket.id]);
 
+    // things we have to emit to the connection before it starts looking for
+    // elements that don't exist
+
+    //socket.emit('upgrades', allUpgrades);
 
     socket.on('keyPress', (pack)=>{
         handler.keyPress(pack);
@@ -131,7 +141,7 @@ io.sockets.on('connection', (socket)=> {
 
 
 // our main game loop
-setInterval( () => {
+setInterval(() => {
     populate.summonFood();
     populate.summonPotions();
     populate.summonEnemies();
@@ -155,6 +165,7 @@ setInterval( () => {
     handler.emitAll('playerInfo', players);
     handler.emitAll('foodInfo', foods);
     handler.emitAll('potionInfo', potions);
+    handler.emitAll('upgradesInfo', upgrades);
 
 
     // sending empty packet to let client know it's the end of the frame

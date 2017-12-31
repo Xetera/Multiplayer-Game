@@ -7,19 +7,19 @@ function updateDisplay(){
 
     // refreshing players
     for (let i in players){
-
-        for (let i in players){
-            if (players[i].id === socket.id){
-                self = players[i];
-                // we only want to update player defaultNick once
-                // but we can't do it in another loop because
-                // it's not guaranteed that players will exist
-                if (!init_nick){
-                    $('#defaultNick-input').val(players[i]['defaultNick']);
-                }
-                init_nick = true;
+        if (players[i].id === socket.id){
+            self = players[i];
+            // we only want to update player defaultNick once
+            // but we can't do it in another loop because
+            // it's not guaranteed that players will exist
+            if (!init_nick){
+                $('#defaultNick-input').val(players[i]['defaultNick']);
             }
+            init_nick = true;
         }
+
+        //if (players[i].xSize > )
+
 
         //drawing the players
         ctx.fillStyle = '#86BA90';
@@ -40,14 +40,14 @@ function updateDisplay(){
         let currentSizeBarXOffset = sizeBarXOffset - 2;
         let currentSizeBarHeight = sizeBarHeight - 3;
 
-        let currentSizeBarWidth = (sizeBarWidth * growthPercentage) - 5/* accounting for the padding*/;
+        let currentSizeBarWidth = (sizeBarWidth * growthPercentage) - 4/* accounting for the padding*/;
         // this changes based on whether bar is visible
         let currentSizeBarYOffset;
 
 
         // name redrawing
 
-        if (players[i].y - 35 < 0){ // if info bar is obscured
+        if (players[i].y - 35 < 0) { // if info bar is obscured
             nickY = players[i].y + 26 + players[i].ySize;
             sizeBarYOffset = nickY - 20;
             currentSizeBarYOffset = sizeBarYOffset + 1;
@@ -75,10 +75,16 @@ function updateDisplay(){
             ctx.fillStyle = '#2f4fba';
         }
         ctx.fillRect(players[i].x - currentSizeBarXOffset, currentSizeBarYOffset,
-            currentSizeBarWidth, currentSizeBarHeight)
+            currentSizeBarWidth, currentSizeBarHeight);
 
-        // filling percentage
+        // filling percentage?
+
+
+        for (let upgrade in players[i].upgrades){
+        }
     }
+    /* end of player loop */
+
     // refreshing food display
     for (let i in foods){
         ctx.fillStyle = '#f18282';
@@ -101,4 +107,5 @@ function updateDisplay(){
 
     // reverting font back to default
     ctx.font = '12px sans-serif';
+
 }

@@ -5,13 +5,14 @@
     <link rel="shortcut icon" href="./Media/blue-cube.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-
+    <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/sketch.js"></script>
+    <script src="js/Display.js"></script>
+
     <script src="js/Events.js"></script>
     <script src="js/Elements.js"></script>
     <script src="js/Handler.js"></script>
-    <script src="js/Display.js"></script>
   </head>
   <body>
   <div id="main">
@@ -29,8 +30,17 @@
 
     <div id="mid-container">
       <div id="head-container" class="pale-container">
-        <div id="left-stats-container" class="white-container stats"></div>
-        <div id="title" class="white-container">Blocks</div>
+        <div id="left-stats-container" class="white-container stats">
+          <div id="speed-upgrade">
+            <img src="Media/speed-icon.png" class="disabled">
+          </div>
+        </div>
+        <div id="title">
+          <div id="" class="front">
+            Blocks
+          </div>
+          <div class="back white-container"></div>
+        </div>
         <div id="right-stats-container" class="white-container stats">
       </div>
 
