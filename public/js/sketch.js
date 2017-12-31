@@ -1,3 +1,4 @@
+
 "use strict";
 
 let socket = io();
@@ -13,8 +14,6 @@ let ctx;
 
 
 let init_nick = false;
-let windowX = 900;
-let windowY = 700;
 
 let speedUpgrade;
 let imgSpeedUpgrade;
@@ -41,7 +40,7 @@ $(function(){
 
     ctx = document.getElementById('ctx').getContext('2d');
     ctx.font = '30 px Arial';
-    ctx.clearRect(0, 0 , 900, 700);
+    ctx.clearRect(0, 0 , 950, 700);
 
     chatBox = $('#chatbox');
     chatInput = $('#chat-input');

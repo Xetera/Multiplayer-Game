@@ -3,7 +3,7 @@
 function updateDisplay(){
 
     ctx.fillStyle = "#b4b9b4";
-    ctx.clearRect(0, 0 , 900, 700);
+    ctx.clearRect(0, 0 , 950, 700);
 
 
     // refreshing players

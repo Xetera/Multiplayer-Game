@@ -61,6 +61,10 @@ app.get('/Media/:img', (req,res)=>{
    })
 });
 
+app.get('SharedVariables', (req,res)=>{
+    res.sendFile(server.dir + 'SharedVariables.js')
+});
+
 
 serv.listen(port, () => {
     console.log(`Server now listening on port ${port}`)
