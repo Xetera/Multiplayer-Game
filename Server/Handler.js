@@ -53,6 +53,7 @@ exports.newMessage = function(pack){
     message = pack.msg.trim();
     let response;
     if (typeof pack.ping !== 'undefined' && pack.ping !== false){
+
         // for catching ping response and assigning it a server status
         // since the first time a ping message comes we assign it a ping status
         // later on, it's ok to check for it here since it would only trigger this
