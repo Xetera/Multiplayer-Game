@@ -4,8 +4,10 @@
 
 }
 html, body{
+
     margin:0;
-    padding:0;
+    padding: 5px;
+
     height:99%;
     font-family: Ubuntu;
     -webkit-font-smoothing: antialiased;
@@ -13,8 +15,7 @@ html, body{
 body {
     overflow:hidden;
     background-color: #DFA06E;
-    padding: 10px;
-    display:block;
+    /*display:block;*/
 }
 
 .disabled {
@@ -123,6 +124,13 @@ body {
     #title {
         width: 30%;
         margin: 5px;
+        font-size: 60px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 140px;
+        border:2px outset #999;
+        cursor: pointer;
+        background-color: #A7CECB;
 
     }
 
@@ -130,22 +138,6 @@ body {
         width: 35%;
         border-top-right-radius: 10px;
     }
-
-
-.front {
-
-    font-size: 60px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 140px;
-    border:2px outset #999;
-    cursor: pointer;
-    background-color: #A7CECB;
-
-}
-.back {
-
-}
 
 .chat-text {
     width: 97%;

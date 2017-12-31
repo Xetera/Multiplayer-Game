@@ -15,15 +15,19 @@ events.emitNewMessage = function(pack){
     socket.emit('newMessage', pack);
 };
 
+events.emitNewPurchase = function(pack){
+    socket.emit('newPurchase', pack);
+};
+
+
 events.ping = function() {
-    socket.emit('ping')
+    socket.emit('getPing')
 };
 
-events.speedUpgrade = function(pack){
-    socket.emit('speedUpgrade', pack)
-};
 
-socket.on('ping', (pack)=>{
+
+
+socket.on('getPing', (pack)=>{
     console.log(pack);
     let currentPing = Date.now() - ping;
 

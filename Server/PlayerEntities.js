@@ -1,5 +1,6 @@
 const Entity = require('./Entity');
 const util = require('./Utility');
+const config = require('../SharedVariables');
 
 /**
  * User controlled entity
@@ -21,7 +22,10 @@ function Player(x, y, xSize, ySize) {
 
     // this is going to be a growing limit but we need to hard cap it at some point
     this.maxSize = 50;
-    this.upgrades = upgrades;
+    this.upgrades = this.availableUpgrades =
+        JSON.parse(JSON.stringify(config.upgradesTemplate));
+    let debug = false;
+
 }
 
 /*
@@ -107,7 +111,32 @@ Player.prototype.movementUpdate = function(info){
     }
 };
 
+Player.prototype.updateAvailableUpgrades = function(){
+    //console.log(this.availableUpgrades);
+    if (!this.debug){
 
+        // upgrades are added in order, 0th index is the first upgrade
+        console.log('speedUpgrades');
+        console.log(upgrades['speedUpgrades'][0]);
+        this.availableUpgrades['speedUpgrades'] = upgrades['speedUpgrades'][0];
+        this.debug = true;
+    }
+};
+
+Player.prototype.purchaseUpgrade = function(name){
+
+    let given_upgrade = this.availableUpgrades[name];
+    let cost = -given_upgrade.cost;
+    if (name === 'speedUpgrades'){
+        // TODO: check if there are no more updates
+        Entity.prototype.updateSpeed.call(this, given_upgrade.amount);
+        console.log(this.upgrades[name]);
+        Entity.prototype.updateSize.call(this, cost);
+        //this.upgrades['speedUpgrades'].push(given_upgrade);
+    }
+
+    delete given_upgrade;
+};
 
 module.exports = {
     Player: Player

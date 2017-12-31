@@ -11,5 +11,9 @@ config.nicks =
         'Don Mary', 'Don Ahmed', 'Don Dale'
     ];
 
+config.upgradesTemplate = {
+    speedUpgrades: [],
+    placeholder: []
+};
 
 module.exports = config;

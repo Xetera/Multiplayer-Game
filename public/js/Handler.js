@@ -7,8 +7,13 @@ const handler = {};
  * @param {string} msg
  */
 handler.appendMessage = function(nick, hasClass, msg){
-
-    let userImage = './Media/blue-cube.png';
+    let userImage;
+    if (hasClass === 'user-message'){
+        userImage = './Media/blue-cube.png';
+    }
+    else if (hasClass === 'server-message') {
+        userImage = './Media/Server.png'
+    }
 
     let element =
         `<div class="chat-text chat-body">

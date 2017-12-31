@@ -1,4 +1,5 @@
 
+
 function updateDisplay(){
 
     ctx.fillStyle = "#b4b9b4";
@@ -7,6 +8,7 @@ function updateDisplay(){
 
     // refreshing players
     for (let i in players){
+        // updating things only for current player
         if (players[i].id === socket.id){
             self = players[i];
             // we only want to update player defaultNick once
@@ -16,6 +18,16 @@ function updateDisplay(){
                 $('#defaultNick-input').val(players[i]['defaultNick']);
             }
             init_nick = true;
+
+            // this is going to change dynamically server side as we update upgrades
+
+            // singular upgrades inside all available upgrades
+
+            updateSpeedIcon(players[i]);
+
+
+
+
         }
 
         //if (players[i].xSize > )
@@ -80,8 +92,6 @@ function updateDisplay(){
         // filling percentage?
 
 
-        for (let upgrade in players[i].upgrades){
-        }
     }
     /* end of player loop */
 

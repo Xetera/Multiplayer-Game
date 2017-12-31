@@ -1,4 +1,5 @@
 const util = require('./Utility');
+const config = require('../SharedVariables');
 
 function Upgrade(cost, name, tier){
     this.id = util.generateRandomID();
@@ -15,7 +16,8 @@ function Upgrade(cost, name, tier){
 
 Upgrade.prototype.purchase = function(player){
     // so far the idea is that every upgrade costs size unless we specify otherwise
-    player.updateSize(-this.cost);
+    let sizeCost = -this.cost;
+    player.updateSize(sizeCost);
     player.upgrades.push(this);
     this.purchased = true;
 };
@@ -23,6 +25,7 @@ Upgrade.prototype.purchase = function(player){
 
 function SpeedUpgrade(cost, name, tier, upgradeAmount){
     Upgrade.call(this, cost, name);
+    upgrades.speedUpgrades.push(this);
     this.amount = upgradeAmount;
 }
 
@@ -34,8 +37,6 @@ SpeedUpgrade.prototype.purchase = function(player){
     player.updateSize(this.amount);
 };
 
-let speedUpgrade1 = new SpeedUpgrade(25 , "spd1", 1, 1);
-let speedUpgrade2 = new SpeedUpgrade(30, "spd2", 2, 2);
-let speedUpgrade3 = new SpeedUpgrade(50, "spd3", 3, 3);
-
-upgrades.speedUpgrades = [speedUpgrade1, speedUpgrade2, speedUpgrade3];
+module.exports = {
+    SpeedUpgrade: SpeedUpgrade
+};

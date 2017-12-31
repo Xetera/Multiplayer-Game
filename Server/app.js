@@ -7,7 +7,7 @@ const io = require('socket.io')(serv, {
     serveClient: false,
 
     // sometimes we get double connections for some reason so
-    // this is a shitty but efficient way to deal with it
+    // this is a way to deal with it ( sometimes it doesn't work though )
     pingInterval: 10000,
     pingTimeout: 5000,
     cookie: false
@@ -23,6 +23,7 @@ const Player = require ('./PlayerEntities');
 const populate = require('./Populate');
 const config = require('../SharedVariables');
 const util = require('./Utility');
+const upg = require('./Upgrades');
 
 class Server {
     // useless object
@@ -73,6 +74,7 @@ serv.listen(port, () => {
 */
 
 // Global variables to avoid having to constantly pass around a bunch of arguments
+
 global.players = {};
 global.SOCKET_LIST = {};
 
@@ -81,18 +83,23 @@ global.potions = [];
 global.enemies = [];
 global.timers = [];
 
-global.upgrades = {
-    speedUpgrades: []
-};
+global.upgrades = JSON.parse(JSON.stringify(config.upgradesTemplate));
 
 // used to disable the eval function later so we don't get le epic hacked
 global.debug = true;
+
+
+
+let speedUpgrade1 = new upg.SpeedUpgrade(25 , "spd1", 1, 1);
+let speedUpgrade2 = new upg.SpeedUpgrade(30, "spd2", 2, 2);
+let speedUpgrade3 = new upg.SpeedUpgrade(50, "spd3", 3, 3);
+
+upgrades.speedUpgrades = [speedUpgrade1, speedUpgrade2, speedUpgrade3];
 
 // New connection received
 io.sockets.on('connection', (socket)=> {
     // edgily logging connection IP like the script kiddies we are
     let ip = socket.handshake.address;
-
     SOCKET_LIST[socket.id] = socket;
     // it is acceptable to do this on connection as players only get one Entity to control
     // but ideally we should be handling this somewhere
@@ -129,8 +136,12 @@ io.sockets.on('connection', (socket)=> {
         // could be a good idea to move these special server commands
         else {
             // TODO: hide ping message from the rest of the server later
-            handler.emitAll('ping', response);
+            handler.emitAll('getPing', response);
         }
+    });
+
+    socket.on('newPurchase', (pack) => {
+        players[socket.id].purchaseUpgrade(pack)
     });
 
     socket.on('disconnect', () => {
@@ -146,9 +157,11 @@ setInterval(() => {
     populate.summonPotions();
     populate.summonEnemies();
 
+
     for (let i in players){
         if (players.hasOwnProperty(i)){
             players[i].update();
+            players[i].updateAvailableUpgrades();
         }
     }
     for (let i in enemies){
@@ -161,7 +174,6 @@ setInterval(() => {
     }
 
     //emitting new information to all players connected to the server
-
     handler.emitAll('playerInfo', players);
     handler.emitAll('foodInfo', foods);
     handler.emitAll('potionInfo', potions);

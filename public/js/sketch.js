@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 let socket = io();
 let self;
 let foodCounter;
@@ -19,6 +17,7 @@ let windowX = 900;
 let windowY = 700;
 
 let speedUpgrade;
+let imgSpeedUpgrade;
 
 let chatBox;
 let chatInput;
@@ -43,6 +42,7 @@ $(function(){
     chatBox = $('#chatbox');
     chatInput = $('#chat-input');
     speedUpgrade = $('#speed-upgrade');
+    imgSpeedUpgrade =  $('#img-speed-upgrade')
 
     $('#stats-form').onsubmit = function(e){
         e.preventDefault();
@@ -86,18 +86,17 @@ $(function(){
     });
 
 
+    // this has to be an ES5 type function, not an arrow function
+    $('#speed-upgrade').click(function (){
+        if ($('#img-speed-upgrade').hasClass('disabled')){
+            return;
+        }
 
-    $('#title').click( () => {
-       $('#title').flip({
-           axis: "x",
-           reverse: true
-       });
+        console.log('bought');
+        events.emitNewPurchase('speedUpgrades');
     });
 
-    $('#speed-upgrade').click(() =>{
-       let pack = {
-       }
-    });
+
 
 });
 

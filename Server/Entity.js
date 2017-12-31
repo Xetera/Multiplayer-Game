@@ -14,8 +14,10 @@ const util = require('./Utility');
 function Entity(x, y, xSize, ySize){
     this.x = x;
     this.y = y;
-    this.xSize = xSize;
-    this.ySize = ySize;
+    this.xSize = 50 || xSize;
+    this.ySize = 50 || ySize;
+    this.xSpeedDelta = 0;
+    this.ySpeedDelta = 0;
 }
 
 /**
@@ -46,14 +48,23 @@ Entity.prototype.die = function(array){
     array.splice(array.indexOf(this), 1);
 };
 
-Entity.prototype.updateSize = (amount) => {
-    this.xSpeedDelta += amount;
-    this.ySpeedDelta += amount;
-};
-
-Entity.prototype.updateSpeed = (amount) => {
+Entity.prototype.updateSize = function(amount){
+    if (amount < 0 && (this.xSize - amount) < 0){
+        return;
+    }
     this.xSize += amount;
     this.ySize += amount;
+
+};
+
+Entity.prototype.updateSpeed = function(amount) {
+    console.log(this.x);
+    console.log('updateSpeed method');
+    //console.log(this.xSpeedDelta);
+    this.xSpeedDelta += amount;
+    //console.log(this.xSpeedDelta);
+
+    this.ySpeedDelta += amount;
 };
 
 

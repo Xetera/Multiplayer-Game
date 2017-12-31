@@ -92,7 +92,10 @@ exports.newMessage = function(pack){
 
         finally {
             pack.user = false;
-            pack.msg = `${message} => ${response}`
+
+            pack.msg = `${JSON.stringify(response, null, 1)}`
+
+
         }
     }
     else{
