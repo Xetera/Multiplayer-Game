@@ -69,8 +69,8 @@ Array.prototype.randChoice = function(){
 exports.checkCollision = function(a, b){
     // yes, this is actually magic
     // stolen from .NET rect collision detection
-    if (b.x < a.x + a.xSize && a.x < b.x + b.xSize && b.y < a.y + a.ySize){
-        return a.y < b.y + b.ySize;
+    if (b.x < a.x + a.size && a.x < b.x + b.size && b.y < a.y + a.size){
+        return a.y < b.y + b.size;
     }
     else{
         return false;

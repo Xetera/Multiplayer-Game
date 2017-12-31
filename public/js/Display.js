@@ -30,13 +30,13 @@ function updateDisplay(){
 
         }
 
-        //if (players[i].xSize > )
+        //if (players[i].size > )
 
 
         //drawing the players
         ctx.fillStyle = '#86BA90';
         ctx.fillRect(players[i].x,
-            players[i].y, players[i].xSize, players[i].ySize);
+            players[i].y, players[i].size, players[i].size);
 
         //drawing player popup information - name and sizeBar
         let nickX;
@@ -46,9 +46,9 @@ function updateDisplay(){
         let sizeBarYOffset;
         let sizeBarHeight = 9;
         // I'm not sure how to pass this as
-        let sizeBarWidth = players[i].xSize + (2 * sizeBarXOffset);
+        let sizeBarWidth = players[i].size + (2 * sizeBarXOffset);
 
-        let growthPercentage = players[i].xSize / players[i].maxSize;
+        let growthPercentage = players[i].size / players[i].maxSize;
         let currentSizeBarXOffset = sizeBarXOffset - 2;
         let currentSizeBarHeight = sizeBarHeight - 3;
 
@@ -60,7 +60,7 @@ function updateDisplay(){
         // name redrawing
 
         if (players[i].y - 35 < 0) { // if info bar is obscured
-            nickY = players[i].y + 26 + players[i].ySize;
+            nickY = players[i].y + 26 + players[i].size;
             sizeBarYOffset = nickY - 20;
             currentSizeBarYOffset = sizeBarYOffset + 1;
         }
@@ -70,7 +70,7 @@ function updateDisplay(){
             currentSizeBarYOffset = sizeBarYOffset + 1;
         }
         ctx.textAlign = 'center';
-        ctx.fillText(players[i]['defaultNick'], players[i].x + (players[i].xSize/2), nickY);
+        ctx.fillText(players[i]['defaultNick'], players[i].x + (players[i].size/2), nickY);
 
         // filling maxSizeBar
         ctx.fillRect(players[i].x - sizeBarXOffset, sizeBarYOffset, sizeBarWidth, sizeBarHeight);
@@ -79,7 +79,7 @@ function updateDisplay(){
         // filling currentSizeBar
 
         // if player has reached max size
-        if (players[i].maxSize === players[i].xSize){
+        if (players[i].maxSize === players[i].size){
             ctx.fillStyle = '#ba4340';
 
         }

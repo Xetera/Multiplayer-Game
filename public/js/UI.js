@@ -1,11 +1,11 @@
 function updateSpeedIcon(player){
 
     let upgrade = player['availableUpgrades']['speedUpgrades'];
-    if (player.xSize > upgrade.cost && imgSpeedUpgrade.hasClass('disabled')){
+    if (player.size > upgrade.cost && imgSpeedUpgrade.hasClass('disabled')){
         imgSpeedUpgrade.removeClass('disabled');
 
     }
-    else if ((player.xSize < upgrade.cost) && !imgSpeedUpgrade.hasClass('disabled')){
+    else if ((player.size < upgrade.cost) && !imgSpeedUpgrade.hasClass('disabled')){
         imgSpeedUpgrade.addClass('disabled')
     }
 }

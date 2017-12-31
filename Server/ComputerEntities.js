@@ -40,9 +40,9 @@ Enemy.prototype.grow = function(amount){
     let growth = util.randBool();
     // we want different dimensions to grow based on luck pretty much
     if (growth){
-        return this.xSize += amount;
+        return this.size += amount;
     }
-    this.ySize += amount;
+    this.size += amount;
 
 };
 

@@ -39,13 +39,11 @@ ShrinkTimer.prototype.cast = function(){
     for (let i in players) {
         // I sure hope this doesn't cause problems later
         if (players.hasOwnProperty(i)) {
-            if ((players[i].xSize - this.shrinkAmount) < 0 ||
-                (players[i].ySize - this.shrinkAmount) < 0) {
+            if ((players[i].size - this.shrinkAmount) < 0) {
                 players[i].die();
                 continue;
             }
-            players[i].xSize -= this.shrinkAmount;
-            players[i].ySize -= this.shrinkAmount;
+            players[i].size -= this.shrinkAmount;
         }
     }
 };

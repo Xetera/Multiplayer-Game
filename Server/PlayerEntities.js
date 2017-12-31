@@ -49,9 +49,8 @@ Player.prototype.update = function(){
             //this.ySpeedDelta += foods[i].boost;
 
             // in order to prevent infinite growth
-            if (this.xSize < this.maxSize || this.ySize < this.maxSize){
-                this.xSize += foods[i].boost;
-                this.ySize += foods[i].boost;
+            if (this.size < this.maxSize){
+                this.size += foods[i].boost;
 
                 // not sure if we want to restrict the player from gaining more score if they're max size
                 this.score++;

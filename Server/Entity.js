@@ -14,10 +14,11 @@ const util = require('./Utility');
 function Entity(x, y, xSize, ySize){
     this.x = x;
     this.y = y;
-    this.xSize = 50 || xSize;
-    this.ySize = 50 || ySize;
+    this.size = 50 || xSize;
+
     this.xSpeedDelta = 0;
     this.ySpeedDelta = 0;
+    this.lerp = {};
 }
 
 /**
@@ -29,14 +30,14 @@ Entity.prototype.update = function(){
     this.x += this.xSpeed;
     this.y += this.ySpeed;
 
-    if (this.x > config.windowX - this.xSize){
-        this.x = config.windowX - this.xSize;
+    if (this.x > config.windowX - this.size){
+        this.x = config.windowX - this.size;
     }
     else if (this.x < 0){
         this.x = 0;
     }
-    if (this.y > config.windowY - this.ySize){
-        this.y = config.windowY - this.ySize;
+    if (this.y > config.windowY - this.size){
+        this.y = config.windowY - this.size;
     }
     else if (this.y < 0){
         this.y = 0;
@@ -48,12 +49,41 @@ Entity.prototype.die = function(array){
     array.splice(array.indexOf(this), 1);
 };
 
+// this is called only when we're manually updating the size from upgrades or potions
+// when the size changes from pickups it's handled by update and no lerping is required
 Entity.prototype.updateSize = function(amount){
-    if (amount < 0 && (this.xSize - amount) < 0){
+    // making sure we don't shrink beyond a pixel
+    if (amount < 1 && (this.size - amount) < 1){
         return;
     }
-    this.xSize += amount;
-    this.ySize += amount;
+
+    // the amount of time it's gonna take for us to change time
+    // probably not a big deal if it's hardcoded, we'll see
+    let lerpTime = 5 * 100;
+    // We're dealing with ticks so we can't have floats
+    let lerpTicks = Math.floor(lerpTime/config.FPS);
+    let sizeDelta = amount/lerpTicks;
+
+    this.lerp['amount'] = (lerpTicks);
+    this.lerp['ratio'] = sizeDelta;
+
+};
+
+// here we're checking the linear interpolation to avoid jittery movements
+Entity.prototype.checkLerp = function(){
+    // only runs when lerp[] exists
+
+    // checking against isNaN feels
+    if (isNaN(this.lerp['amount'])) return;
+
+    if (this.lerp['amount'] !== 0){
+        // we're doing += because if it's negative then we want to subtract size
+        this.size += this.lerp['ratio'];
+        this.lerp['amount']--;
+    }
+    else if (this.lerp['amount'] === 0){
+        this.lerp = {};
+    }
 
 };
 

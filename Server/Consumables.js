@@ -1,7 +1,7 @@
 function Pickup(x, y){
     this.x = x;
     this.y = y;
-    this.xSize = this.ySize= 10;
+    this.size = 10;
 
 }
 
