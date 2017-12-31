@@ -10,3 +10,10 @@ function updateSpeedIcon(player){
     }
 }
 
+function updateStats(player){
+    speedStatText.html(Math.floor(player.xSpeedDelta));
+    minSizeValue.html(player.minSize);
+    maxSizeValue.html(player.maxSize);
+    score.html(player.score);
+
+}

@@ -3,6 +3,7 @@
     src: url('Ubuntu-B.ttf');
 
 }
+
 html, body{
 
     margin:0;
@@ -18,6 +19,10 @@ body {
     /*display:block;*/
 }
 
+.stat-icon {
+    max-height: 29px;
+    padding: 7px;
+}
 .disabled {
     opacity: 0.4;
     filter: alpha(opacity=40);
@@ -58,6 +63,9 @@ body {
     border-bottom: 1px solid #EFF2F6;
     box-shadow: inset 0 3px 0 0 #AFBCC6
 }
+
+
+
 #main {
     display:flex;
     height: 100%;
@@ -97,15 +105,7 @@ body {
         flex-shrink: 0;
     }
 
-#head-container {
-    display:flex;
-    height: 170px;
-    margin-bottom: 10px;
-    width: 900px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 
-}
 
 
 
@@ -113,16 +113,31 @@ body {
     width: 50%;
 
 }
+
+#head-container {
+    display:grid;
+    grid-template-columns: 35% 30% 35%;
+    grid-template-rows: 100%;
+    height: 170px;
+    margin-bottom: 10px;
+    width: 900px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
     #left-stats-container {
-        width:35%;
         border-top-left-radius: 10px;
+        display:grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
+
     }
         #speed-upgrade {
             cursor: pointer;
         }
 
     #title {
-        width: 30%;
+
         margin: 5px;
         font-size: 60px;
         text-align: center;
@@ -135,9 +150,29 @@ body {
     }
 
     #right-stats-container{
-        width: 35%;
+
         border-top-right-radius: 10px;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 25% 25% 25% 25%
+
     }
+        #right-stats-container label {
+            padding: 2px;
+            text-align:center;
+        }
+    .stats .stats-text {
+        line-height: 50px;
+    }
+
+        .stats-container{
+            display:grid;
+            grid-template-columns: 40% 30% 30%;
+            grid-template-rows: 100%;
+            background-color: #86BA90;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
 
 .chat-text {
     width: 97%;

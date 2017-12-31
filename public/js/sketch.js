@@ -18,6 +18,10 @@ let windowY = 700;
 
 let speedUpgrade;
 let imgSpeedUpgrade;
+let speedStatText;
+let minSizeValue;
+let maxSizeValue;
+let score;
 
 let chatBox;
 let chatInput;
@@ -42,7 +46,11 @@ $(function(){
     chatBox = $('#chatbox');
     chatInput = $('#chat-input');
     speedUpgrade = $('#speed-upgrade');
-    imgSpeedUpgrade =  $('#img-speed-upgrade')
+    imgSpeedUpgrade =  $('#img-speed-upgrade');
+    speedStatText = $('#speed-stat-text');
+    minSizeValue = $('#min-size-stat-text');
+    maxSizeValue = $('#max-size-stat-text');
+    score = $('#score-size-stat-text');
 
     $('#stats-form').onsubmit = function(e){
         e.preventDefault();
@@ -87,7 +95,7 @@ $(function(){
 
 
     // this has to be an ES5 type function, not an arrow function
-    $('#speed-upgrade').click(function (){
+    speedUpgrade.click(function (){
         if ($('#img-speed-upgrade').hasClass('disabled')){
             return;
         }

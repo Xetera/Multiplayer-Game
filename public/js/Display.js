@@ -24,13 +24,11 @@ function updateDisplay(){
             // singular upgrades inside all available upgrades
 
             updateSpeedIcon(players[i]);
-
-
-
+            updateStats(players[i]);
 
         }
 
-        //if (players[i].size > )
+
 
 
         //drawing the players
@@ -109,11 +107,6 @@ function updateDisplay(){
 
     if (!init_nick){
     }
-
-    // score display
-    ctx.fillStyle = '#73b979';
-    ctx.font = '30px Arial';
-    ctx.fillText("Score: "+  self.score.toString(), 80, 50);
 
     // reverting font back to default
     ctx.font = '12px sans-serif';

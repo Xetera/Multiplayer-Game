@@ -15,6 +15,7 @@ function Player(x, y, xSize, ySize) {
     this.ySpeed = 0;
     this.xSpeedDelta = 5;
     this.ySpeedDelta = 5;
+    this.minSize = 10;
 
     // the defaultNick
     this.defaultNick = util.generateNick();
