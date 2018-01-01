@@ -138,6 +138,13 @@ Entity.prototype.updateSpeed = function(amount) {
 Entity.prototype.dash = function(direction) {
     // direction will be a keypress array most likely
     if (this.dashOnCooldown) return util.log(util.Severity.INFO, 'prevented Dash');
+
+    console.log(direction);
+
+    if (!direction.keys.length){
+        return;
+    }
+
     this.dashOnCooldown = true;
     this.dashCooldown = this.dashBaseCooldown;
 
