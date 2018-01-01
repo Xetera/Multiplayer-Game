@@ -21,7 +21,8 @@ function Entity(x, y, xSize, ySize){
     this.ySpeedDelta = 0;
     this.lerp = {};
     this.dashStrength = 20;
-    this.dashCooldown = 30; // seconds
+    this.dashBaseCooldown = Math.floor((30 * 1000)/config.FPS); // ticks
+    this.dashCooldown = 0;
     this.dashOnCooldown = false;
     this.dashes = {};
 }
@@ -46,6 +47,12 @@ Entity.prototype.update = function(){
     }
     else if (this.y < 0){
         this.y = 0;
+    }
+    if (this.dashCooldown !== 0){
+        this.dashCooldown--;
+    }
+    else {
+        this.dashOnCooldown = false;
     }
 };
 
@@ -92,6 +99,7 @@ Entity.prototype.checkLerp = function(player){
 
     }
 
+    // same thing for dashing since it's technically a lerp of a teleport
     if (!isNaN(this.dashes['amount'])){
         if(this.dashes['amount'] !== 0){
             console.log('dashing');
@@ -132,6 +140,8 @@ Entity.prototype.dash = function(direction) {
     // direction will be a keypress array most likely
     if (this.dashOnCooldown) return console.log('prevented Dash');
     this.dashOnCooldown = true;
+    this.dashCooldown = this.dashBaseCooldown;
+
 
     this.dashes.direction = direction;
 
