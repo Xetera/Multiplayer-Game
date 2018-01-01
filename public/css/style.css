@@ -20,8 +20,9 @@ body {
 }
 
 .stat-icon {
-    max-height: 29px;
+    max-height: 35px;
     padding: 7px;
+    margin: 0 auto;
 }
 .disabled {
     opacity: 0.4;
@@ -163,12 +164,13 @@ body {
             text-align:center;
         }
     .stats .stats-text {
-        line-height: 50px;
+        line-height: 30px;
+        margin: 0 auto;
     }
 
         .stats-container{
             display:grid;
-            grid-template-columns: 40% 30% 30%;
+            grid-template-columns: 50% 20% 30%;
             grid-template-rows: 100%;
             background-color: #86BA90;
             border-bottom: 1px solid black;
@@ -178,7 +180,40 @@ body {
 
 #right-container {
     margin-left: 20px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 30% 30% 40%;
+    padding: 10px;
 }
+    #TODO {
+        border-bottom: 2px solid black;
+
+    }
+    #online-players-flex-container{
+
+        display:grid;
+
+    }
+
+        #right-container .online-player {
+            display: flex;
+            background-color: #59726a;
+            width: 50%;
+            flex-shrink: 0;
+            border: 1px solid gray;
+            min-height: 20%
+        }
+        #online-players {
+            background-color: #afc9bd;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: normal;
+            overflow: auto;
+        }
+            #online-players::-webkit-scrollbar{
+                display:none;
+            }
 
 .chat-text {
     width: 97%;

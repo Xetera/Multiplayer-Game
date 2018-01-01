@@ -120,6 +120,13 @@ $('#defaultNick-input').submit(event => {
 });
 
 
+$(document).contextmenu(function(){
+    console.log('contextmenu');
+    keyPresses.keys = [];
+        
+
+});
+
 
 $(document).keydown((event)=>{
    handler.keyDownEvent(event);

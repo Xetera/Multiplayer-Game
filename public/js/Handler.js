@@ -28,6 +28,10 @@ handler.appendMessage = function(nick, hasClass, msg){
 
 };
 
+handler.appendOnlinePlayer = function(){
+
+};
+
 
 handler.keyDownEvent = function(event){
     // for some reason chat input selector needs an index for this
@@ -75,7 +79,7 @@ handler.keyDownEvent = function(event){
 handler.keyUpEvent = function(event){
 
     if (keyPresses.keys.includes(keyCodes[event.keyCode])){
-        // get the index of the keypress and remove it from the array
+        // get the index of the keyPress and remove it from the array
         keyPresses.keys.splice(keyPresses.keys.indexOf(keyCodes[event.keyCode]), 1);
 
     }

@@ -108,11 +108,10 @@ Entity.prototype.checkLerp = function(player){
             this.dashes['amount']--;
         }
         else if (this.dashes['amount'] === 0){
+            // resetting speed after dash
             this.movementUpdate(this.dashes.direction);
 
             this.dashes = {};
-            // resetting speed after dash
-            console.log(this.dashes.direction)
         }
 
     }
@@ -138,7 +137,7 @@ Entity.prototype.updateSpeed = function(amount) {
 
 Entity.prototype.dash = function(direction) {
     // direction will be a keypress array most likely
-    if (this.dashOnCooldown) return console.log('prevented Dash');
+    if (this.dashOnCooldown) return util.log(util.Severity.INFO, 'prevented Dash');
     this.dashOnCooldown = true;
     this.dashCooldown = this.dashBaseCooldown;
 
