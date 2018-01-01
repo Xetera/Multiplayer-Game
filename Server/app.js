@@ -165,7 +165,7 @@ setInterval(() => {
     populate.summonPotions();
     populate.summonEnemies();
 
-    timerO.tick();
+    //timerO.tick();
     for (let i in players){
         if (players.hasOwnProperty(i)){
             players[i].update();
@@ -191,7 +191,7 @@ setInterval(() => {
     handler.emitAll('foodInfo', foods);
     handler.emitAll('potionInfo', potions);
     handler.emitAll('upgradesInfo', upgrades);
-    handler.emitAll('timersInfo', timers);
+    //handler.emitAll('timersInfo', timers);
 
     // sending empty packet to let client know it's the end of the frame
     // nothing is shown on the client side until this is emitted
