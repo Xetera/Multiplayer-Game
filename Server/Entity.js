@@ -66,7 +66,7 @@ Entity.prototype.die = function(array){
 Entity.prototype.updateSize = function(amount){
     // making sure we don't shrink beyond a pixel
     if (amount < 1 && (this.size - amount) < 1){
-        return;
+        return false;
     }
 
     // the amount of time it's gonna take for us to change time
@@ -78,7 +78,7 @@ Entity.prototype.updateSize = function(amount){
 
     this.lerp['amount'] = (lerpTicks);
     this.lerp['ratio'] = sizeDelta;
-
+    return this.size;
 };
 
 // here we're checking the linear interpolation to avoid jittery movements

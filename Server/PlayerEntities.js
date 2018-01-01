@@ -97,8 +97,8 @@ Player.prototype.movementUpdate = function(info){
     // no problem hardcoding these trig values since we're just working with cardinal directions
 
     // ex: since [left + up], this.xSpeed must equal a negative value, this.ySpeed must equal negative
-    // cos(3pi/4) = -1/sqrt(4) therefore we don't need to take its negative again
-    // sin(3pi/4) = 1/sqrt(4), we need it to be a negative value so we multiply it by negative yDelta
+    // cos(3pi/4) = -1/sqrt(2) therefore we don't need to take its negative again
+    // sin(3pi/4) = 1/sqrt(2), we need it to be a negative value so we multiply it by negative yDelta
         // class dismissed
     else if (info.keys.includes('left') && info.keys.includes('up')){
         this.xSpeed = Math.cos(3 * Math.PI/4) * this.xSpeedDelta;

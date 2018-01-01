@@ -24,6 +24,7 @@ const populate = require('./Populate');
 const config = require('../SharedVariables');
 const util = require('./Utility');
 const upg = require('./Upgrades');
+const timer = require('./Countdown');
 
 class Server {
     // useless object
@@ -156,6 +157,7 @@ io.sockets.on('connection', (socket)=> {
     });
 });
 
+timerO = new timer.ShrinkTimer(3, 20);
 
 // our main game loop
 setInterval(() => {
@@ -163,7 +165,7 @@ setInterval(() => {
     populate.summonPotions();
     populate.summonEnemies();
 
-
+    timerO.tick();
     for (let i in players){
         if (players.hasOwnProperty(i)){
             players[i].update();
@@ -180,12 +182,16 @@ setInterval(() => {
         }
     }
 
-    //emitting new information to all players connected to the server
+    // emitting new information to all players connected to the server
+
+    // technically this is very very bad practice and we should have separate functions that picks
+    // out the data that's suitable to send to prevent things like cheating but I can't really
+    // be bothered at this point
     handler.emitAll('playerInfo', players);
     handler.emitAll('foodInfo', foods);
     handler.emitAll('potionInfo', potions);
     handler.emitAll('upgradesInfo', upgrades);
-
+    handler.emitAll('timersInfo', timers);
 
     // sending empty packet to let client know it's the end of the frame
     // nothing is shown on the client side until this is emitted

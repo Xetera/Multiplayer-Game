@@ -30,6 +30,10 @@ events.emitPlayerDash = function(){
     socket.emit('dash', keyPresses);
 };
 
+
+socket.on('timersInfo', pack => {
+    timers = pack;
+});
 socket.on('getPing', (pack)=>{
     console.log(pack);
     let currentPing = Date.now() - ping;

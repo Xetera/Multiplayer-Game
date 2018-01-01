@@ -10,6 +10,8 @@ let potions = [];
 
 let upgrades = {};
 
+let timers = [];
+
 let ctx;
 let keyPresses = {
     keys: []
@@ -29,6 +31,7 @@ let chatBox;
 let chatInput;
 
 let ping;
+
 
 for (let i in players){
     console.log(players[i].id);

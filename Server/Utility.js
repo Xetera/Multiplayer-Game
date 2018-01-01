@@ -123,6 +123,14 @@ exports.returnNick = function(socket){
 };
 
 
+exports.secondsToTickRate = function(seconds){
+  return seconds * (1000/config.FPS);
+};
+
+exports.minutesToTickRate = function(minutes){
+    return (60 * minutes) * (1000/config.FPS);
+};
+
 
 
 exports.Severity = Severity;
