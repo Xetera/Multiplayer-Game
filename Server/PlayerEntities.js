@@ -82,14 +82,15 @@ Player.prototype.update = function(){
 // TODO: create enumeration for keys names instead of strings
 Player.prototype.movementUpdate = function(info){
 
-
-    console.log(info.keys);
+    /*
     if (info.keys.includes('space')){
         this.xSpeed = 0;
         this.ySpeed = 0;
 
     }
-    else if (!info.keys.length){
+    */
+    console.log(info);
+    if (!info.keys.length){
         this.xSpeed = this.ySpeed = 0;
     }
 

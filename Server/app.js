@@ -168,7 +168,7 @@ setInterval(() => {
         if (players.hasOwnProperty(i)){
             players[i].update();
             players[i].updateAvailableUpgrades();
-            players[i].checkLerp();
+            players[i].checkLerp(players[i]);
         }
     }
     for (let i in enemies){

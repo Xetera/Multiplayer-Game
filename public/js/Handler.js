@@ -57,7 +57,8 @@ handler.keyDownEvent = function(event){
         keyPresses.keys.push('down');
     }
     else if (event.keyCode === 32){ // space
-        keyPresses.keys.push('space');
+        //keyPresses.keys.push('space');
+        return events.emitPlayerDash();
     }
     else if (event.keyCode === 13){
         $('#chat-input').focus();

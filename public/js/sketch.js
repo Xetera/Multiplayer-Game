@@ -119,9 +119,8 @@ $('#defaultNick-input').submit(event => {
    events.emitNewNick('s');
 });
 
-$('#ctx').click(()=>{
-   //events.emitPlayerDash();
-});
+
+
 $(document).keydown((event)=>{
    handler.keyDownEvent(event);
 });

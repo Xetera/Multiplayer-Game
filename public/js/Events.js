@@ -25,7 +25,10 @@ events.ping = function() {
 };
 
 
-
+events.emitPlayerDash = function(){
+    console.log('dashing');
+    socket.emit('dash', keyPresses);
+};
 
 socket.on('getPing', (pack)=>{
     console.log(pack);

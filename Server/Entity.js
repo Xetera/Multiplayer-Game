@@ -1,5 +1,6 @@
 const config = require('../SharedVariables');
 const util = require('./Utility');
+const Player = require('./PlayerEntities');
 
 /**
  * Base object for interactive things on the canvas. Has basic update functions
@@ -21,6 +22,7 @@ function Entity(x, y, xSize, ySize){
     this.lerp = {};
     this.dashStrength = 20;
     this.dashCooldown = 30; // seconds
+    this.dashOnCooldown = false;
     this.dashes = {};
 }
 
@@ -73,33 +75,40 @@ Entity.prototype.updateSize = function(amount){
 };
 
 // here we're checking the linear interpolation to avoid jittery movements
-Entity.prototype.checkLerp = function(){
+Entity.prototype.checkLerp = function(player){
     // only runs when lerp[] exists
 
     // checking against isNaN feels
-    if (isNaN(this.lerp['amount'])) return;
+    if (!isNaN(this.lerp['amount'])){
 
-    if (this.lerp['amount'] !== 0){
-        // we're doing += because if it's negative then we want to subtract size
-        this.size += this.lerp['ratio'];
-        this.lerp['amount']--;
+        if (this.lerp['amount'] !== 0){
+            // we're doing += because if it's negative then we want to subtract size
+            this.size += this.lerp['ratio'];
+            this.lerp['amount']--;
+        }
+        else if (this.lerp['amount'] === 0){
+            this.lerp = {};
+        }
+
     }
-    else if (this.lerp['amount'] === 0){
-        this.lerp = {};
+
+    if (!isNaN(this.dashes['amount'])){
+        if(this.dashes['amount'] !== 0){
+            console.log('dashing');
+            this.xSpeed = this.dashes.x;
+            this.ySpeed = this.dashes.y;
+            this.dashes['amount']--;
+        }
+        else if (this.dashes['amount'] === 0){
+            this.movementUpdate(this.dashes.direction);
+
+            this.dashes = {};
+            // resetting speed after dash
+            console.log(this.dashes.direction)
+        }
+
     }
 
-
-
-    if (isNaN(this.dashes['magnitude'])) return;
-
-    if(this.dashes['amount'] !== 0){
-        this.xSpeed = this.dashes.x;
-        this.ySpeed = this.dashes.y;
-        this.dashes['amount']--;
-    }
-    else if (this.dashes['amount'] === 0){
-        this.dashes = {};
-    }
 
 
 };
@@ -121,6 +130,10 @@ Entity.prototype.updateSpeed = function(amount) {
 
 Entity.prototype.dash = function(direction) {
     // direction will be a keypress array most likely
+    if (this.dashOnCooldown) return console.log('prevented Dash');
+    this.dashOnCooldown = true;
+
+    this.dashes.direction = direction;
 
     if (direction.keys.includes('left') && direction.keys.includes('up')){
         this.dashes.x = Math.cos(3 * Math.PI/4) * this.dashStrength;
@@ -155,9 +168,10 @@ Entity.prototype.dash = function(direction) {
         this.dashes.y = this.ySpeedDelta;
     }
     this.dashes.magnitude = Math.sqrt((this.dashes.x ** 2) + (this.dashes.y ** 2));
-    this.dashes.x *= this.dashes.magnitude;
+
     let dashSeconds = 0.3 * 1000;
     this.dashes.amount = Math.floor(dashSeconds/config.FPS);
+    console.log(this.dashes);
 
 };
 
