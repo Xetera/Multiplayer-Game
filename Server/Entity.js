@@ -19,6 +19,9 @@ function Entity(x, y, xSize, ySize){
     this.xSpeedDelta = 0;
     this.ySpeedDelta = 0;
     this.lerp = {};
+    this.dashStrength = 20;
+    this.dashCooldown = 30; // seconds
+    this.dashes = {};
 }
 
 /**
@@ -85,6 +88,20 @@ Entity.prototype.checkLerp = function(){
         this.lerp = {};
     }
 
+
+
+    if (isNaN(this.dashes['magnitude'])) return;
+
+    if(this.dashes['amount'] !== 0){
+        this.xSpeed = this.dashes.x;
+        this.ySpeed = this.dashes.y;
+        this.dashes['amount']--;
+    }
+    else if (this.dashes['amount'] === 0){
+        this.dashes = {};
+    }
+
+
 };
 
 Entity.prototype.updateSpeed = function(amount) {
@@ -96,8 +113,53 @@ Entity.prototype.updateSpeed = function(amount) {
 
     this.ySpeedDelta += amount;
 };
+/**
+ *
+ * @param direction
+ * @param {number} magnitude
+ */
 
+Entity.prototype.dash = function(direction) {
+    // direction will be a keypress array most likely
 
+    if (direction.keys.includes('left') && direction.keys.includes('up')){
+        this.dashes.x = Math.cos(3 * Math.PI/4) * this.dashStrength;
+        this.dashes.y = Math.sin(3 * Math.PI/4) * -this.dashStrength;
+    }
+    else if (direction.keys.includes('left') && direction.keys.includes('down')){
+        this.dashes.x = Math.cos(5 * Math.PI/4) * this.dashStrength;
+        this.dashes.y= Math.sin(5 * Math.PI/4) * -this.dashStrength;
+    }
+    else if (direction.keys.includes('left')){
+        this.dashes.x = -this.dashStrength;
+        this.dashes.y = 0;
+    }
+    else if (direction.keys.includes('right') && direction.keys.includes('up')){
+        this.dashes.x= Math.cos(Math.PI/4) * this.dashStrength;
+        this.dashes.y = Math.sin(Math.PI/4) * -this.dashStrength;
+    }
+    else if (direction.keys.includes('right') && direction.keys.includes('down')){
+        this.dashes.x = Math.cos(7 * Math.PI/4) * this.dashStrength;
+        this.dashes.y = Math.sin(7 * Math.PI/4) * -this.dashStrength;
+    }
+    else if (direction.keys.includes('right')){
+        this.dashes.x = this.dashStrength;
+        this.dashes.y= 0;
+    }
+    else if (direction.keys.includes('up')){
+        this.dashes.x = 0;
+        this.dashes.y = -this.dashStrength;
+    }
+    else if (direction.keys.includes('down')){
+        this.dashes.x = 0;
+        this.dashes.y = this.ySpeedDelta;
+    }
+    this.dashes.magnitude = Math.sqrt((this.dashes.x ** 2) + (this.dashes.y ** 2));
+    this.dashes.x *= this.dashes.magnitude;
+    let dashSeconds = 0.3 * 1000;
+    this.dashes.amount = Math.floor(dashSeconds/config.FPS);
+
+};
 
 module.exports = Entity;
 

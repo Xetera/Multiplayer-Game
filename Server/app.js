@@ -119,7 +119,9 @@ io.sockets.on('connection', (socket)=> {
     // things we have to emit to the connection before it starts looking for
     // elements that don't exist
 
-    //socket.emit('upgrades', allUpgrades);
+    socket.on('dash', (pack)=> {
+       players[socket.id].dash(pack);
+    });
 
     socket.on('keyPress', (pack)=>{
         handler.keyPress(pack);

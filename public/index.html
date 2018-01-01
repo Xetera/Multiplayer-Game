@@ -13,7 +13,7 @@
 
     <script src="js/sketch.js"></script>
     <script src="js/Display.js"></script>
-
+    <script src="js/Enum.js"></script>
     <script src="js/Events.js"></script>
     <script src="js/Elements.js"></script>
     <script src="js/Handler.js"></script>
@@ -71,7 +71,13 @@
           <div id="score-stat-container" class="stats-container">
             <label>Score</label>
             <img src="Media/score.png" class="stat-icon">
-            <div id="score-size-stat-text" class="stats-text">0</div>
+            <div id="score-stat-text" class="stats-text">0</div>
+          </div>
+
+          <div id="size-stat-container" class="stats-container">
+            <label>Size</label>
+            <img src="Media/size.png" class="stat-icon">
+            <div id="size-stat-text" class="stats-text">0</div>
           </div>
       </div>
 
@@ -86,22 +92,34 @@
 
   <div id="right-container" class="pale-container" >
     <div id="TODO">
-      <ul>
+      <ul> TODO:
         <li>
-          Get stats up in the header
+          <strike>Get stats up in the header</strike></li>
+        <li>
+          Currently online players</li>
+        <li>
+          Leaderboard on the right</li>
+        <li>
+          <strike>Purchasable upgrades</strike></li>
+        <li>
+          <strike>Convert to css grid</strike></li>
+        <li>
+          Brief intro to game on the right</li>
+        <li>
+          Convert to arena-like game type with lobby</li>
+        <li>
+          Cool WebGL loading screen?
         </li>
         <li>
-          Currently online players
+          <strike>Add 8 cardinal directions</strike>
         </li>
         <li>
-          Leaderboard on the right
+          <strike>Convert diagonal movement to its unit vector</strike>
         </li>
         <li>
-          Brief intro to game on the right
+          <strike>Make a LERP algorithm for smooth size changes</strike>
         </li>
-        <li>
-          Convert to arena-like gametype
-        </li>
+        <li>Add dashing</li>
       </ul>
     </div>
     <div id="online-players">

@@ -55,8 +55,9 @@ body {
 }
 
 .pale-container {
-    background-color: #DF2935;
+    background-color: #e86f59;
     border:1px solid #939793;
+    stroke: #e83961;
 }
 .stats {
     margin: 5px;

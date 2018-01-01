@@ -11,7 +11,9 @@ let potions = [];
 let upgrades = {};
 
 let ctx;
-
+let keyPresses = {
+    keys: []
+};
 
 let init_nick = false;
 
@@ -21,6 +23,7 @@ let speedStatText;
 let minSizeValue;
 let maxSizeValue;
 let score;
+let size;
 
 let chatBox;
 let chatInput;
@@ -49,7 +52,9 @@ $(function(){
     speedStatText = $('#speed-stat-text');
     minSizeValue = $('#min-size-stat-text');
     maxSizeValue = $('#max-size-stat-text');
-    score = $('#score-size-stat-text');
+    score = $('#score-stat-text');
+    size = $('#size-stat-text');
+
 
     $('#stats-form').onsubmit = function(e){
         e.preventDefault();
@@ -95,6 +100,8 @@ $(function(){
 
     // this has to be an ES5 type function, not an arrow function
     speedUpgrade.click(function (){
+        // not sure if this is the best way to be checking for something like this but it
+        // shouldn't matter anyways because the client can't be trusted
         if ($('#img-speed-upgrade').hasClass('disabled')){
             return;
         }
@@ -112,41 +119,17 @@ $('#defaultNick-input').submit(event => {
    events.emitNewNick('s');
 });
 
+$('#ctx').click(()=>{
+   //events.emitPlayerDash();
+});
 $(document).keydown((event)=>{
-   keyDownHandler(event);
+   handler.keyDownEvent(event);
 });
 
-//TODO: Change pack.key identifier to enumeration from string names
-function keyDownHandler(event){
-    // for some reason chat input selector needs an index for this
-    if (document.activeElement === chatInput[0]){
-        return
-    }
-    let pack = {};
-    pack.id = socket.id;
-    pack.state = true;
-    if (event.keyCode === 68 || event.keyCode === 39){   //d or right
-        pack.key = 'right';
-    }
-    else if (event.keyCode === 83 || event.keyCode === 40) {  //s or down
-        pack.key = 'down';
-    }
-    else if (event.keyCode === 87 || event.keyCode === 38){ // w or up
-        pack.key = 'up';
-    }
-    else if (event.keyCode === 65 || event.keyCode === 37){ // a or left
-        pack.key = 'left';
-    }
-    else if (event.keyCode === 32){
-        pack.key = 'space';
-    }
-    else if (event.keyCode === 13){
-        $('#chat-input').focus();
-        return;
-    }
-    else {
-        return;
-    }
-    events.emitKeyPress(pack);
+$(document).keyup((event)=>{
+    console.log('keyup');
+    handler.keyUpEvent(event);
+});
 
-}
+//TODO: Change pack.keys identifier to enumeration from string names
+

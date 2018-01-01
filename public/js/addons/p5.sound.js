@@ -1184,14 +1184,14 @@ soundfile = function () {
    *    soundFile.loop();
    *  }
    *  function keyTyped() {
-   *    if (key == 'p') {
+   *    if (keys == 'p') {
    *      soundFile.pause();
    *      background(255, 0, 0);
    *    }
    *  }
    *
    *  function keyReleased() {
-   *    if (key == 'p') {
+   *    if (keys == 'p') {
    *      soundFile.play();
    *      background(0, 255, 0);
    *    }
@@ -5690,7 +5690,7 @@ env = function () {
   };
   /**
    *  Trigger the Attack, and Decay portion of the Envelope.
-   *  Similar to holding down a key on a piano, but it will
+   *  Similar to holding down a keys on a piano, but it will
    *  hold the sustain level until you let go. Input can be
    *  any p5.sound object, or a <a href="
    *  http://docs.webplatform.org/wiki/apis/webaudio/AudioParam">
@@ -5799,7 +5799,7 @@ env = function () {
   };
   /**
    *  Trigger the Release of the Envelope. This is similar to releasing
-   *  the key on a piano and letting the sound fade according to the
+   *  the keys on a piano and letting the sound fade according to the
    *  release level and release time.
    *
    *  @method  triggerRelease
