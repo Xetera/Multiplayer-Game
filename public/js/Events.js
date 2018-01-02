@@ -72,10 +72,17 @@ socket.on('upgradesInfo', (pack)=>{
 
 socket.on('playerInfo', (pack)=> {
     players = pack;
-    if (!self){
+
+    for (let x in players){
+        if (players[x].id === socket.id){
+            self = players[x];
+        }
     }
 });
 
+socket.on('enemiesInfo', pack => {
+    enemies = pack;
+});
 socket.on('foodInfo', (pack) => {
     foods = pack;
 });
