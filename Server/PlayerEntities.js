@@ -22,7 +22,7 @@ function Player(x, y, xSize, ySize) {
     this.score = 0;
 
     // this is going to be a growing limit but we need to hard cap it at some point
-    this.maxSize = 50;
+    this.maxSize = 200;
     this.upgrades = this.availableUpgrades =
         JSON.parse(JSON.stringify(config.upgradesTemplate));
     let debug = false;

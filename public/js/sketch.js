@@ -1,4 +1,3 @@
-
 "use strict";
 
 let socket = io();
@@ -9,7 +8,7 @@ let players = [];
 let potions = [];
 
 let upgrades = {};
-
+let enemies = [];
 let timers = [];
 
 let ctx;
@@ -32,21 +31,15 @@ let chatInput;
 
 let ping;
 
-
-for (let i in players){
-    console.log(players[i].id);
-    console.log(socket.id);
-    if (players[i].id === socket.id){
-        self = players[i];
-    }
-}
+let windowX = 400;
+let windowY = 400
 
 
 $(function(){
 
     ctx = document.getElementById('ctx').getContext('2d');
     ctx.font = '30 px Arial';
-    ctx.clearRect(0, 0 , 950, 700);
+    //ctx.clearRect(0, 0, windowX, windowY);
 
     chatBox = $('#chatbox');
     chatInput = $('#chat-input');
@@ -74,6 +67,7 @@ $(function(){
                 chatInput.blur();
                 return;
             }
+
             let message = chatInput.text();
             console.log(message);
             chatInput.html("");
@@ -126,8 +120,6 @@ $('#defaultNick-input').submit(event => {
 $(document).contextmenu(function(){
     console.log('contextmenu');
     keyPresses.keys = [];
-
-
 });
 
 

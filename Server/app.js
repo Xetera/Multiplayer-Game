@@ -177,7 +177,6 @@ setInterval(() => {
         // for some reason [i] goes past members of enemies so this
         // prevents it from looping over random things
         if (enemies.hasOwnProperty(i)){
-
             enemies[i].update();
         }
     }
@@ -191,6 +190,7 @@ setInterval(() => {
     handler.emitAll('foodInfo', foods);
     handler.emitAll('potionInfo', potions);
     handler.emitAll('upgradesInfo', upgrades);
+    handler.emitAll('enemiesInfo', enemies);
     //handler.emitAll('timersInfo', timers);
 
     // sending empty packet to let client know it's the end of the frame

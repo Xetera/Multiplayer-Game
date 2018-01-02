@@ -1,16 +1,41 @@
 
+let cameraX;
+let cameraY;
 
 function updateDisplay(){
 
-    ctx.fillStyle = "#b4b9b4";
-    ctx.clearRect(0, 0 , 950, 700);
 
+    let x1Offset = 450 - (self.size/2);
+    let y1Offset = 350 - (self.size/2);
+    let x2Offset = 2000-450 - (self.size/2);
+    let y2Offset = 2000-350 - (self.size/2);
+    ctx.clearRect(-1000, -1000, 4000, 4000); // this should be relative but I'm lazy
+    if ((self.x <= x1Offset && self.y <= y1Offset) || (self.x <= x1Offset && self.y >= y2Offset) ||
+        (self.x >= x2Offset && self.y <= y1Offset) || (self.x >= x2Offset && self.y >= y2Offset)) {
+
+    }
+    else if (self.x - 450 <= 0 || self.x + 450 + self.size >= 2000){
+        ctx.translate(0, -self.ySpeed);
+    }
+    else if (self.y - 350 <= 0 || self.y + 350 + self.size >= 2000){
+        ctx.translate(-self.xSpeed, 0);
+    }
+
+    else {
+        ctx.translate(-self.xSpeed, -self.ySpeed);
+    }
 
     // refreshing players
     for (let i in players){
         // updating things only for current player
         if (players[i].id === socket.id){
-            self = players[i];
+
+
+            ctx.fillStyle = "#b4b9b4";
+
+
+            //ctx.fillRect(900/2 - (self.size/2), 700/2 - (self.size/2), self.size, self.size);
+
             // we only want to update player defaultNick once
             // but we can't do it in another loop because
             // it's not guaranteed that players will exist
@@ -110,5 +135,10 @@ function updateDisplay(){
 
     // reverting font back to default
     ctx.font = '12px sans-serif';
+    for (let i in enemies){
+        ctx.fillStyle = "#ff65f3";
+        ctx.fillRect(enemies[i].x, enemies[i].y, enemies[i].size, enemies[i].size);
+    }
+
 
 }
