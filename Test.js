@@ -1,3 +1,5 @@
-let obj = {};
+let obj = {
+    x: 1
+};
 
-console.log(!obj.length);
+console.log(Object.keys(obj)[0]);

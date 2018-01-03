@@ -17,6 +17,9 @@ function Entity(x, y, xSize, ySize){
     this.y = y;
     this.size = 50 || xSize;
 
+    this.xSpeed = 0;
+    this.ySpeed = 0;
+    this.type = entityType.Entity;
     this.xSpeedDelta = 0;
     this.ySpeedDelta = 0;
     this.lerp = {};
@@ -190,6 +193,15 @@ Entity.prototype.dash = function(direction) {
     console.log(this.dashes);
 
 };
+
+
+// This sounds like REALLY bad practice but I can't think of another way of
+// doing this without putting the module export in a an object
+global.entityType = Object.freeze({
+    Entity: 0,
+    Player: 1,
+    Enemy: 2
+});
 
 module.exports = Entity;
 
