@@ -15,13 +15,14 @@ function Player(x, y, xSize, ySize) {
     this.ySpeed = 0;
     this.xSpeedDelta = 5;
     this.ySpeedDelta = 5;
+    this.minSize = 10;
 
     // the defaultNick
     this.defaultNick = util.generateNick();
     this.score = 0;
 
     // this is going to be a growing limit but we need to hard cap it at some point
-    this.maxSize = 50;
+    this.maxSize = 200;
     this.upgrades = this.availableUpgrades =
         JSON.parse(JSON.stringify(config.upgradesTemplate));
     let debug = false;
@@ -74,40 +75,66 @@ Player.prototype.update = function(){
  * Updates player speed / direction according to the information keyPress.
  *
  * @param   {Object}  info - Object returned from keyPress.
- * @param   {string}  info.key - Name of key.
- * @param   {Boolean} info.state - whether the key is pressed or not.
+ * @param   {string}  info.keys - Name of keys.
+ * @param   {Boolean} info.state - whether the keys is pressed or not.
  * @returns {void}
  */
-// TODO: create enumeration for key names instead of strings
+// TODO: create enumeration for keys names instead of strings
 Player.prototype.movementUpdate = function(info){
 
-    // we could at some point think about having 8 cardinal directions
-    if (info.state === false){
-        this.xSpeed = this.ySpeed = 0;
-        return
+    /*
+    if (info.keys.includes('space')){
+        this.xSpeed = 0;
+        this.ySpeed = 0;
+
     }
-    if (info.key === 'left'){
+    */
+    console.log(info);
+    if (!info.keys.length){
+        this.xSpeed = this.ySpeed = 0;
+    }
+
+    // no problem hardcoding these trig values since we're just working with cardinal directions
+
+    // ex: since [left + up], this.xSpeed must equal a negative value, this.ySpeed must equal negative
+    // cos(3pi/4) = -1/sqrt(2) therefore we don't need to take its negative again
+    // sin(3pi/4) = 1/sqrt(2), we need it to be a negative value so we multiply it by negative yDelta
+        // class dismissed
+    else if (info.keys.includes('left') && info.keys.includes('up')){
+        this.xSpeed = Math.cos(3 * Math.PI/4) * this.xSpeedDelta;
+        this.ySpeed = Math.sin(3 * Math.PI/4) * -this.ySpeedDelta;
+    }
+    else if (info.keys.includes('left') && info.keys.includes('down')){
+        this.xSpeed = Math.cos(5 * Math.PI/4) * this.xSpeedDelta;
+        this.ySpeed = Math.sin(5 * Math.PI/4) * -this.ySpeedDelta;
+    }
+    else if (info.keys.includes('left')){
         this.xSpeed = -this.xSpeedDelta;
         this.ySpeed = 0;
     }
-    else if (info.key === 'right'){
+    else if (info.keys.includes('right') && info.keys.includes('up')){
+        this.xSpeed = Math.cos(Math.PI/4) * this.xSpeedDelta;
+        this.ySpeed = Math.sin(Math.PI/4) * -this.ySpeedDelta;
+    }
+    else if (info.keys.includes('right') && info.keys.includes('down')){
+        this.xSpeed = Math.cos(7 * Math.PI/4) * this.xSpeedDelta;
+        this.ySpeed = Math.sin(7 * Math.PI/4) * -this.ySpeedDelta;
+    }
+    else if (info.keys.includes('right')){
         this.xSpeed = this.xSpeedDelta;
         this.ySpeed = 0;
     }
-    else if (info.key === 'up'){
+    else if (info.keys.includes('up')){
         this.xSpeed = 0;
         this.ySpeed = -this.ySpeedDelta;
     }
-    else if (info.key === 'down'){
+    else if (info.keys.includes('down')){
         this.xSpeed = 0;
         this.ySpeed = this.ySpeedDelta;
     }
 
     // stopping with space
-    else if (info.key === 'space'){
-        this.xSpeed = 0;
-        this.ySpeed = 0;
-    }
+
 };
 
 Player.prototype.updateAvailableUpgrades = function(){

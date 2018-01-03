@@ -8,47 +8,63 @@ let players = [];
 let potions = [];
 
 let upgrades = {};
+let enemies = [];
+let timers = [];
 
 let ctx;
+let minimap;
 
+let keyPresses = {
+    keys: []
+};
 
 let init_nick = false;
-let windowX = 900;
-let windowY = 700;
 
 let speedUpgrade;
 let imgSpeedUpgrade;
+let speedStatText;
+let minSizeValue;
+let maxSizeValue;
+let score;
+let size;
 
 let chatBox;
 let chatInput;
 
 let ping;
 
-for (let i in players){
-    console.log(players[i].id);
-    console.log(socket.id);
-    if (players[i].id === socket.id){
-        self = players[i];
-    }
-}
+let windowX = 400;
+let windowY = 400
 
 
 $(function(){
 
     ctx = document.getElementById('ctx').getContext('2d');
     ctx.font = '30 px Arial';
-    ctx.clearRect(0, 0 , 900, 700);
+
+    minimap = document.getElementById('minimap').getContext('2d');
+
+    //ctx.clearRect(0, 0, windowX, windowY);
 
     chatBox = $('#chatbox');
     chatInput = $('#chat-input');
     speedUpgrade = $('#speed-upgrade');
-    imgSpeedUpgrade =  $('#img-speed-upgrade')
+    imgSpeedUpgrade =  $('#img-speed-upgrade');
+    speedStatText = $('#speed-stat-text');
+    minSizeValue = $('#min-size-stat-text');
+    maxSizeValue = $('#max-size-stat-text');
+    score = $('#score-stat-text');
+    size = $('#size-stat-text');
+
+    shrinkWorld(ctx, 0.3);
+    shrinkWorld(minimap, 0.1);
+
 
     $('#stats-form').onsubmit = function(e){
         e.preventDefault();
         console.log($('#speed').val());
     };
-
+    
 
     chatInput.keydown(function(e){
         console.log(e.keyCode);
@@ -59,6 +75,7 @@ $(function(){
                 chatInput.blur();
                 return;
             }
+
             let message = chatInput.text();
             console.log(message);
             chatInput.html("");
@@ -87,7 +104,9 @@ $(function(){
 
 
     // this has to be an ES5 type function, not an arrow function
-    $('#speed-upgrade').click(function (){
+    speedUpgrade.click(function (){
+        // not sure if this is the best way to be checking for something like this but it
+        // shouldn't matter anyways because the client can't be trusted
         if ($('#img-speed-upgrade').hasClass('disabled')){
             return;
         }
@@ -102,44 +121,24 @@ $(function(){
 
 $('#defaultNick-input').submit(event => {
     console.log(event);
-   events.emitNewNick('s');
+    events.emitNewNick('s');
 });
+
+
+$(document).contextmenu(function(){
+    console.log('contextmenu');
+    keyPresses.keys = [];
+});
+
 
 $(document).keydown((event)=>{
-   keyDownHandler(event);
+   handler.keyDownEvent(event);
 });
 
-//TODO: Change pack.key identifier to enumeration from string names
-function keyDownHandler(event){
-    // for some reason chat input selector needs an index for this
-    if (document.activeElement === chatInput[0]){
-        return
-    }
-    let pack = {};
-    pack.id = socket.id;
-    pack.state = true;
-    if (event.keyCode === 68 || event.keyCode === 39){   //d or right
-        pack.key = 'right';
-    }
-    else if (event.keyCode === 83 || event.keyCode === 40) {  //s or down
-        pack.key = 'down';
-    }
-    else if (event.keyCode === 87 || event.keyCode === 38){ // w or up
-        pack.key = 'up';
-    }
-    else if (event.keyCode === 65 || event.keyCode === 37){ // a or left
-        pack.key = 'left';
-    }
-    else if (event.keyCode === 32){
-        pack.key = 'space';
-    }
-    else if (event.keyCode === 13){
-        $('#chat-input').focus();
-        return;
-    }
-    else {
-        return;
-    }
-    events.emitKeyPress(pack);
+$(document).keyup((event)=>{
+    console.log('keyup');
+    handler.keyUpEvent(event);
+});
 
-}
+//TODO: Change pack.keys identifier to enumeration from string names
+

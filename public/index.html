@@ -5,13 +5,15 @@
     <link rel="shortcut icon" href="./Media/blue-cube.png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.2/pixi.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.2/pixi.js"></script>-->
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="../SharedVariables.js"></script>
+
     <script src="js/sketch.js"></script>
     <script src="js/Display.js"></script>
-
+    <script src="js/Enum.js"></script>
     <script src="js/Events.js"></script>
     <script src="js/Elements.js"></script>
     <script src="js/Handler.js"></script>
@@ -38,14 +40,46 @@
         <div id="left-stats-container" class="white-container stats">
           <div id="speed-upgrade">
             <img id="img-speed-upgrade" src="Media/speed-icon.png" class="disabled">
+
           </div>
         </div>
         <div id="title">
-          <div id="" class="front">
+          <canvas id="minimap" height="150" width="270"></canvas>
+          <!--<div id="" class="front">
             Blocks
-          </div>
+          </div>-->
         </div>
         <div id="right-stats-container" class="white-container stats">
+
+          <div id="speed-stat-container" class="stats-container">
+            <label>Speed</label>
+            <img src="Media/speed-icon.png" class="stat-icon">
+            <div id="speed-stat-text" class="stats-text">0</div>
+          </div>
+
+          <div id="min-size-stat-container" class="stats-container">
+            <label>Min Size</label>
+            <img src="Media/minsize.png" class="stat-icon">
+            <div id="min-size-stat-text" class="stats-text">0</div>
+          </div>
+
+          <div id="max-size-stat-container" class="stats-container">
+            <label>Max Size</label>
+            <img src="Media/maxsize.png" class="stat-icon">
+            <div id="max-size-stat-text" class="stats-text"> 0 </div>
+          </div>
+
+          <div id="score-stat-container" class="stats-container">
+            <label>Score</label>
+            <img src="Media/score.png" class="stat-icon">
+            <div id="score-stat-text" class="stats-text">0</div>
+          </div>
+
+          <div id="size-stat-container" class="stats-container">
+            <label>Size</label>
+            <img src="Media/size.png" class="stat-icon">
+            <div id="size-stat-text" class="stats-text">0</div>
+          </div>
       </div>
 
 
@@ -59,27 +93,64 @@
 
   <div id="right-container" class="pale-container" >
     <div id="TODO">
-      <ul>
+      <ul> TODO:
         <li>
-          Get stats up in the header
+          <strike>Get stats up in the header</strike></li>
+        <li>
+          Currently online players</li>
+        <li>
+          Leaderboard on the right</li>
+        <li>
+          <strike>Purchasable upgrades</strike></li>
+        <li>
+          <strike>Convert to css grid</strike></li>
+        <li>
+          Brief intro to game on the right</li>
+        <li>
+          Convert to arena-like game type with lobby</li>
+        <li>
+          Cool WebGL loading screen?
         </li>
         <li>
-          Currently online players
+          <strike>Add 8 cardinal directions</strike>
         </li>
         <li>
-          Leaderboard on the right
+          <strike>Convert diagonal movement to its unit vector</strike>
         </li>
         <li>
-          Brief intro to game on the right
+          <strike>Make a LERP algorithm for smooth size changes</strike>
         </li>
-        <li>
-          Convert to arena-like gametype
-        </li>
+        <li>Add dashing</li>
       </ul>
     </div>
-    <div id="online-players">
+    <div id="online-players-flex-container">
+      <div id="online-players">
+        <div class="online-player">
+          <img src="Media/blue-cube.png" class="online-player-icon">
+          <div class="online-player-text">Don Hancho</div>
 
+          <label >Online</label>
+
+          <label >Score: </label>
+          <label class="stats-text"></label>
+        </div>
+        <div class="online-player"></div>
+
+        <div class="online-player"></div>
+
+        <div class="online-player"></div>
+
+        <div class="online-player"></div>
+        <div class="online-player"></div>
+        <div class="online-player"></div>
+        <div class="online-player"></div>
+        <div class="online-player"></div>
+
+
+
+      </div>
     </div>
+
     <div id="leaderboard">
 
     </div>

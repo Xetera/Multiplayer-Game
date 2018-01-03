@@ -10,3 +10,17 @@ function updateSpeedIcon(player){
     }
 }
 
+function updateStats(player){
+    speedStatText.html(player.xSpeedDelta.toFixed(2));
+    minSizeValue.html(player.minSize);
+    maxSizeValue.html(player.maxSize);
+    score.html(player.score);
+    if (player.size % 1 !== 0){
+        size.html(player.size.toFixed(2));
+    }
+    else {
+        size.html(player.size);
+    }
+}
+
+

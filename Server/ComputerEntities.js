@@ -40,14 +40,14 @@ Enemy.prototype.update = function(){
     // don't spaz out if you're following a player
     this.randomMovement();
 
-    let player = this.checkClosestPlayerDistance();
+    let player = this.checkDistance();
     if (player) this.follow(player);
     // this only gets executed after we loop through every player and none of them
     // are in range of the enemy
     if (this.following.length) this.following = {};
 };
 
-Enemy.prototype.checkClosestPlayerDistance = function(){
+Enemy.prototype.checkDistance = function(){
     let playersInRange = [];
     let ranges = [];
     for (let i in players){
@@ -59,19 +59,18 @@ Enemy.prototype.checkClosestPlayerDistance = function(){
             playersInRange.push(players[i]);
         }
     }
-    if (!playersInRange.length){
-        return false;
-    }
-    else if (playersInRange.length === 1) {
-        return playersInRange[0];
-
-    }
     for (let i in playersInRange){
         ranges.push(playersInRange[i]['distance']);
     }
+    if (!playersInRange.length){
+        return false;
+    }
+    else if (playersInRange.length === 1){
+        return playersInRange[0];
+    }
     // in case more than one player is in range
     else {
-
+        
     }
 };
 

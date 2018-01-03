@@ -24,6 +24,7 @@ const populate = require('./Populate');
 const config = require('../SharedVariables');
 const util = require('./Utility');
 const upg = require('./Upgrades');
+const timer = require('./Countdown');
 
 class Server {
     // useless object
@@ -59,6 +60,10 @@ app.get('/Media/:img', (req,res)=>{
    res.sendFile(server.dir + req.params.img, (err)=>{
        if (err) console.log(err);
    })
+});
+
+app.get('SharedVariables', (req,res)=>{
+    res.sendFile(server.dir + 'SharedVariables.js')
 });
 
 
@@ -115,7 +120,9 @@ io.sockets.on('connection', (socket)=> {
     // things we have to emit to the connection before it starts looking for
     // elements that don't exist
 
-    //socket.emit('upgrades', allUpgrades);
+    socket.on('dash', (pack)=> {
+       players[socket.id].dash(pack);
+    });
 
     socket.on('keyPress', (pack)=>{
         handler.keyPress(pack);
@@ -150,6 +157,7 @@ io.sockets.on('connection', (socket)=> {
     });
 });
 
+timerO = new timer.ShrinkTimer(3, 20);
 
 // our main game loop
 setInterval(() => {
@@ -157,29 +165,33 @@ setInterval(() => {
     populate.summonPotions();
     populate.summonEnemies();
 
-
+    //timerO.tick();
     for (let i in players){
         if (players.hasOwnProperty(i)){
             players[i].update();
             players[i].updateAvailableUpgrades();
-            players[i].checkLerp();
+            players[i].checkLerp(players[i]);
         }
     }
     for (let i in enemies){
         // for some reason [i] goes past members of enemies so this
         // prevents it from looping over random things
         if (enemies.hasOwnProperty(i)){
-
             enemies[i].update();
         }
     }
 
-    //emitting new information to all players connected to the server
+    // emitting new information to all players connected to the server
+
+    // technically this is very very bad practice and we should have separate functions that picks
+    // out the data that's suitable to send to prevent things like cheating but I can't really
+    // be bothered at this point
     handler.emitAll('playerInfo', players);
     handler.emitAll('foodInfo', foods);
     handler.emitAll('potionInfo', potions);
     handler.emitAll('upgradesInfo', upgrades);
-
+    handler.emitAll('enemiesInfo', enemies);
+    //handler.emitAll('timersInfo', timers);
 
     // sending empty packet to let client know it's the end of the frame
     // nothing is shown on the client side until this is emitted

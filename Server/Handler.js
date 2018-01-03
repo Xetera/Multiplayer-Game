@@ -5,7 +5,7 @@ const util = require('./Utility');
  * Handler for the packages received from the client on 'keyPress'
  *
  * @param  {Object}  pack
- * @param  {string}  pack.key
+ * @param  {string}  pack.keys
  * @param  {Boolean} pack.state
  * @param  {string}  pack.id - Socket id assigned to the player
  */
@@ -21,6 +21,7 @@ exports.keyPress = function(pack){
         }
     }
 };
+
 
 exports.setName = function(){
 

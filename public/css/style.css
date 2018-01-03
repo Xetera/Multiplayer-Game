@@ -3,6 +3,7 @@
     src: url('Ubuntu-B.ttf');
 
 }
+
 html, body{
 
     margin:0;
@@ -17,6 +18,13 @@ body {
     background-color: #DFA06E;
     /*display:block;*/
 }
+
+.stat-icon {
+    max-height: 35px;
+    padding: 7px;
+    margin: 0 auto;
+}
+
 
 .disabled {
     opacity: 0.4;
@@ -50,23 +58,28 @@ body {
 }
 
 .pale-container {
-    background-color: #DF2935;
+    background-color: #e86f59;
     border:1px solid #939793;
+    stroke: #e83961;
 }
 .stats {
     margin: 5px;
     border-bottom: 1px solid #EFF2F6;
     box-shadow: inset 0 3px 0 0 #AFBCC6
 }
+
+
+
 #main {
-    display:flex;
+    display:grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-rows: 100%;
     height: 100%;
 }
 
 #left-container {
     display: flex;
     flex-direction: column-reverse;
-    width:25%;
     padding:10px;
     margin-right: 20px;
     border-radius: 10px;
@@ -92,37 +105,42 @@ body {
         height: 90%;
         display: flex;
         flex-direction: column;
-        overflow: hidden;
-        justify-content: flex-end;
+        overflow: auto;
         flex-shrink: 0;
     }
 
-#head-container {
-    display:flex;
-    height: 170px;
-    margin-bottom: 10px;
-    width: 900px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 
-}
 
 
 
 #mid-container {
-    width: 50%;
+
+}
+
+#head-container {
+    display:grid;
+    grid-template-columns: 35% 30% 35%;
+    grid-template-rows: 100%;
+    height: 170px;
+    margin-bottom: 10px;
+    width: 950px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 
 }
     #left-stats-container {
-        width:35%;
         border-top-left-radius: 10px;
+        display:grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
+
     }
         #speed-upgrade {
             cursor: pointer;
         }
 
     #title {
-        width: 30%;
+
         margin: 5px;
         font-size: 60px;
         text-align: center;
@@ -135,9 +153,83 @@ body {
     }
 
     #right-stats-container{
-        width: 35%;
+
         border-top-right-radius: 10px;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 25% 25% 25% 25%
+
     }
+        #right-stats-container label {
+            padding: 2px;
+            text-align:center;
+        }
+
+    .stats .stats-text {
+        line-height: 30px;
+        margin: 0 auto;
+    }
+
+        .stats-container{
+            display:grid;
+            grid-template-columns: 50% 20% 30%;
+            grid-template-rows: 100%;
+            background-color: #86BA90;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+
+
+#right-container {
+    margin-left: 20px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-rows: auto 30% 30%;
+    /*grid-template-rows: 30% 30% 40%;*/
+    padding: 10px;
+}
+    #TODO {
+        border-bottom: 2px solid black;
+    }
+
+    #online-players-flex-container{
+        display:grid;
+    }
+
+        #right-container .online-player {
+            display: grid;
+            grid-template-columns: 20% 50% 30%;
+            grid-template-rows: 50% 50%;
+            background-color: #59726a;
+            width: 50%;
+            border: 1px solid gray;
+            min-height: 25%;
+            flex-wrap: wrap;
+        }
+
+        #online-players {
+            background-color: #afc9bd;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: normal;
+            overflow: auto;
+        }
+
+            .online-player-icon {
+                max-height: 35px;
+                max-width: 35px;
+                padding: 7px;
+                margin-left: 5px;
+                margin-right: 5px;
+            }
+            .online-player-text {
+                font-size: 15px;
+            }
+            #online-players::-webkit-scrollbar{
+                display:none;
+            }
+
 
 .chat-text {
     width: 97%;
@@ -168,10 +260,6 @@ body {
     max-height: 35px;
 }
 
-#right-container {
-    width:25%;
-    margin-left: 20px;
-}
 
 
 #stats-container {
@@ -182,7 +270,7 @@ body {
 }
 
 #footer {
-    width: 900px;
+    width: 950px;
     height: 30px;
     margin-top: 10px;
     text-align: center;

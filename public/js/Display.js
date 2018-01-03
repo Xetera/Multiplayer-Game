@@ -1,16 +1,48 @@
 
-
+// this function gets called based by a draw packet from server
+// that's what determines the FPS of the game and it can't be controlled through
+// the client
 function updateDisplay(){
 
-    ctx.fillStyle = "#b4b9b4";
-    ctx.clearRect(0, 0 , 900, 700);
+    let [vertexX, vertexY] = [self.x - (self)];
+    let x1Offset = - (self.size/2);
+    let y1Offset = - (self.size/2);
+    let x2Offset = 2000-450 - (self.size/2);
+    let y2Offset = 2000-350 - (self.size/2);
+    ctx.clearRect(-1000, -1000, 4000, 4000); // this should be relative but I'm lazy
+    clearCanvas(minimap);
+    // shifting world view based on location and controlling for edges
+    /* // figure out how to get this to work cuz it's not working
+    if (self.x <= 450 || self.x >= 2000-450 - self.size){
+        ctx.translate(0, -self.ySpeed);
+    }
+    else if (self.y <= 350 || self.y >= 2000-350){
+        ctx.translate(-self.xSpeed, 0);
+    }
+    else if (self.x <= 0 || self.y <= 0 || self.x >= 2000 - self.size || self.y >= 2000 - self.size){
+
+    }
 
 
+    else {
+        ctx.translate(-self.xSpeed, -self.ySpeed);
+    }
+    */
+    //debug
+    ctx.fillText(`Viewport: X(${self.x - 450}:${self.x + 450 + self.size}\nY(${self.y - 350}:${self.y + self.size + 350}`,
+        self.x, self.y + 70);
+    ctx.fillText(`X: ${self.x}    Y: ${self.y}`, self.x , self.y);
     // refreshing players
     for (let i in players){
         // updating things only for current player
         if (players[i].id === socket.id){
-            self = players[i];
+
+
+            ctx.fillStyle = "#b4b9b4";
+
+
+            //ctx.fillRect(900/2 - (self.size/2), 700/2 - (self.size/2), self.size, self.size);
+
             // we only want to update player defaultNick once
             // but we can't do it in another loop because
             // it's not guaranteed that players will exist
@@ -24,13 +56,13 @@ function updateDisplay(){
             // singular upgrades inside all available upgrades
 
             updateSpeedIcon(players[i]);
-
-
-
+            updateStats(players[i]);
 
         }
-
-        //if (players[i].size > )
+        ctx.fillStyle = '#86BA90';
+        // these two are going to get scaled differently so it's ok
+        minimap.fillRect(players[i].x,
+            players[i].y, players[i].size, players[i].size);
 
 
         //drawing the players
@@ -110,12 +142,21 @@ function updateDisplay(){
     if (!init_nick){
     }
 
-    // score display
-    ctx.fillStyle = '#73b979';
-    ctx.font = '30px Arial';
-    ctx.fillText("Score: "+  self.score.toString(), 80, 50);
-
     // reverting font back to default
     ctx.font = '12px sans-serif';
+    for (let i in enemies){
+        ctx.fillStyle = "#ff65f3";
+        ctx.fillRect(enemies[i].x, enemies[i].y, enemies[i].size, enemies[i].size);
+    }
 
+
+}
+
+function shrinkWorld(canvas, amount){
+    canvas.scale(amount, amount);
+}
+
+function clearCanvas(context){
+    console.log('map cleared');
+    context.clearRect(0, 0, context.width, context.height);
 }

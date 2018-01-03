@@ -1,6 +1,6 @@
 config = {};
-config.windowX = 900;
-config.windowY = 700;
+config.windowX = 3000 || 950;
+config.windowY = 2000 || 700;
 config.FPS = 60;
 
 // unique userNames
