@@ -80,6 +80,10 @@ socket.on('playerInfo', (pack)=> {
     }
 });
 
+socket.on('shrink', () => {
+    shrinkWorld();
+});
+
 socket.on('enemiesInfo', pack => {
     enemies = pack;
 });

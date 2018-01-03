@@ -1,30 +1,37 @@
 
-let cameraX;
-let cameraY;
-
+// this function gets called based by a draw packet from server
+// that's what determines the FPS of the game and it can't be controlled through
+// the client
 function updateDisplay(){
 
-
-    let x1Offset = 450 - (self.size/2);
-    let y1Offset = 350 - (self.size/2);
+    let [vertexX, vertexY] = [self.x - (self)];
+    let x1Offset = - (self.size/2);
+    let y1Offset = - (self.size/2);
     let x2Offset = 2000-450 - (self.size/2);
     let y2Offset = 2000-350 - (self.size/2);
     ctx.clearRect(-1000, -1000, 4000, 4000); // this should be relative but I'm lazy
-    if ((self.x <= x1Offset && self.y <= y1Offset) || (self.x <= x1Offset && self.y >= y2Offset) ||
-        (self.x >= x2Offset && self.y <= y1Offset) || (self.x >= x2Offset && self.y >= y2Offset)) {
-
-    }
-    else if (self.x - 450 <= 0 || self.x + 450 + self.size >= 2000){
+    clearCanvas(minimap);
+    // shifting world view based on location and controlling for edges
+    /* // figure out how to get this to work cuz it's not working
+    if (self.x <= 450 || self.x >= 2000-450 - self.size){
         ctx.translate(0, -self.ySpeed);
     }
-    else if (self.y - 350 <= 0 || self.y + 350 + self.size >= 2000){
+    else if (self.y <= 350 || self.y >= 2000-350){
         ctx.translate(-self.xSpeed, 0);
     }
+    else if (self.x <= 0 || self.y <= 0 || self.x >= 2000 - self.size || self.y >= 2000 - self.size){
+
+    }
+
 
     else {
         ctx.translate(-self.xSpeed, -self.ySpeed);
     }
-
+    */
+    //debug
+    ctx.fillText(`Viewport: X(${self.x - 450}:${self.x + 450 + self.size}\nY(${self.y - 350}:${self.y + self.size + 350}`,
+        self.x, self.y + 70);
+    ctx.fillText(`X: ${self.x}    Y: ${self.y}`, self.x , self.y);
     // refreshing players
     for (let i in players){
         // updating things only for current player
@@ -52,8 +59,10 @@ function updateDisplay(){
             updateStats(players[i]);
 
         }
-
-
+        ctx.fillStyle = '#86BA90';
+        // these two are going to get scaled differently so it's ok
+        minimap.fillRect(players[i].x,
+            players[i].y, players[i].size, players[i].size);
 
 
         //drawing the players
@@ -141,4 +150,13 @@ function updateDisplay(){
     }
 
 
+}
+
+function shrinkWorld(canvas, amount){
+    canvas.scale(amount, amount);
+}
+
+function clearCanvas(context){
+    console.log('map cleared');
+    context.clearRect(0, 0, context.width, context.height);
 }

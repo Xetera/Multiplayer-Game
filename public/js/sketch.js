@@ -12,6 +12,8 @@ let enemies = [];
 let timers = [];
 
 let ctx;
+let minimap;
+
 let keyPresses = {
     keys: []
 };
@@ -39,6 +41,9 @@ $(function(){
 
     ctx = document.getElementById('ctx').getContext('2d');
     ctx.font = '30 px Arial';
+
+    minimap = document.getElementById('minimap').getContext('2d');
+
     //ctx.clearRect(0, 0, windowX, windowY);
 
     chatBox = $('#chatbox');
@@ -51,12 +56,15 @@ $(function(){
     score = $('#score-stat-text');
     size = $('#size-stat-text');
 
+    shrinkWorld(ctx, 0.3);
+    shrinkWorld(minimap, 0.1);
+
 
     $('#stats-form').onsubmit = function(e){
         e.preventDefault();
         console.log($('#speed').val());
     };
-
+    
 
     chatInput.keydown(function(e){
         console.log(e.keyCode);
@@ -113,7 +121,7 @@ $(function(){
 
 $('#defaultNick-input').submit(event => {
     console.log(event);
-   events.emitNewNick('s');
+    events.emitNewNick('s');
 });
 
 

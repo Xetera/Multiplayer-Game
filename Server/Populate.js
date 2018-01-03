@@ -4,9 +4,9 @@ const Enemies = require('./ComputerEntities');
 
 exports.summonFood = function(){
     let dimensions = 10;
-
-    for (let i=0; i < 50; i++){
-        if (foods.length >= 50){
+    let amount = 200;
+    for (let i=0; i < amount; i++){
+        if (foods.length >= amount){
             return;
         }
         let [foodX, foodY] = util.randomCanvasPositions(dimensions);

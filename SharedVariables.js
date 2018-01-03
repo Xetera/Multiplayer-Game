@@ -1,5 +1,5 @@
 config = {};
-config.windowX = 2000 || 950;
+config.windowX = 3000 || 950;
 config.windowY = 2000 || 700;
 config.FPS = 60;
 
