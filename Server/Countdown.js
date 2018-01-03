@@ -25,6 +25,8 @@ Timer.prototype.cast = function(){
  * @param {number} shrinkAmount
  * @constructor
  */
+// it's possible that we might want to make this also grow the computer entities so
+// the game gets harder and harder every round
 function ShrinkTimer(time, shrinkAmount){
     Timer.call(this, time);
     this.shrinkAmount = shrinkAmount;
