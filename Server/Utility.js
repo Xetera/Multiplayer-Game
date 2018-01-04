@@ -131,6 +131,11 @@ exports.minutesToTickRate = function(minutes){
     return (60 * minutes) * (1000/config.FPS);
 };
 
+exports.calculateDistance = function(x1, x2, y1, y2){
+  return Math.sqrt((x1 - x2)**2 + (y1 - y2)**2);
+};
+
+
 
 
 exports.Severity = Severity;

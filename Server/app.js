@@ -165,7 +165,9 @@ setInterval(() => {
     populate.summonPotions();
     populate.summonEnemies();
 
-    //timerO.tick();
+
+
+    // we need to change this mess to a bigger update-entities function
     for (let i in players){
         if (players.hasOwnProperty(i)){
             players[i].update();

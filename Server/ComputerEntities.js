@@ -13,8 +13,8 @@ function Enemy(x, y, xSize, ySize, speed){
     Entity.call(this, x, y, xSize, ySize);
     this.xSpeedDelta = this.ySpeedDelta = speed;
     this.following = {};
-    this.followRadius = 20;
-
+    this.followRadius = 400;
+    this.type = entityType.Enemy;
 }
 
 
@@ -31,47 +31,67 @@ Enemy.prototype.update = function(){
     Entity.prototype.update.call(this);
 
     // we're checking if we're already following a character here
-    if (this.follow.length) return;
-    else {
-        this.follow();
-    }
+
     // nothing beyond here gets executed while we're following
 
     // don't spaz out if you're following a player
     this.randomMovement();
 
-    let player = this.checkDistance();
-    if (player) this.follow(player);
+
+    let player = this.checkClosestPlayerDistance();
+    if (player) {
+        console.log('enemy update');
+        this.following = player;
+        this.follow(player);
+        return;
+    }
     // this only gets executed after we loop through every player and none of them
     // are in range of the enemy
     if (this.following.length) this.following = {};
 };
 
-Enemy.prototype.checkDistance = function(){
-    let playersInRange = [];
+/**
+ * Checks
+ * @returns {Player|Boolean}
+ */
+Enemy.prototype.checkClosestPlayerDistance = function(){
+    let playersInRange = {};
     let ranges = [];
     for (let i in players){
         let distToPlayer = Math.sqrt(
             (this.x - players[i].x)**2 + (this.y - players[i].y)**2
         );
-        if (distToPlayer < this.followRadius) {
-            players[i]['distance'] = distToPlayer;
-            playersInRange.push(players[i]);
+        // we don't want to make it follow other computer players
+        if (distToPlayer < this.followRadius && players[i]['type'] === entityType.Player) {
+            playersInRange[distToPlayer] = players[i];
         }
     }
-    for (let i in playersInRange){
-        ranges.push(playersInRange[i]['distance']);
-    }
-    if (!playersInRange.length){
+
+    if (!playersInRange || Object.keys(playersInRange).length === 0){
         return false;
     }
     else if (playersInRange.length === 1){
-        return playersInRange[0];
+        let obj = Object.keys(playersInRange)[0];
+
+        // returning the player object
+        return playersInRange[obj];
+    }
+    else {
+
+        let keys = Object.keys(playersInRange);
+
+        let min = Math.min(...keys); // array of distances
+
+        // I'm not sure if there's ever going to be a time where 2 people
+        // have the same range but we could control for that by just making
+        // a random choice since it doesn't really matter
+        if (min) {
+            return playersInRange[min];
+        }
+        return false;
     }
     // in case more than one player is in range
-    else {
-        
-    }
+
 };
 
 Enemy.prototype.randomMovement = function(){
@@ -83,6 +103,7 @@ Enemy.prototype.randomMovement = function(){
 
 
 Enemy.prototype.grow = function(amount){
+    // needs work
     let growth = util.randBool();
     // we want different dimensions to grow based on luck pretty much
     if (growth){
@@ -92,9 +113,15 @@ Enemy.prototype.grow = function(amount){
 
 };
 
-// we're gonna work on this
-Enemy.prototype.follow = function(){
 
+Enemy.prototype.follow = function(player){
+    let distance = util.calculateDistance(this.midpoint[0], this.midpoint[1]
+        , player.midpoint[0], player.midpoint[1]);
+    let yDiff = player.midpoint[1] - this.midpoint[1];
+    let xDiff = player.midpoint[0] - this.midpoint[0];
+    let angle = Math.atan2(yDiff, xDiff);
+    this.xSpeed = Math.cos(angle);
+    this.ySpeed = Math.sin(angle);
 };
 
 

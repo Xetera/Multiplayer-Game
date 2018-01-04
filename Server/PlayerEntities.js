@@ -13,10 +13,11 @@ function Player(x, y, xSize, ySize) {
 
     this.xSpeed = 0;
     this.ySpeed = 0;
-    this.xSpeedDelta = 5;
-    this.ySpeedDelta = 5;
+    this.xSpeedDelta = 15;
+    this.ySpeedDelta = 15;
     this.minSize = 10;
 
+    this.type = entityType.Player;
     // the defaultNick
     this.defaultNick = util.generateNick();
     this.score = 0;
@@ -26,6 +27,14 @@ function Player(x, y, xSize, ySize) {
     this.upgrades = this.availableUpgrades =
         JSON.parse(JSON.stringify(config.upgradesTemplate));
     let debug = false;
+
+    this.powerups = {
+            magnetized:
+                {
+                    status: false,
+                    radius: 200
+                }
+        }
 
 }
 
@@ -62,7 +71,7 @@ Player.prototype.update = function(){
         }
     }
     for (let i in potions){
-        if (util.checkCollision(this, potions[i])){
+        if (util.checkCollision(this, potions[ i])){
             // SpeedPotions are multipliers
             this.xSpeedDelta *= potions[i].amount;
             this.ySpeedDelta *= potions[i].amount;
@@ -164,6 +173,21 @@ Player.prototype.purchaseUpgrade = function(name){
     delete given_upgrade;
 };
 
+Player.prototype.magnetize = function(){
+    // unlike enemy object's follow, we don't need another function to call this since
+    // it's only activated with a player picks up a powerup
+
+    if (!this.powerups.magnetized) return;
+    for (let i in foods){
+        let distance = util.calculateDistance(this.midpoint[0], this.midpoint[1]
+            , foods[i].midpoint[0], foods[i].midpoint[1]);
+        let yDiff = foods[i].midpoint[1] - this.midpoint[1];
+        let xDiff = foods[i].midpoint[0] - this.midpoint[0];
+        let angle = Math.atan2(yDiff, xDiff);
+        foods[i].xSpeed
+
+    }
+};
 module.exports = {
     Player: Player
 };
