@@ -103,6 +103,7 @@ Enemy.prototype.randomMovement = function(){
 
 
 Enemy.prototype.grow = function(amount){
+    // needs work
     let growth = util.randBool();
     // we want different dimensions to grow based on luck pretty much
     if (growth){
@@ -112,11 +113,12 @@ Enemy.prototype.grow = function(amount){
 
 };
 
-// we're gonna work on this
+
 Enemy.prototype.follow = function(player){
-    let distance = util.calculateDistance(this.x, this.y, player.x, player.y);
-    let yDiff = player.y - this.y;
-    let xDiff = player.x - this.x;
+    let distance = util.calculateDistance(this.midpoint[0], this.midpoint[1]
+        , player.midpoint[0], player.midpoint[1]);
+    let yDiff = player.midpoint[1] - this.midpoint[1];
+    let xDiff = player.midpoint[0] - this.midpoint[0];
     let angle = Math.atan2(yDiff, xDiff);
     this.xSpeed = Math.cos(angle);
     this.ySpeed = Math.sin(angle);

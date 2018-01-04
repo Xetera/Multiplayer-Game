@@ -28,10 +28,6 @@ function updateDisplay(){
         ctx.translate(-self.xSpeed, -self.ySpeed);
     }
     */
-    //debug
-    ctx.fillText(`Viewport: X(${self.x - 450}:${self.x + 450 + self.size}\nY(${self.y - 350}:${self.y + self.size + 350}`,
-        self.x, self.y + 70);
-    ctx.fillText(`X: ${self.x}    Y: ${self.y}`, self.x , self.y);
     // refreshing players
     for (let i in players){
         // updating things only for current player

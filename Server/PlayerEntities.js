@@ -28,6 +28,14 @@ function Player(x, y, xSize, ySize) {
         JSON.parse(JSON.stringify(config.upgradesTemplate));
     let debug = false;
 
+    this.powerups = {
+            magnetized:
+                {
+                    status: false,
+                    radius: 200
+                }
+        }
+
 }
 
 /*
@@ -165,6 +173,21 @@ Player.prototype.purchaseUpgrade = function(name){
     delete given_upgrade;
 };
 
+Player.prototype.magnetize = function(){
+    // unlike enemy object's follow, we don't need another function to call this since
+    // it's only activated with a player picks up a powerup
+
+    if (!this.powerups.magnetized) return;
+    for (let i in foods){
+        let distance = util.calculateDistance(this.midpoint[0], this.midpoint[1]
+            , foods[i].midpoint[0], foods[i].midpoint[1]);
+        let yDiff = foods[i].midpoint[1] - this.midpoint[1];
+        let xDiff = foods[i].midpoint[0] - this.midpoint[0];
+        let angle = Math.atan2(yDiff, xDiff);
+        foods[i].xSpeed
+
+    }
+};
 module.exports = {
     Player: Player
 };

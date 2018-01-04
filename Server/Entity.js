@@ -16,12 +16,15 @@ function Entity(x, y, xSize, ySize){
     this.x = x;
     this.y = y;
     this.size = 50 || xSize;
+    this.midpoint = this.getMidpoint();
 
     this.xSpeed = 0;
     this.ySpeed = 0;
     this.type = entityType.Entity;
     this.xSpeedDelta = 0;
     this.ySpeedDelta = 0;
+
+
     this.lerp = {};
     this.dashStrength = 20;
     this.dashBaseCooldown = Math.floor((30 * 1000)/config.FPS); // ticks
@@ -57,8 +60,12 @@ Entity.prototype.update = function(){
     else {
         this.dashOnCooldown = false;
     }
+    //updating the midpoint
+    this.midpoint = this.getMidpoint();
 };
-
+Entity.prototype.getMidpoint = function(){
+    return [this.x + (this.size/2), this.y + (this.size/2)]
+};
 
 Entity.prototype.die = function(array){
     array.splice(array.indexOf(this), 1);
@@ -68,7 +75,7 @@ Entity.prototype.die = function(array){
 // when the size changes from pickups it's handled by update and no lerping is required
 Entity.prototype.updateSize = function(amount){
     // making sure we don't shrink beyond a pixel
-    if (amount < 1 && (this.size - amount) < 1){
+    if ((this.size - amount) < 1){
         return false;
     }
 
