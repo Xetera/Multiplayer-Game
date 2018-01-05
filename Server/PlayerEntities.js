@@ -188,6 +188,7 @@ Player.prototype.magnetize = function(){
 
     }
 };
+
 module.exports = {
     Player: Player
 };
