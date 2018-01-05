@@ -11,6 +11,7 @@ function updateDisplay(){
     let y2Offset = 2000-350 - (self.size/2);
     ctx.clearRect(-1000, -1000, 4000, 4000); // this should be relative but I'm lazy
     clearCanvas(minimap);
+    minimap.clearRect(-1000, -1000, 4000, 4000);
     // shifting world view based on location and controlling for edges
     /* // figure out how to get this to work cuz it's not working
     if (self.x <= 450 || self.x >= 2000-450 - self.size){

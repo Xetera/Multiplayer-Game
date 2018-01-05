@@ -71,7 +71,7 @@ Player.prototype.update = function(){
         }
     }
     for (let i in potions){
-        if (util.checkCollision(this, potions[i])){
+        if (util.checkCollision(this, potions[ i])){
             // SpeedPotions are multipliers
             this.xSpeedDelta *= potions[i].amount;
             this.ySpeedDelta *= potions[i].amount;
@@ -188,6 +188,7 @@ Player.prototype.magnetize = function(){
 
     }
 };
+
 module.exports = {
     Player: Player
 };

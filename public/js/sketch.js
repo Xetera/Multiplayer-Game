@@ -57,7 +57,7 @@ $(function(){
     size = $('#size-stat-text');
 
     shrinkWorld(ctx, 0.3);
-    shrinkWorld(minimap, 0.1);
+    shrinkWorld(minimap, 0.09);
 
 
     $('#stats-form').onsubmit = function(e){

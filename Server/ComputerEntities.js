@@ -59,7 +59,7 @@ Enemy.prototype.checkClosestPlayerDistance = function(){
     let ranges = [];
     for (let i in players){
         let distToPlayer = Math.sqrt(
-            (this.x - players[i].x)**2 + (this.y - players[i].y)**2
+            (this.midpoint[0] - players[i].midpoint[0])**2 + (this.midpoint[1] - players[i].midpoint[1])**2
         );
         // we don't want to make it follow other computer players
         if (distToPlayer < this.followRadius && players[i]['type'] === entityType.Player) {

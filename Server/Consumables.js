@@ -11,11 +11,13 @@ Pickup.prototype.getMidpoint = function(){
     return [this.x + (this.size/2), this.y + (this.size/2)]
 };
 
+
 Pickup.update = function(){
     this.x += this.xSpeed;
     this.y += this.ySpeed;
     // we don't want t o
 };
+
 
 function Food(x, y, boost){
     Pickup.call(this, x , y);
