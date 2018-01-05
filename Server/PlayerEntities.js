@@ -15,7 +15,6 @@ function Player(x, y, xSize, ySize) {
     this.ySpeed = 0;
     this.xSpeedDelta = 15;
     this.ySpeedDelta = 15;
-    this.minSize = 10;
 
     this.type = entityType.Player;
     // the defaultNick
@@ -23,17 +22,20 @@ function Player(x, y, xSize, ySize) {
     this.score = 0;
 
     // this is going to be a growing limit but we need to hard cap it at some point
-    this.maxSize = 500;
     this.upgrades = this.availableUpgrades =
         JSON.parse(JSON.stringify(config.upgradesTemplate));
     let debug = false;
 
     this.powerups = {
-            magnetized:
-                {
+            magnetized: {
                     status: false,
                     radius: 200
-                }
+                },
+            bullets: {
+                bounce: false,
+                speed: 40,
+
+            }
         }
 
 }

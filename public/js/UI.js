@@ -1,6 +1,8 @@
 function updateSpeedIcon(player){
 
     let upgrade = player['availableUpgrades']['speedUpgrades'];
+    // TODO: change this, we don't want to do ANY calculations on client side
+    // it makes more sense if this just looks at a disabled: property from the server
     if (player.size > upgrade.cost && imgSpeedUpgrade.hasClass('disabled')){
         imgSpeedUpgrade.removeClass('disabled');
 

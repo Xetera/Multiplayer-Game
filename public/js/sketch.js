@@ -89,7 +89,7 @@ $(function(){
             };
 
             // we do handling server side
-
+            // TODO: do we really want to do this for every single keypress though?
             ping = Date.now();
 
             events.emitNewMessage(pack);
