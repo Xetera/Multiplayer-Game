@@ -124,6 +124,11 @@ io.sockets.on('connection', (socket)=> {
        players[socket.id].dash(pack);
     });
 
+    // this packet is going to contain data about the mouse location of the
+    socket.on('shoot', pack => {
+      players[socket.id].shoot(pack);
+    });
+
     socket.on('keyPress', (pack)=>{
         handler.keyPress(pack);
     });

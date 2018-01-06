@@ -186,7 +186,6 @@ Player.prototype.magnetize = function(){
         let yDiff = foods[i].midpoint[1] - this.midpoint[1];
         let xDiff = foods[i].midpoint[0] - this.midpoint[0];
         let angle = Math.atan2(yDiff, xDiff);
-        foods[i].xSpeed
 
     }
 };

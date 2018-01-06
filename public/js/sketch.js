@@ -11,6 +11,7 @@ let upgrades = {};
 let enemies = [];
 let timers = [];
 
+let canvasE;
 let ctx;
 let minimap;
 
@@ -34,12 +35,13 @@ let chatInput;
 let ping;
 
 let windowX = 400;
-let windowY = 400
+let windowY = 400;
 
 
 $(function(){
 
-    ctx = document.getElementById('ctx').getContext('2d');
+    canvasE = document.getElementById('ctx');
+    ctx = canvasE.getContext('2d');
     ctx.font = '30 px Arial';
 
     minimap = document.getElementById('minimap').getContext('2d');
@@ -64,7 +66,11 @@ $(function(){
         e.preventDefault();
         console.log($('#speed').val());
     };
-    
+
+
+    $(canvasE).click(pack=> {
+        console.log(pack);
+    });
 
     chatInput.keydown(function(e){
         console.log(e.keyCode);
@@ -124,7 +130,7 @@ $('#defaultNick-input').submit(event => {
     events.emitNewNick('s');
 });
 
-
+// direction bugs out when we right click while moving
 $(document).contextmenu(function(){
     console.log('contextmenu');
     keyPresses.keys = [];
@@ -139,6 +145,7 @@ $(document).keyup((event)=>{
     console.log('keyup');
     handler.keyUpEvent(event);
 });
+
 
 //TODO: Change pack.keys identifier to enumeration from string names
 

@@ -18,7 +18,7 @@ function Entity(x, y, xSize, ySize){
     this.y = y;
     this.minSize = 10;
     this.size = 50 || xSize;
-    this.maxSize = 50000;
+    this.maxSize = 500;
 
 
     this.midpoint = this.getMidpoint();
@@ -70,6 +70,12 @@ Entity.prototype.update = function(){
     }
     //updating the midpoint
     this.midpoint = this.getMidpoint();
+
+    if (this.bullets.length){
+        for (let i in this.bullets){
+            this.bullets[i].update();
+        }
+    }
 };
 
 Entity.prototype.getMidpoint = function(){
@@ -85,6 +91,7 @@ Entity.prototype.die = function(array){
 
 Entity.prototype.updateSize = function(amount){
     // making sure we don't shrink beyond min size
+
     // although growing via food doesn't trigger this, we want to still
     // make sure that we're controlling for later points in the game where we grow with updateSize()
     if ((amount < 0 && (this.size - amount) < this.minSize) ||
@@ -216,9 +223,14 @@ Entity.prototype.dash = function(direction) {
 
 };
 
-Entity.prototype.shoot = function (n) {
-    this.bullets.push(new Bullet(10))
+/**
+ *
+ * @param {int[]} mouseLocation
+ */
+Entity.prototype.shoot = function (mouseLocation) {
+    this.bullets.push(new Bullet(10));
 };
+
 // This sounds like REALLY bad practice but I can't think of another way of
 // doing this without putting the module export in a an object
 global.entityType = Object.freeze({

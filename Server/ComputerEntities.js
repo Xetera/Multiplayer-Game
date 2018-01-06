@@ -50,6 +50,7 @@ Enemy.prototype.update = function(){
     if (this.following.length) this.following = {};
 };
 
+
 /**
  * Checks
  * @returns {Player|Boolean}
@@ -94,6 +95,7 @@ Enemy.prototype.checkClosestPlayerDistance = function(){
 
 };
 
+
 Enemy.prototype.randomMovement = function(){
     let xMovement = [-this.xSpeedDelta, 0, this.xSpeedDelta].randChoice();
     let yMovement = [-this.ySpeedDelta, 0, this.ySpeedDelta].randChoice();
@@ -113,17 +115,17 @@ Enemy.prototype.grow = function(amount){
 
 };
 
-
 Enemy.prototype.follow = function(player){
+    // this is the equation that's being used -> Math.sqrt((x1 - x2)**2 + (y1 - y2)**2);
     let distance = util.calculateDistance(this.midpoint[0], this.midpoint[1]
         , player.midpoint[0], player.midpoint[1]);
+    // taking the difference between the two points to
     let yDiff = player.midpoint[1] - this.midpoint[1];
     let xDiff = player.midpoint[0] - this.midpoint[0];
     let angle = Math.atan2(yDiff, xDiff);
     this.xSpeed = Math.cos(angle);
     this.ySpeed = Math.sin(angle);
 };
-
 
 module.exports = {
   Enemy: Enemy

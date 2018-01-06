@@ -106,7 +106,9 @@ exports.newMessage = function(pack){
     return pack;
 };
 
+exports.mouseLocation = function(pack){
 
+}
 
 exports.emitAll = function(emitStr, packet){
     for (let i in SOCKET_LIST){
