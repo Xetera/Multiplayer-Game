@@ -69,16 +69,28 @@ socket.on('newMessage', (pack)=>{
 socket.on('upgradesInfo', (pack)=>{
     upgrades= pack;
 });
-
+/*
 socket.on('playerInfo', (pack)=> {
     players = pack;
-
+    
     for (let x in players){
         if (players[x].id === socket.id){
             self = players[x];
         }
     }
 });
+*/
+
+socket.on('playerInfo', pack =>{
+    for (let i in pack){
+
+    }
+});
+
+socket.on('newPlayer', player=> {
+    handler.PIXIPlayerConnect(player);
+});
+
 
 socket.on('shrink', () => {
     shrinkWorld();

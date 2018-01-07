@@ -85,5 +85,25 @@ handler.keyUpEvent = function(event){
     }
     // making sure to resend updated information
     events.emitKeyPress(keyPresses);
+};
 
+
+// since we're also creating our own objects on server side we have to make sure
+// that we're handling connect and disconnects properly
+handler.PIXIPlayerConnect = function(player){
+    let playerSprite = new PIXI.Sprite(block);
+
+    playerSprite.x = player.x;
+    playerSprite.y = player.y;
+    // this is how we know which player is who
+    playerSprite.id = player.id;
+    players.push(playerSprite);
+};
+
+handler.PIXIPlayerDisconnect = function(p){
+    let player;
+    for (let i in players){
+        if (players[i].id = p.id) player = players[i];
+    }
+    players.splice(players.indexOf(player), 1);
 };

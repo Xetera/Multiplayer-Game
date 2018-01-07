@@ -8,7 +8,7 @@ let block = PIXI.Texture.fromImage('../Media/meme.jpg');
 let canvasWidth;
 let height;
 let player;
-
+let players = [];
 $(function(){
     $('#footer').before(app.view);
     canvasWidth = app.screen.width;
