@@ -98,3 +98,4 @@ socket.on('potionInfo', (pack)=>{
 socket.on('draw', ()=>{
     updateDisplay();
 });
+

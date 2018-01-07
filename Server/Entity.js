@@ -1,6 +1,7 @@
 const config = require('../SharedVariables');
 const util = require('./Utility');
 const Player = require('./PlayerEntities');
+const Bullet = require('./Bullet');
 
 /**
  * Base object for interactive things on the canvas. Has basic update functions
@@ -15,7 +16,11 @@ const Player = require('./PlayerEntities');
 function Entity(x, y, xSize, ySize){
     this.x = x;
     this.y = y;
+    this.minSize = 10;
     this.size = 50 || xSize;
+    this.maxSize = 500;
+
+
     this.midpoint = this.getMidpoint();
 
     this.xSpeed = 0;
@@ -26,11 +31,14 @@ function Entity(x, y, xSize, ySize){
 
 
     this.lerp = {};
-    this.dashStrength = 20;
+    this.dashStrength = 50;
     this.dashBaseCooldown = Math.floor((30 * 1000)/config.FPS); // ticks
     this.dashCooldown = 0;
     this.dashOnCooldown = false;
     this.dashes = {};
+    // for bullets we just want a very basic implementation in Entity, we will update this
+    // for players and AI separately
+    this.bullets = [];
 }
 
 /**
@@ -62,7 +70,14 @@ Entity.prototype.update = function(){
     }
     //updating the midpoint
     this.midpoint = this.getMidpoint();
+
+    if (this.bullets.length){
+        for (let i in this.bullets){
+            this.bullets[i].update();
+        }
+    }
 };
+
 Entity.prototype.getMidpoint = function(){
     return [this.x + (this.size/2), this.y + (this.size/2)]
 };
@@ -73,9 +88,14 @@ Entity.prototype.die = function(array){
 
 // this is called only when we're manually updating the size from upgrades or potions
 // when the size changes from pickups it's handled by update and no lerping is required
+
 Entity.prototype.updateSize = function(amount){
-    // making sure we don't shrink beyond a pixel
-    if ((this.size - amount) < 1){
+    // making sure we don't shrink beyond min size
+
+    // although growing via food doesn't trigger this, we want to still
+    // make sure that we're controlling for later points in the game where we grow with updateSize()
+    if ((amount < 0 && (this.size - amount) < this.minSize) ||
+        (amount > 0 && (this.size + amount) > this.maxSize)){
         return false;
     }
 
@@ -92,6 +112,7 @@ Entity.prototype.updateSize = function(amount){
 };
 
 // here we're checking the linear interpolation to avoid jittery movements
+
 Entity.prototype.checkLerp = function(player){
     // only runs when lerp[] exists
 
@@ -147,6 +168,7 @@ Entity.prototype.updateSpeed = function(amount) {
 
 Entity.prototype.dash = function(direction) {
     // direction will be a keypress array most likely
+    // TODO: make this scale with speed so it doesn't become obsolete later on
     if (this.dashOnCooldown) return util.log(util.Severity.INFO, 'prevented Dash');
 
     console.log(direction);
@@ -201,6 +223,13 @@ Entity.prototype.dash = function(direction) {
 
 };
 
+/**
+ *
+ * @param {int[]} mouseLocation
+ */
+Entity.prototype.shoot = function (mouseLocation) {
+    this.bullets.push(new Bullet(10));
+};
 
 // This sounds like REALLY bad practice but I can't think of another way of
 // doing this without putting the module export in a an object

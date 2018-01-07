@@ -15,7 +15,6 @@ function Player(x, y, xSize, ySize) {
     this.ySpeed = 0;
     this.xSpeedDelta = 15;
     this.ySpeedDelta = 15;
-    this.minSize = 10;
 
     this.type = entityType.Player;
     // the defaultNick
@@ -23,17 +22,20 @@ function Player(x, y, xSize, ySize) {
     this.score = 0;
 
     // this is going to be a growing limit but we need to hard cap it at some point
-    this.maxSize = 200;
     this.upgrades = this.availableUpgrades =
         JSON.parse(JSON.stringify(config.upgradesTemplate));
     let debug = false;
 
     this.powerups = {
-            magnetized:
-                {
+            magnetized: {
                     status: false,
                     radius: 200
-                }
+                },
+            bullets: {
+                bounce: false,
+                speed: 40,
+
+            }
         }
 
 }
@@ -184,7 +186,6 @@ Player.prototype.magnetize = function(){
         let yDiff = foods[i].midpoint[1] - this.midpoint[1];
         let xDiff = foods[i].midpoint[0] - this.midpoint[0];
         let angle = Math.atan2(yDiff, xDiff);
-        foods[i].xSpeed
 
     }
 };

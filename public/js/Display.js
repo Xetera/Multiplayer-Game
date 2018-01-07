@@ -136,9 +136,6 @@ function updateDisplay(){
         ctx.fillRect(potions[i].x, potions[i].y, 10, 10)
     }
 
-    if (!init_nick){
-    }
-
     // reverting font back to default
     ctx.font = '12px sans-serif';
     for (let i in enemies){
