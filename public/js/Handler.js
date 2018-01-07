@@ -88,6 +88,11 @@ handler.keyUpEvent = function(event){
 };
 
 
+//=======================================================
+////////////////// PIXI //////////////////////////////
+//=======================================================
+
+
 // since we're also creating our own objects on server side we have to make sure
 // that we're handling connect and disconnects properly
 handler.PIXIPlayerConnect = function(player){
@@ -95,6 +100,9 @@ handler.PIXIPlayerConnect = function(player){
 
     playerSprite.x = player.x;
     playerSprite.y = player.y;
+    playerSprite.height = player.size;
+    playerSprite.width  = player.size;
+
     // this is how we know which player is who
     playerSprite.id = player.id;
     players.push(playerSprite);
@@ -106,4 +114,31 @@ handler.PIXIPlayerDisconnect = function(p){
         if (players[i].id = p.id) player = players[i];
     }
     players.splice(players.indexOf(player), 1);
+};
+
+
+/**
+ *
+ * @param {Player[]} p
+ * @constructor
+ */
+handler.PIXIPlayerUpdate = function(p){
+    for (let i in players){
+        for (let player in p){
+            // we might want to have a thing here that updates "Self"
+            // to make it easier to find information about the player later
+
+            // updating individual players
+            if (p[player].id === players[i].id){
+                players[i].x =  p[player].x;
+                players[i].y =  p[player].y;
+
+                players[i].width  = p[player].size;
+                players[i].height = p[player].size;
+
+                players[i].nick = p[player].defaultNick || p[player].nick;
+                players[i].score = p[player].score;
+            }
+        }
+    }
 };

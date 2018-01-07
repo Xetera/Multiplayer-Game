@@ -21,8 +21,3 @@ $(function(){
     app.stage.addChild(player);
 
 });
-setInterval(function(){
-    player.width += 1;
-    player.height += 1;
-}, 100);
-//window.on('load', addEverything());

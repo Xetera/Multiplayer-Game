@@ -72,7 +72,7 @@ socket.on('upgradesInfo', (pack)=>{
 /*
 socket.on('playerInfo', (pack)=> {
     players = pack;
-    
+
     for (let x in players){
         if (players[x].id === socket.id){
             self = players[x];
