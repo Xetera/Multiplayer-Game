@@ -42,22 +42,20 @@ let chatInput;
 let ping;
 let player;
 function preload(){
-    game.time.advancedTiming = true;
-    game.load.image('player','../Media/meme.jpg');
-    game.load.image('background','../Media/debug-grid.png');
-    game.load.image('food', '../Media/food.png');
+    game.load.image('loadingBlock', '../Media/LoadingCube.png');
+    game.state.add('Boot', State.Boot);
+    game.state.add('Preloader', State.Preloader);
+    game.state.start('Boot');
 }
 
 function create(){
-    game.add.tileSprite(0, 0, 1920, 1920, 'background');
-    //player = game.add.sprite(game.world.centerX, game.world.centerY, 'player');
-    game.world.setBounds(0, 0, 1920, 1920);
+
 
     //this.game.world.scale.setTo(0.5, 0.5);
 
 }
 
-
+// once page has loaded =>
 $(function(){
     chatBox = $('#chatbox');
     chatInput = $('#chat-input');
@@ -69,6 +67,7 @@ $(function(){
     score = $('#score-stat-text');
     size = $('#size-stat-text');
 
+    game.world.scale.setTo(0.7, 0.7);
     chatInput.keydown(function(e){
         console.log(e.keyCode);
         if (e.keyCode === 13) {

@@ -100,9 +100,13 @@ handler.playerConnect = function(p){
     connection.nick = p.defaultNick;
     players.push(connection);
     connection.cameraOffset = connection.width/2;
-    if (p.id === socket.id)
-
+    if (p.id === socket.id){
+        // killing the load screen animation since this takes the longest
+        //while (!loadComplete())
+        loadComplete();
         player = connection;
+    }
+
 
 };
 
@@ -110,7 +114,7 @@ handler.playerUpdate = function(p){
     console.log(game.time.fps);
     for (let i in players){
         for (let x in p){
-
+            // copying the information into the array
             if (p[x].id === players[i].id){
                 players[i].x = p[x].x;
                 players[i].y = p[x].y;
@@ -131,12 +135,14 @@ handler.playerUpdate = function(p){
 
         }
     }
+    // camera debug information
     game.debug.cameraInfo(game.camera, 32, 32);
     game.debug.spriteCoords(player, 32, 650-32);
 };
 
 handler.playerDisconnect = function(player){
-  players.splice(players.indexOf(player), 1);
+    // removing the player from the players array
+    players.splice(players.indexOf(player), 1);
 };
 
 handler.foodUpdate = function(packet){
