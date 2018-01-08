@@ -36,8 +36,8 @@ function Player(x, y, xSize, ySize) {
                 speed: 40,
 
             }
-        }
-
+        };
+    console.log(this);
 }
 
 /*

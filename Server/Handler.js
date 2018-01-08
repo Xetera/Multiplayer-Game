@@ -1,5 +1,22 @@
 const config = require('../SharedVariables');
 const util = require('./Utility');
+const Player = require('./PlayerEntities');
+
+exports.playerConnect = function(socket){
+    // edgily logging connection IP like the script kiddies we are
+    let ip = socket.handshake.address;
+    SOCKET_LIST[socket.id] = socket;
+
+    players[socket.id] = new Player.Player(450, 350, 10, 10);
+    util.log(util.Severity.INFO, `New player ${ip} connected as ${players[socket.id]['defaultNick']}`);
+
+    // saving socket id as our identifier, we might need a game ID later on
+    // but this is necessary to help the client identify itself easily
+    players[socket.id]['id'] = socket.id;
+
+    this.emitAll('playerConnect', players[socket.id]);
+};
+
 
 /**
  * Handler for the packages received from the client on 'keyPress'
@@ -32,7 +49,7 @@ exports.setName = function(){
  * @param socket - socket of the disconnected player
  * @return {Boolean} - Disconnect success status
  */
-exports.disconnectPlayer = function(socket){
+exports.playerDisconnect = function(socket){
     try{
         if (players[socket.id]['defaultNick']){
             util.returnNick(socket);
@@ -102,13 +119,22 @@ exports.newMessage = function(pack){
     else{
         pack.msg = message;
     }
+    // checking if the message is a ping message
+    // I'm really not sure why we're not doing this
+    if (!pack.ping){
+        this.emitAll('newMessage', pack);
+    }
 
-    return pack;
+    // could be a good idea to move these special server commands
+    else {
+        // TODO: hide ping message from the rest of the server later
+        this.emitAll('getPing', pack);
+    }
 };
 
 exports.mouseLocation = function(pack){
 
-}
+};
 
 exports.emitAll = function(emitStr, packet){
     for (let i in SOCKET_LIST){

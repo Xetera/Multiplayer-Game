@@ -40,7 +40,6 @@ handler.keyDownEvent = function(event){
     }
 
     keyPresses.id = socket.id;
-
     if ((event.keyCode === 68 || event.keyCode === 39) &&
         (!keyPresses.keys.includes('right'))){   //d or right
         keyPresses.keys.push('right');
@@ -92,53 +91,73 @@ handler.keyUpEvent = function(event){
 ////////////////// PIXI //////////////////////////////
 //=======================================================
 
+handler.playerConnect = function(p){
+    let connection = game.add.sprite(p.x, p.y, 'player');
+    connection.id = p.id;
+    connection.height = p.size;
+    connection.width = p.size;
+    connection.id = p.id;
+    connection.nick = p.defaultNick;
+    players.push(connection);
+    connection.cameraOffset = connection.width/2;
+    if (p.id === socket.id)
 
-// since we're also creating our own objects on server side we have to make sure
-// that we're handling connect and disconnects properly
-handler.PIXIPlayerConnect = function(player){
-    let playerSprite = new PIXI.Sprite(block);
+        player = connection;
 
-    playerSprite.x = player.x;
-    playerSprite.y = player.y;
-    playerSprite.height = player.size;
-    playerSprite.width  = player.size;
-
-    // this is how we know which player is who
-    playerSprite.id = player.id;
-    players.push(playerSprite);
 };
 
-handler.PIXIPlayerDisconnect = function(p){
-    let player;
+handler.playerUpdate = function(p){
+    console.log(game.time.fps);
     for (let i in players){
-        if (players[i].id = p.id) player = players[i];
-    }
-    players.splice(players.indexOf(player), 1);
-};
+        for (let x in p){
 
+            if (p[x].id === players[i].id){
+                players[i].x = p[x].x;
+                players[i].y = p[x].y;
+                players[i].width = p[x].size;
+                players[i].height = p[x].size;
 
-/**
- *
- * @param {Player[]} p
- * @constructor
- */
-handler.PIXIPlayerUpdate = function(p){
-    for (let i in players){
-        for (let player in p){
-            // we might want to have a thing here that updates "Self"
-            // to make it easier to find information about the player later
-
-            // updating individual players
-            if (p[player].id === players[i].id){
-                players[i].x =  p[player].x;
-                players[i].y =  p[player].y;
-
-                players[i].width  = p[player].size;
-                players[i].height = p[player].size;
-
-                players[i].nick = p[player].defaultNick || p[player].nick;
-                players[i].score = p[player].score;
             }
+            if (players[i].id === socket.id){
+                // centering the player in the middle of the screen, offsetting the size value
+                // and accounting for the camera scale
+                game.camera.focusOnXY(
+                    game.world.scale.x * (players[i].x + 950/2 - (950 - players[i].width)/2),
+                    game.world.scale.y * (players[i].y + 700/2 - (700 - players[i].height)/2)
+                );
+
+            }
+
+
         }
     }
+    game.debug.cameraInfo(game.camera, 32, 32);
+    game.debug.spriteCoords(player, 32, 650-32);
+};
+
+handler.playerDisconnect = function(player){
+  players.splice(players.indexOf(player), 1);
+};
+
+handler.foodUpdate = function(packet){
+    for (let f in foods){
+        for (let i in packet){
+            if (foods[f].id === packet[i].id){
+
+                foods[f].x = packet[i].x;
+                foods[f].y = packet[i].y;
+                foods[f].width = packet[i].size;
+                foods[f].height = packet[i].size;
+                break
+            }
+            else if (i === packet.length){
+                let food = game.add.sprite(packet[i].x, packet[i].y, 'food');
+                foods[f].width = packet[i].size;
+                foods[f].height = packet[i].size;
+                foods.push(food);
+            }
+
+        }
+    }
+
 };

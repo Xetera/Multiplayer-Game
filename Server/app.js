@@ -103,22 +103,11 @@ upgrades.speedUpgrades = [speedUpgrade1, speedUpgrade2, speedUpgrade3];
 
 // New connection received
 io.sockets.on('connection', (socket)=> {
-    // edgily logging connection IP like the script kiddies we are
-    let ip = socket.handshake.address;
-    SOCKET_LIST[socket.id] = socket;
-    // it is acceptable to do this on connection as players only get one Entity to control
-    // but ideally we should be handling this somewhere
-    players[socket.id] = new Player.Player(450, 350, 10, 10);
-    util.log(util.Severity.INFO, `New player ${ip} connected as ${players[socket.id]['defaultNick']}`);
+    // we should really not be calling this immediately after a connection
+    // since the game is going to be arena-style we need to make sure that
+    // later this gets called when players want to enter the game
+    handler.playerConnect(socket);
 
-    // saving socket id as our identifier, we might need a game ID later on
-    // but this is necessary to help the client identify itself easily
-    players[socket.id]['id'] = socket.id;
-
-    console.log(players[socket.id]);
-
-    // things we have to emit to the connection before it starts looking for
-    // elements that don't exist
 
     socket.on('dash', (pack)=> {
        players[socket.id].dash(pack);
@@ -134,22 +123,7 @@ io.sockets.on('connection', (socket)=> {
     });
 
     socket.on('newMessage', (message)=>{
-        let response = handler.newMessage(message);
-
-        // escape gracefully if we returned prematurely from handler
-        if (!response){
-           return;
-        }
-        // checking if the message is a ping message
-        if (!response.ping){
-            handler.emitAll('newMessage', response);
-        }
-
-        // could be a good idea to move these special server commands
-        else {
-            // TODO: hide ping message from the rest of the server later
-            handler.emitAll('getPing', response);
-        }
+        handler.newMessage(message);
     });
 
     socket.on('newPurchase', (pack) => {
@@ -157,8 +131,8 @@ io.sockets.on('connection', (socket)=> {
     });
 
     socket.on('disconnect', () => {
-        console.log(`${ip} has disconnected.`);
-        handler.disconnectPlayer(socket);
+        console.log(`${socket.handshake.address} has disconnected.`);
+        handler.playerDisconnect(players[socket.id]);
     });
 });
 
@@ -193,11 +167,11 @@ setInterval(() => {
     // technically this is very very bad practice and we should have separate functions that picks
     // out the data that's suitable to send to prevent things like cheating but I can't really
     // be bothered at this point
-    handler.emitAll('playerInfo', players);
-    handler.emitAll('foodInfo', foods);
-    handler.emitAll('potionInfo', potions);
-    handler.emitAll('upgradesInfo', upgrades);
-    handler.emitAll('enemiesInfo', enemies);
+    handler.emitAll('playerUpdate', players);
+    handler.emitAll('foodsUpdate', foods);
+    handler.emitAll('potionsUpdate', potions);
+    handler.emitAll('upgradesUpdate', upgrades);
+    handler.emitAll('enemiesUpdate', enemies);
     //handler.emitAll('timersInfo', timers);
 
     // sending empty packet to let client know it's the end of the frame

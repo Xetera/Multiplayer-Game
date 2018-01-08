@@ -66,8 +66,8 @@ socket.on('newMessage', (pack)=>{
 
 });
 
-socket.on('upgradesInfo', (pack)=>{
-    upgrades= pack;
+socket.on('upgradesUpdate', (pack)=>{
+    upgrades = pack;
 });
 /*
 socket.on('playerInfo', (pack)=> {
@@ -81,33 +81,40 @@ socket.on('playerInfo', (pack)=> {
 });
 */
 
-socket.on('playerInfo', pack =>{
-    for (let i in pack){
 
-    }
-});
-
-socket.on('newPlayer', player=> {
-    handler.PIXIPlayerConnect(player);
+socket.on('playerConnect', player=> {
+    handler.playerConnect(player);
 });
 
 
+socket.on('playerUpdate', pack =>{
+    handler.playerUpdate(pack);
+});
+
+
+socket.on('playerDisconnect', (pack)=>{
+    handler.playerDisconnect(pack);
+});
+
+/*
 socket.on('shrink', () => {
     shrinkWorld();
-});
+});*/
 
-socket.on('enemiesInfo', pack => {
+socket.on('enemiesUpdate', pack => {
     enemies = pack;
 });
-socket.on('foodInfo', (pack) => {
-    foods = pack;
+
+socket.on('foodsUpdate', (pack) => {
+    handler.foodUpdate(pack);
 });
 
-socket.on('potionInfo', (pack)=>{
+socket.on('potionsUpdate', (pack)=>{
     potions = pack;
 });
-
+/*
 socket.on('draw', ()=>{
     updateDisplay();
 });
 
+*/
