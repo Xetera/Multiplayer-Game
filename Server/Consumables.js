@@ -1,3 +1,6 @@
+const util = require('./Utility');
+
+
 function Pickup(x, y){
     this.x = x;
     this.y = y;
@@ -5,6 +8,7 @@ function Pickup(x, y){
     this.ySpeed = 0;
     this.size = 10;
     this.midpoint = this.getMidpoint();
+    this.is = util.generateRandomID();
 }
 
 Pickup.prototype.getMidpoint = function(){

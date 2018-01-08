@@ -1,6 +1,9 @@
 const config = require('../SharedVariables');
 const util = require('./Utility');
+<<<<<<< HEAD
 const Player = require('./PlayerEntities');
+=======
+>>>>>>> Development
 const Bullet = require('./Bullet');
 
 /**
@@ -50,13 +53,13 @@ Entity.prototype.update = function(){
     this.x += this.xSpeed;
     this.y += this.ySpeed;
 
-    if (this.x > config.windowX - this.size){
+    if (this.x >= config.windowX - this.size){
         this.x = config.windowX - this.size;
     }
     else if (this.x < 0){
         this.x = 0;
     }
-    if (this.y > config.windowY - this.size){
+    if (this.y >= config.windowY - this.size){
         this.y = config.windowY - this.size;
     }
     else if (this.y < 0){
@@ -76,6 +79,11 @@ Entity.prototype.update = function(){
             this.bullets[i].update();
         }
     }
+<<<<<<< HEAD
+=======
+    //DEBUG
+    //this.size= 50;
+>>>>>>> Development
 };
 
 Entity.prototype.getMidpoint = function(){

@@ -40,7 +40,6 @@ Enemy.prototype.update = function(){
 
     let player = this.checkClosestPlayerDistance();
     if (player) {
-        console.log('enemy update');
         this.following = player;
         this.follow(player);
         return;

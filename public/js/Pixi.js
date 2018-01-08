@@ -1,63 +1,123 @@
-let windowWidth = window.innerWidth,
-    windowHeight = window.innerHeight;
-let app = new PIXI.Application({
-    width: 900,
-    height:700,
-    backgroundColor: 0x1099bb
+let game = new Phaser.Game(950, 700 , Phaser.AUTO, "phaser", {
+    preload: preload,
+    create: create
 });
 
-function removeEverything(){
-    $('#main').each(function(i,o) {
-        let elem = $(o);
-        elems.push({
-            loc: elem.prev(),
-            obj: elem.detach()
-        });
-    });
+socket = io();
+
+let canvasWidth;
+let canvasHeight;
+
+let self;
+
+let foodCounter;
+let foods = [];
+let players = [];
+let potions = [];
+
+let upgrades = {};
+let enemies = [];
+let timers = [];
+
+let minimap;
+
+let keyPresses = {
+    keys: []
+};
+
+let init_nick = false;
+
+let speedUpgrade;
+let imgSpeedUpgrade;
+let speedStatText;
+let minSizeValue;
+let maxSizeValue;
+let score;
+let size;
+
+
+let chatBox;
+let chatInput;
+
+let ping;
+let player;
+function preload(){
+    game.time.advancedTiming = true;
+    game.load.image('player','../Media/meme.jpg');
+    game.load.image('background','../Media/debug-grid.png');
+    game.load.image('food', '../Media/food.png');
 }
 
-function addEverything(){
-    while (elems.length) {
-        let elem = elems.pop();
-        elem.loc.after(elem.obj);
-    }
+function create(){
+    game.add.tileSprite(0, 0, 1920, 1920, 'background');
+    //player = game.add.sprite(game.world.centerX, game.world.centerY, 'player');
+    game.world.setBounds(0, 0, 1920, 1920);
+
+    //this.game.world.scale.setTo(0.5, 0.5);
+
 }
-let elems = [];
 
 
 $(function(){
+    chatBox = $('#chatbox');
+    chatInput = $('#chat-input');
+    speedUpgrade = $('#speed-upgrade');
+    imgSpeedUpgrade =  $('#img-speed-upgrade');
+    speedStatText = $('#speed-stat-text');
+    minSizeValue = $('#min-size-stat-text');
+    maxSizeValue = $('#max-size-stat-text');
+    score = $('#score-stat-text');
+    size = $('#size-stat-text');
 
+    chatInput.keydown(function(e){
+        console.log(e.keyCode);
+        if (e.keyCode === 13) {
+            if (chatInput.text() === ""){
+                console.log('returning focus');
+                chatInput.html("");
+                chatInput.blur();
+                return;
+            }
 
-    //$('#mid-container')[0].appendChild(app.view);
-    $('#footer').before(app.view);
-    // create a new Sprite from an image path
-    // draw rectangle
-    let rectangle = new PIXI.Graphics();
-    rectangle.beginFill( 0xffffff );
-    rectangle.moveTo( 0, 0 );
-    rectangle.lineTo( 0, 10);
-    rectangle.lineTo( 10, 10);
-    rectangle.lineTo( 10, 0 );
-    rectangle.endFill();
+            let message = chatInput.text();
+            console.log(message);
+            chatInput.html("");
 
+            // TODO: handle cases where user has custom name
+            let pack = {
+                msg: message,
+                player : player.id,
+                nick: player.nick,
+                user: true
+            };
 
-    rectangle.anchor.set(0.5);
+            // we do handling server side
+            // TODO: do we really want to do this for every single keypress though?
+            ping = Date.now();
 
-    // center the sprite's anchor point
+            events.emitNewMessage(pack);
 
+        }
+        else if (e.keyCode === 27){
 
-    // move the sprite to the center of the screen
-    rectangle.x = app.screen.width / 2;
-    rectangle.y = app.screen.height / 2;
-
-    app.stage.addChild(rectangle);
-
-    // Listen for animate update
-    app.ticker.add(function(delta) {
-        // just for fun, let's rotate mr rabbit a little
-        // delta is 1 if running at 100% performance
-        // creates frame-independent tranformation
-        rectangle.rotation += 0.1 * delta;
+            chatInput.html("");
+            chatInput.blur();
+        }
     });
+
 });
-//window.on('load', addEverything());
+
+
+setInterval(()=>{
+    game.world.scale.setTo();
+}, 100);
+
+
+$(document).keydown((event)=>{
+    handler.keyDownEvent(event);
+});
+
+$(document).keyup((event)=>{
+    console.log('keyup');
+    handler.keyUpEvent(event);
+});
