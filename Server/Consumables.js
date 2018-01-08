@@ -8,7 +8,7 @@ function Pickup(x, y){
     this.ySpeed = 0;
     this.size = 10;
     this.midpoint = this.getMidpoint();
-    this.is = util.generateRandomID();
+    this.id = util.generateRandomID();
 }
 
 Pickup.prototype.getMidpoint = function(){

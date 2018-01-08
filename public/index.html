@@ -164,4 +164,21 @@
 
 
   </body>
+  <script>
+      let game = new Phaser.Game(950, 700 , Phaser.AUTO, "phaser", {
+          preload: preload,
+          create: create
+      });
+
+      function preload(){
+          game.state.add('Boot', State.Boot);
+          game.state.add('Preloader', State.Preloader);
+          game.state.add('Main', State.Main);
+
+      }
+      function create(){
+          game.state.start('Boot');
+      }
+
+  </script>
 </html>

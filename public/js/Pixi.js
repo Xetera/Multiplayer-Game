@@ -1,8 +1,3 @@
-let game = new Phaser.Game(950, 700 , Phaser.AUTO, "phaser", {
-    preload: preload,
-    create: create
-});
-
 socket = io();
 
 let canvasWidth;
@@ -35,28 +30,37 @@ let maxSizeValue;
 let score;
 let size;
 
-
 let chatBox;
 let chatInput;
 
 let ping;
 let player;
-function preload(){
-    game.load.image('loadingBlock', '../Media/LoadingCube.png');
-    game.state.add('Boot', State.Boot);
-    game.state.add('Preloader', State.Preloader);
-    game.state.start('Boot');
-}
 
-function create(){
+let fps;
+let State = {};
+
+State.Main = function(game){
+
+};
+State.Main.prototype = {
+    preload: function(){
+
+    },
+    create: function(){
+        game.add.tileSprite(0, 0, 1920, 1920, 'background');
+        //player = game.add.sprite(game.world.centerX, game.world.centerY, 'player');
+        game.world.setBounds(0, 0, 1920, 1920);
+
+        fps = game.add.text(game.camera.view.width - 32, 100,'FPS: ' + game.time.fps);
+        fps.fontSize = 60;
 
 
-    //this.game.world.scale.setTo(0.5, 0.5);
-
-}
-
+    }
+};
 // once page has loaded =>
 $(function(){
+
+
     chatBox = $('#chatbox');
     chatInput = $('#chat-input');
     speedUpgrade = $('#speed-upgrade');

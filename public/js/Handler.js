@@ -92,14 +92,14 @@ handler.keyUpEvent = function(event){
 //=======================================================
 
 handler.playerConnect = function(p){
+
     let connection = game.add.sprite(p.x, p.y, 'player');
     connection.id = p.id;
     connection.height = p.size;
     connection.width = p.size;
-    connection.id = p.id;
     connection.nick = p.defaultNick;
     players.push(connection);
-    connection.cameraOffset = connection.width/2;
+
     if (p.id === socket.id){
         // killing the load screen animation since this takes the longest
         //while (!loadComplete())
@@ -111,27 +111,24 @@ handler.playerConnect = function(p){
 };
 
 handler.playerUpdate = function(p){
-    console.log(game.time.fps);
     for (let i in players){
         for (let x in p){
             // copying the information into the array
-            if (p[x].id === players[i].id){
+            if (p[x].id === players[i].id) {
                 players[i].x = p[x].x;
                 players[i].y = p[x].y;
                 players[i].width = p[x].size;
                 players[i].height = p[x].size;
 
             }
-            if (players[i].id === socket.id){
+            if (players[i].id === socket.id) {
                 // centering the player in the middle of the screen, offsetting the size value
                 // and accounting for the camera scale
                 game.camera.focusOnXY(
                     game.world.scale.x * (players[i].x + 950/2 - (950 - players[i].width)/2),
                     game.world.scale.y * (players[i].y + 700/2 - (700 - players[i].height)/2)
                 );
-
             }
-
 
         }
     }
@@ -148,6 +145,8 @@ handler.playerDisconnect = function(player){
 handler.foodUpdate = function(packet){
     for (let f in foods){
         for (let i in packet){
+            console.log(packet);
+
             if (foods[f].id === packet[i].id){
 
                 foods[f].x = packet[i].x;
@@ -156,14 +155,13 @@ handler.foodUpdate = function(packet){
                 foods[f].height = packet[i].size;
                 break
             }
+
             else if (i === packet.length){
                 let food = game.add.sprite(packet[i].x, packet[i].y, 'food');
                 foods[f].width = packet[i].size;
                 foods[f].height = packet[i].size;
                 foods.push(food);
             }
-
         }
     }
-
 };

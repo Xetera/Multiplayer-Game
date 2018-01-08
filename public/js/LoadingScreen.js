@@ -1,5 +1,3 @@
-let State = {};
-
 State.Boot = function(game){
 
 };
@@ -13,10 +11,7 @@ State.Boot.prototype = {
         game.load.image('loadingBlock', '../Media/LoadingCube.png');
 
         game.stage.backgroundColor = '#0072bc';
-
     },
-
-
 
     create: function(){
 
@@ -48,6 +43,10 @@ State.Preloader.prototype = {
     },
     assetsLoaded: function(){
         loadingFinished = true;
+    },
+    create: function(){
+        this.state.start('Main');
+
     }
 
 };
@@ -55,9 +54,7 @@ State.Preloader.prototype = {
 function loadComplete(){
     if (!loadingFinished) return false;
 
-    game.add.tileSprite(0, 0, 1920, 1920, 'background');
-    //player = game.add.sprite(game.world.centerX, game.world.centerY, 'player');
-    game.world.setBounds(0, 0, 1920, 1920);
+
     loading.kill();
 
     return true;
