@@ -88,18 +88,21 @@ handler.keyUpEvent = function(event){
 
 
 //=======================================================
-////////////////// PIXI //////////////////////////////
+//////////////////// WEBGL //////////////////////////////
 //=======================================================
-
-handler.playerConnect = function(p){
-
+handler.PhasePlayer = function(p){
     let connection = game.add.sprite(p.x, p.y, 'player');
     connection.id = p.id;
     connection.height = p.size;
     connection.width = p.size;
     connection.nick = p.defaultNick;
     players.push(connection);
+    return connection;
+};
 
+handler.playerConnect = function(p){
+
+    let connection = this.PhasePlayer(p);
     if (p.id === socket.id){
         // killing the load screen animation since this takes the longest
         //while (!loadComplete())
@@ -111,6 +114,13 @@ handler.playerConnect = function(p){
 };
 
 handler.playerUpdate = function(p){
+    // if we're just connecting we want to create
+    if (players.length <= 1){
+        for (let i in p){
+            let player = this.PhasePlayer(p[i]);
+        }
+        return
+    }
     for (let i in players){
         for (let x in p){
             // copying the information into the array
@@ -133,6 +143,11 @@ handler.playerUpdate = function(p){
         }
     }
     // camera debug information
+    fps.setText('FPS: ' + game.time.fps);
+    /*
+    fps.position.x = game.world.scale.x * (game.camera.view.x + game.camera.view.width - 32);
+    fps.position.y = game.world.scale.y * (game.camera.view.y + 100);
+    */
     game.debug.cameraInfo(game.camera, 32, 32);
     game.debug.spriteCoords(player, 32, 650-32);
 };
@@ -143,7 +158,18 @@ handler.playerDisconnect = function(player){
 };
 
 handler.foodUpdate = function(packet){
+    if (!foods.length){
+        for (let i in packet){
+            let food = game.add.sprite(packet[i].x, packet[i].y, 'food');
+            food.width = packet[i].size;
+            food.height = packet[i].size;
+            foods.push(food);
+        }
+        return;
+    }
+    /*
     for (let f in foods){
+        console.log('foods');
         for (let i in packet){
             console.log(packet);
 
@@ -163,5 +189,12 @@ handler.foodUpdate = function(packet){
                 foods.push(food);
             }
         }
+    }
+    */
+};
+
+handler.enemyUpdate = function(packet){
+    for (let i in packet){
+
     }
 };

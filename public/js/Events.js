@@ -102,7 +102,7 @@ socket.on('shrink', () => {
 });*/
 
 socket.on('enemiesUpdate', pack => {
-    enemies = pack;
+    handler.enemyUpdate(pack);
 });
 
 socket.on('foodsUpdate', (pack) => {

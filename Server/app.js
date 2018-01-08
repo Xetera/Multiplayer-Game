@@ -167,11 +167,12 @@ setInterval(() => {
     // technically this is very very bad practice and we should have separate functions that picks
     // out the data that's suitable to send to prevent things like cheating but I can't really
     // be bothered at this point
-    handler.emitAll('playerUpdate', players);
     handler.emitAll('foodsUpdate', foods);
     handler.emitAll('potionsUpdate', potions);
     handler.emitAll('upgradesUpdate', upgrades);
     handler.emitAll('enemiesUpdate', enemies);
+    handler.emitAll('playerUpdate', players);
+
     //handler.emitAll('timersInfo', timers);
 
     // sending empty packet to let client know it's the end of the frame

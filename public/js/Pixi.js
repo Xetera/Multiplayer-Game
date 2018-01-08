@@ -51,7 +51,10 @@ State.Main.prototype = {
         //player = game.add.sprite(game.world.centerX, game.world.centerY, 'player');
         game.world.setBounds(0, 0, 1920, 1920);
 
-        fps = game.add.text(game.camera.view.width - 32, 100,'FPS: ' + game.time.fps);
+        fps = game.add.text(
+            game.world.scale.x *(game.camera.view.x + game.camera.view.width - 32),
+            game.world.scale.y *(game.camera.view.y + 100),
+            'FPS: ' + game.time.fps);
         fps.fontSize = 60;
 
 

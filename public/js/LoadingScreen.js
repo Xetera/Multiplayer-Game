@@ -35,6 +35,7 @@ State.Preloader.prototype = {
         game.load.image('background','../Media/debug-grid.png');
         game.load.image('player','../Media/meme.jpg');
         game.load.image('food', '../Media/food.png');
+        game.load.image('enemy', '../Media/enemy.png');
         game.load.onLoadComplete.add(this.assetsLoaded, this);
 
     },
