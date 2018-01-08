@@ -1,9 +1,5 @@
 const config = require('../SharedVariables');
 const util = require('./Utility');
-<<<<<<< HEAD
-const Player = require('./PlayerEntities');
-=======
->>>>>>> Development
 const Bullet = require('./Bullet');
 
 /**
@@ -79,11 +75,6 @@ Entity.prototype.update = function(){
             this.bullets[i].update();
         }
     }
-<<<<<<< HEAD
-=======
-    //DEBUG
-    //this.size= 50;
->>>>>>> Development
 };
 
 Entity.prototype.getMidpoint = function(){

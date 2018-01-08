@@ -40,6 +40,16 @@ let windowY = 400;
 
 $(function(){
 
+    $('#footer').before(app.view);
+    width = app.screen.width;
+    height = app.screen.height;
+    let player = new PIXI.Sprite(block);
+    player.x = 100;
+    player.y = 100;
+    player.width = 500;
+    player.height = 500;
+    app.stage.addChild(player);
+
     canvasE = document.getElementById('ctx');
     ctx = canvasE.getContext('2d');
     ctx.font = '30 px Arial';
@@ -60,6 +70,7 @@ $(function(){
 
     shrinkWorld(ctx, 0.3);
     shrinkWorld(minimap, 0.09);
+
 
 
     $('#stats-form').onsubmit = function(e){

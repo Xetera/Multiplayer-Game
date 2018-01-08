@@ -34,16 +34,8 @@ function Player(x, y, xSize, ySize) {
             bullets: {
                 bounce: false,
                 speed: 40,
-<<<<<<< HEAD
-
-            }
-        }
-=======
->>>>>>> Development
-
             }
         };
-    console.log(this);
 }
 
 /*

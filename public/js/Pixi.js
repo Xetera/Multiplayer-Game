@@ -108,16 +108,12 @@ $(function(){
 });
 
 
-setInterval(()=>{
-    game.world.scale.setTo();
-}, 100);
 
-
+// passing
 $(document).keydown((event)=>{
     handler.keyDownEvent(event);
 });
 
 $(document).keyup((event)=>{
-    console.log('keyup');
     handler.keyUpEvent(event);
 });
